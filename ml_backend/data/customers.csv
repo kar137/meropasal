@@ -1,0 +1,1001 @@
+customer_id,customer_name,gender,age,city,preferred_categories,avg_monthly_spending,visits_per_month
+1,Customer 1,Other,29,Pokhara,"Snacks, Personal Care",1406.82,12
+2,Customer 2,Female,32,Bhaktapur,"Household, Personal Care",4250.83,3
+3,Customer 3,Male,53,Biratnagar,Beverage,4588.2,12
+4,Customer 4,Other,31,Lalitpur,Beverage,1007.41,11
+5,Customer 5,Other,22,Kathmandu,Snacks,1150.9,7
+6,Customer 6,Female,35,Bhaktapur,Dairy,2752.53,11
+7,Customer 7,Female,38,Biratnagar,"Snacks, Household",2248.15,6
+8,Customer 8,Female,23,Bhaktapur,Beverage,1175.22,2
+9,Customer 9,Female,37,Biratnagar,"Personal Care, Household",2675.81,10
+10,Customer 10,Other,50,Kathmandu,Beverage,4415.39,7
+11,Customer 11,Other,60,Bhaktapur,Beverage,4630.8,11
+12,Customer 12,Male,36,Bhaktapur,"Dairy, Household",1344.19,5
+13,Customer 13,Male,65,Lalitpur,"Beverage, Snacks",1205.08,11
+14,Customer 14,Other,47,Kathmandu,Dairy,2844.99,12
+15,Customer 15,Female,56,Biratnagar,"Beverage, Snacks",2684.7,3
+16,Customer 16,Female,20,Bhaktapur,"Snacks, Dairy",4055.81,5
+17,Customer 17,Other,42,Kathmandu,"Beverage, Personal Care",3294.13,6
+18,Customer 18,Female,36,Kathmandu,"Snacks, Dairy",4603.68,10
+19,Customer 19,Male,35,Lalitpur,"Personal Care, Dairy",3249.4,5
+20,Customer 20,Female,23,Kathmandu,Beverage,1928.53,6
+21,Customer 21,Female,21,Kathmandu,"Snacks, Beverage",1134.63,2
+22,Customer 22,Male,51,Lalitpur,"Dairy, Household",3333.53,7
+23,Customer 23,Other,53,Lalitpur,"Personal Care, Household",3140.39,4
+24,Customer 24,Other,54,Biratnagar,"Snacks, Dairy",3421.19,6
+25,Customer 25,Male,18,Lalitpur,"Dairy, Beverage",2246.76,6
+26,Customer 26,Female,18,Bhaktapur,Beverage,2445.12,2
+27,Customer 27,Other,36,Lalitpur,Snacks,4453.54,10
+28,Customer 28,Male,47,Biratnagar,Snacks,4085.52,4
+29,Customer 29,Male,19,Kathmandu,Beverage,3348.73,9
+30,Customer 30,Male,65,Pokhara,Personal Care,2977.96,10
+31,Customer 31,Other,37,Biratnagar,Dairy,1886.53,9
+32,Customer 32,Female,19,Kathmandu,Household,2465.6,2
+33,Customer 33,Other,35,Pokhara,"Dairy, Personal Care",1637.42,12
+34,Customer 34,Female,39,Lalitpur,Household,2096.63,4
+35,Customer 35,Male,61,Biratnagar,"Personal Care, Dairy",4965.87,11
+36,Customer 36,Female,36,Lalitpur,"Household, Dairy",3471.97,10
+37,Customer 37,Other,60,Kathmandu,Beverage,3907.96,9
+38,Customer 38,Male,18,Lalitpur,Household,2068.78,9
+39,Customer 39,Male,38,Bhaktapur,"Beverage, Snacks",3171.23,10
+40,Customer 40,Other,35,Kathmandu,Snacks,4008.62,7
+41,Customer 41,Other,21,Lalitpur,Dairy,2835.43,6
+42,Customer 42,Male,24,Bhaktapur,Snacks,2661.62,10
+43,Customer 43,Female,47,Bhaktapur,Beverage,1759.22,3
+44,Customer 44,Male,52,Biratnagar,"Personal Care, Dairy",3988.19,5
+45,Customer 45,Male,43,Bhaktapur,Snacks,1290.43,9
+46,Customer 46,Male,48,Lalitpur,"Beverage, Household",3538.95,10
+47,Customer 47,Female,32,Pokhara,"Snacks, Dairy",2568.21,10
+48,Customer 48,Female,51,Lalitpur,"Beverage, Dairy",1154.05,10
+49,Customer 49,Other,55,Pokhara,"Personal Care, Snacks",1257.82,4
+50,Customer 50,Male,65,Pokhara,Household,3357.18,8
+51,Customer 51,Other,54,Pokhara,Beverage,3598.32,8
+52,Customer 52,Female,18,Lalitpur,"Personal Care, Household",2117.1,11
+53,Customer 53,Other,36,Pokhara,"Household, Beverage",4178.61,2
+54,Customer 54,Male,57,Lalitpur,Dairy,3493.74,2
+55,Customer 55,Other,27,Lalitpur,"Beverage, Household",3855.04,6
+56,Customer 56,Male,55,Kathmandu,Dairy,1941.65,8
+57,Customer 57,Male,52,Biratnagar,"Dairy, Beverage",2391.83,2
+58,Customer 58,Other,65,Lalitpur,Snacks,2301.41,2
+59,Customer 59,Other,62,Bhaktapur,Snacks,2222.59,3
+60,Customer 60,Other,23,Biratnagar,"Beverage, Snacks",2585.84,3
+61,Customer 61,Male,20,Kathmandu,Household,4775.11,5
+62,Customer 62,Female,23,Kathmandu,"Personal Care, Household",2251.44,3
+63,Customer 63,Male,24,Kathmandu,Household,2778.29,3
+64,Customer 64,Other,58,Pokhara,Personal Care,1862.94,8
+65,Customer 65,Other,26,Biratnagar,Dairy,1393.61,10
+66,Customer 66,Female,35,Biratnagar,Dairy,4136.13,5
+67,Customer 67,Male,53,Pokhara,Snacks,3212.85,9
+68,Customer 68,Other,60,Bhaktapur,"Dairy, Household",4494.7,8
+69,Customer 69,Female,42,Bhaktapur,Dairy,3087.76,6
+70,Customer 70,Male,58,Pokhara,Household,4581.32,3
+71,Customer 71,Female,62,Biratnagar,"Snacks, Household",2939.82,6
+72,Customer 72,Male,27,Bhaktapur,Snacks,2875.31,5
+73,Customer 73,Female,33,Lalitpur,"Snacks, Personal Care",4490.01,10
+74,Customer 74,Male,30,Biratnagar,Personal Care,3484.87,6
+75,Customer 75,Female,51,Pokhara,"Household, Personal Care",2331.17,6
+76,Customer 76,Other,48,Bhaktapur,"Snacks, Dairy",2277.2,7
+77,Customer 77,Male,57,Kathmandu,Snacks,2046.24,2
+78,Customer 78,Other,30,Kathmandu,Personal Care,3186.73,7
+79,Customer 79,Other,45,Pokhara,Beverage,3129.74,5
+80,Customer 80,Other,22,Lalitpur,Beverage,3496.19,8
+81,Customer 81,Other,38,Bhaktapur,Snacks,2733.38,6
+82,Customer 82,Other,29,Lalitpur,Beverage,1230.63,5
+83,Customer 83,Female,59,Pokhara,"Household, Personal Care",2746.03,11
+84,Customer 84,Female,65,Biratnagar,"Snacks, Personal Care",4615.09,5
+85,Customer 85,Male,40,Bhaktapur,"Snacks, Dairy",1363.17,2
+86,Customer 86,Other,62,Kathmandu,"Snacks, Dairy",2100.05,2
+87,Customer 87,Other,19,Biratnagar,"Personal Care, Beverage",4356.35,10
+88,Customer 88,Female,28,Lalitpur,Snacks,2881.82,9
+89,Customer 89,Female,54,Kathmandu,"Beverage, Snacks",2018.67,11
+90,Customer 90,Male,24,Bhaktapur,"Dairy, Personal Care",3016.17,8
+91,Customer 91,Other,38,Kathmandu,"Household, Personal Care",1882.43,5
+92,Customer 92,Male,33,Kathmandu,"Household, Dairy",4809.85,8
+93,Customer 93,Other,58,Pokhara,Dairy,3003.78,4
+94,Customer 94,Female,28,Biratnagar,Personal Care,4752.07,6
+95,Customer 95,Female,38,Biratnagar,"Dairy, Beverage",2484.18,8
+96,Customer 96,Other,37,Biratnagar,Household,1954.8,7
+97,Customer 97,Other,44,Bhaktapur,Dairy,3871.16,11
+98,Customer 98,Female,21,Lalitpur,"Dairy, Snacks",4611.37,2
+99,Customer 99,Female,34,Biratnagar,Snacks,3376.77,7
+100,Customer 100,Other,60,Kathmandu,Snacks,2093.01,5
+101,Customer 101,Male,44,Biratnagar,"Household, Personal Care",3979.18,11
+102,Customer 102,Other,27,Lalitpur,"Beverage, Snacks",2244.24,10
+103,Customer 103,Male,30,Bhaktapur,Dairy,4413.85,7
+104,Customer 104,Female,42,Biratnagar,"Snacks, Dairy",1747.38,12
+105,Customer 105,Female,32,Lalitpur,Snacks,4279.98,12
+106,Customer 106,Female,32,Biratnagar,Snacks,4089.18,9
+107,Customer 107,Other,50,Kathmandu,"Dairy, Snacks",3538.39,3
+108,Customer 108,Other,44,Biratnagar,"Personal Care, Household",2881.67,12
+109,Customer 109,Other,62,Kathmandu,"Beverage, Snacks",1840.79,2
+110,Customer 110,Male,20,Kathmandu,Dairy,1088.34,5
+111,Customer 111,Male,58,Bhaktapur,"Household, Personal Care",2124.15,7
+112,Customer 112,Male,25,Kathmandu,"Beverage, Personal Care",4892.62,10
+113,Customer 113,Female,55,Kathmandu,Dairy,4201.98,7
+114,Customer 114,Female,58,Lalitpur,"Snacks, Household",1982.96,6
+115,Customer 115,Other,32,Biratnagar,"Snacks, Dairy",2049.31,10
+116,Customer 116,Male,59,Biratnagar,Household,1618.86,6
+117,Customer 117,Male,24,Lalitpur,"Beverage, Dairy",4392.42,2
+118,Customer 118,Male,54,Lalitpur,Beverage,3801.69,9
+119,Customer 119,Female,27,Pokhara,"Beverage, Personal Care",4454.91,10
+120,Customer 120,Male,48,Biratnagar,Personal Care,1576.67,7
+121,Customer 121,Female,37,Lalitpur,"Dairy, Beverage",4142.35,8
+122,Customer 122,Male,24,Pokhara,Beverage,2524.73,2
+123,Customer 123,Female,59,Lalitpur,"Household, Personal Care",1862.5,9
+124,Customer 124,Female,62,Bhaktapur,Personal Care,4439.12,10
+125,Customer 125,Other,52,Biratnagar,"Dairy, Beverage",2928.79,5
+126,Customer 126,Male,60,Pokhara,"Dairy, Household",4430.9,7
+127,Customer 127,Other,22,Kathmandu,Snacks,3610.77,8
+128,Customer 128,Other,49,Biratnagar,Household,1583.15,2
+129,Customer 129,Other,20,Lalitpur,"Personal Care, Household",3624.97,5
+130,Customer 130,Other,49,Pokhara,Household,4551.39,3
+131,Customer 131,Male,37,Biratnagar,Dairy,3131.5,5
+132,Customer 132,Female,46,Lalitpur,Dairy,1813.16,7
+133,Customer 133,Other,36,Lalitpur,"Personal Care, Beverage",4000.74,10
+134,Customer 134,Female,62,Lalitpur,Household,4573.54,3
+135,Customer 135,Female,49,Kathmandu,"Personal Care, Beverage",1706.19,10
+136,Customer 136,Female,18,Biratnagar,"Beverage, Snacks",3561.72,11
+137,Customer 137,Male,58,Bhaktapur,Personal Care,3540.28,2
+138,Customer 138,Other,24,Kathmandu,"Dairy, Household",4461.97,3
+139,Customer 139,Female,57,Kathmandu,Snacks,3514.53,2
+140,Customer 140,Other,32,Pokhara,"Beverage, Household",4673.72,3
+141,Customer 141,Female,33,Kathmandu,"Beverage, Personal Care",1452.87,8
+142,Customer 142,Other,47,Lalitpur,"Household, Dairy",3089.71,7
+143,Customer 143,Other,25,Pokhara,"Snacks, Personal Care",2255.99,8
+144,Customer 144,Other,29,Biratnagar,"Beverage, Snacks",2191.81,5
+145,Customer 145,Other,64,Lalitpur,"Snacks, Dairy",4626.99,9
+146,Customer 146,Other,62,Kathmandu,"Snacks, Dairy",1824.24,6
+147,Customer 147,Female,44,Kathmandu,Snacks,3633.09,6
+148,Customer 148,Male,18,Biratnagar,Personal Care,3084.91,5
+149,Customer 149,Male,54,Kathmandu,Personal Care,4853.53,6
+150,Customer 150,Female,45,Lalitpur,"Personal Care, Beverage",4345.78,9
+151,Customer 151,Male,21,Bhaktapur,Dairy,1138.6,4
+152,Customer 152,Male,40,Pokhara,Beverage,2187.93,3
+153,Customer 153,Other,45,Bhaktapur,"Beverage, Personal Care",2363.07,2
+154,Customer 154,Female,21,Biratnagar,"Dairy, Household",4900.35,9
+155,Customer 155,Male,58,Kathmandu,Beverage,4266.08,9
+156,Customer 156,Female,31,Lalitpur,"Household, Dairy",4684.85,12
+157,Customer 157,Male,42,Biratnagar,"Beverage, Personal Care",2056.88,5
+158,Customer 158,Female,47,Biratnagar,Snacks,4217.31,4
+159,Customer 159,Other,19,Lalitpur,Dairy,2270.64,8
+160,Customer 160,Male,38,Biratnagar,"Personal Care, Snacks",4284.3,5
+161,Customer 161,Other,43,Bhaktapur,"Snacks, Personal Care",2007.49,11
+162,Customer 162,Female,54,Pokhara,Household,4635.75,4
+163,Customer 163,Female,41,Pokhara,"Personal Care, Household",3938.61,5
+164,Customer 164,Female,63,Pokhara,"Household, Beverage",3812.42,10
+165,Customer 165,Other,57,Lalitpur,Snacks,1450.36,2
+166,Customer 166,Other,36,Kathmandu,"Snacks, Household",1421.93,12
+167,Customer 167,Male,36,Lalitpur,"Household, Snacks",2100.53,10
+168,Customer 168,Other,61,Pokhara,"Household, Dairy",4808.25,8
+169,Customer 169,Male,56,Kathmandu,Personal Care,4288.18,9
+170,Customer 170,Male,41,Biratnagar,Snacks,2733.94,2
+171,Customer 171,Other,20,Biratnagar,"Dairy, Household",1798.68,5
+172,Customer 172,Other,33,Pokhara,"Dairy, Snacks",3822.31,3
+173,Customer 173,Other,49,Bhaktapur,"Snacks, Household",3475.73,4
+174,Customer 174,Male,22,Pokhara,"Beverage, Household",2511.12,5
+175,Customer 175,Other,43,Biratnagar,"Dairy, Personal Care",3451.82,2
+176,Customer 176,Other,23,Pokhara,Snacks,3578.43,3
+177,Customer 177,Male,18,Biratnagar,Personal Care,4894.53,12
+178,Customer 178,Other,20,Kathmandu,"Beverage, Household",2555.43,3
+179,Customer 179,Other,57,Biratnagar,Household,2725.91,8
+180,Customer 180,Female,60,Kathmandu,"Snacks, Beverage",4967.13,12
+181,Customer 181,Male,32,Pokhara,"Snacks, Household",2609.44,12
+182,Customer 182,Male,35,Kathmandu,Household,1318.63,5
+183,Customer 183,Other,37,Bhaktapur,Household,2460.85,4
+184,Customer 184,Male,52,Bhaktapur,Dairy,1053.34,6
+185,Customer 185,Male,22,Biratnagar,"Dairy, Snacks",4471.68,10
+186,Customer 186,Male,42,Lalitpur,Dairy,4597.54,12
+187,Customer 187,Male,45,Kathmandu,Dairy,4489.09,2
+188,Customer 188,Female,19,Pokhara,Snacks,4631.28,7
+189,Customer 189,Other,55,Pokhara,Beverage,2223.56,9
+190,Customer 190,Other,29,Bhaktapur,Dairy,3582.23,6
+191,Customer 191,Other,59,Pokhara,"Household, Snacks",3271.65,2
+192,Customer 192,Female,33,Bhaktapur,Beverage,1177.01,6
+193,Customer 193,Other,32,Pokhara,Snacks,2500.69,9
+194,Customer 194,Other,40,Biratnagar,"Dairy, Snacks",1873.4,7
+195,Customer 195,Male,42,Lalitpur,"Dairy, Personal Care",3243.46,6
+196,Customer 196,Female,42,Kathmandu,Personal Care,1609.86,11
+197,Customer 197,Other,65,Pokhara,Household,1633.2,6
+198,Customer 198,Other,32,Biratnagar,"Snacks, Beverage",2778.55,6
+199,Customer 199,Male,24,Kathmandu,Household,2127.96,11
+200,Customer 200,Other,37,Kathmandu,"Household, Personal Care",1088.74,10
+201,Customer 201,Other,63,Biratnagar,Dairy,1506.59,10
+202,Customer 202,Other,44,Lalitpur,Beverage,3636.04,2
+203,Customer 203,Male,24,Biratnagar,"Beverage, Household",2330.12,11
+204,Customer 204,Female,23,Pokhara,"Household, Personal Care",1306.08,2
+205,Customer 205,Female,57,Lalitpur,Beverage,3888.54,4
+206,Customer 206,Other,50,Lalitpur,"Personal Care, Snacks",3280.43,2
+207,Customer 207,Female,53,Pokhara,Household,3789.89,11
+208,Customer 208,Male,18,Lalitpur,Beverage,2000.68,8
+209,Customer 209,Male,25,Lalitpur,"Snacks, Household",2256.1,10
+210,Customer 210,Other,34,Bhaktapur,"Personal Care, Beverage",4784.56,4
+211,Customer 211,Female,41,Pokhara,"Snacks, Dairy",2897.06,7
+212,Customer 212,Male,62,Lalitpur,"Beverage, Personal Care",1069.74,2
+213,Customer 213,Female,51,Pokhara,Household,2239.35,7
+214,Customer 214,Female,59,Biratnagar,"Personal Care, Dairy",1572.6,8
+215,Customer 215,Other,37,Biratnagar,"Snacks, Personal Care",1738.35,9
+216,Customer 216,Male,39,Pokhara,Household,4002.35,10
+217,Customer 217,Male,44,Bhaktapur,"Snacks, Beverage",3806.79,3
+218,Customer 218,Other,61,Pokhara,"Household, Beverage",3522.65,4
+219,Customer 219,Male,37,Bhaktapur,Snacks,3535.82,9
+220,Customer 220,Other,54,Lalitpur,"Household, Snacks",3700.13,4
+221,Customer 221,Female,40,Lalitpur,"Snacks, Household",3117.68,10
+222,Customer 222,Female,39,Pokhara,"Dairy, Household",2168.38,6
+223,Customer 223,Female,31,Lalitpur,"Personal Care, Beverage",3571.6,10
+224,Customer 224,Female,40,Bhaktapur,Dairy,1149.3,2
+225,Customer 225,Female,52,Kathmandu,"Beverage, Snacks",2797.17,5
+226,Customer 226,Other,22,Lalitpur,Household,2630.49,11
+227,Customer 227,Male,39,Pokhara,Dairy,3494.34,10
+228,Customer 228,Male,37,Kathmandu,"Personal Care, Snacks",2331.94,9
+229,Customer 229,Female,57,Bhaktapur,"Household, Beverage",1674.47,10
+230,Customer 230,Female,64,Kathmandu,"Household, Snacks",2538.6,12
+231,Customer 231,Female,30,Pokhara,"Snacks, Household",3538.0,5
+232,Customer 232,Male,26,Pokhara,Personal Care,4427.18,12
+233,Customer 233,Female,18,Biratnagar,"Beverage, Dairy",2704.11,9
+234,Customer 234,Female,59,Pokhara,Beverage,1006.17,3
+235,Customer 235,Other,31,Kathmandu,Household,1066.97,8
+236,Customer 236,Other,32,Bhaktapur,"Beverage, Snacks",2576.32,10
+237,Customer 237,Other,35,Bhaktapur,"Snacks, Dairy",1021.59,9
+238,Customer 238,Other,44,Biratnagar,Beverage,3915.41,11
+239,Customer 239,Male,51,Bhaktapur,"Personal Care, Snacks",3823.04,6
+240,Customer 240,Female,33,Pokhara,Dairy,3116.58,11
+241,Customer 241,Female,54,Kathmandu,Beverage,1283.77,11
+242,Customer 242,Other,60,Biratnagar,"Snacks, Beverage",3682.25,9
+243,Customer 243,Female,30,Pokhara,"Personal Care, Household",4708.01,11
+244,Customer 244,Male,52,Bhaktapur,Household,1681.86,9
+245,Customer 245,Other,62,Pokhara,Beverage,2329.68,7
+246,Customer 246,Female,40,Biratnagar,"Household, Beverage",4495.32,12
+247,Customer 247,Female,65,Lalitpur,Personal Care,3271.73,9
+248,Customer 248,Male,19,Pokhara,"Snacks, Dairy",3752.29,8
+249,Customer 249,Other,30,Pokhara,Snacks,3012.01,4
+250,Customer 250,Other,59,Kathmandu,Dairy,1804.75,12
+251,Customer 251,Male,52,Lalitpur,"Dairy, Personal Care",4814.6,3
+252,Customer 252,Male,42,Kathmandu,"Snacks, Dairy",3286.24,8
+253,Customer 253,Other,47,Biratnagar,"Dairy, Personal Care",2277.56,2
+254,Customer 254,Female,31,Kathmandu,Beverage,1477.95,8
+255,Customer 255,Other,36,Lalitpur,"Beverage, Snacks",2862.94,9
+256,Customer 256,Male,50,Lalitpur,Snacks,1600.14,12
+257,Customer 257,Female,20,Kathmandu,"Household, Snacks",1645.79,3
+258,Customer 258,Male,38,Bhaktapur,Dairy,2766.55,2
+259,Customer 259,Male,19,Lalitpur,Dairy,2171.8,11
+260,Customer 260,Female,46,Lalitpur,Dairy,4958.68,9
+261,Customer 261,Female,51,Kathmandu,"Dairy, Personal Care",2074.12,8
+262,Customer 262,Other,20,Kathmandu,"Household, Beverage",3518.36,10
+263,Customer 263,Male,37,Kathmandu,Personal Care,2532.57,3
+264,Customer 264,Female,53,Lalitpur,Snacks,1928.26,3
+265,Customer 265,Male,33,Kathmandu,Household,3301.72,8
+266,Customer 266,Female,34,Pokhara,Household,1386.81,9
+267,Customer 267,Male,61,Kathmandu,Personal Care,2010.33,5
+268,Customer 268,Other,27,Lalitpur,"Dairy, Snacks",3268.16,9
+269,Customer 269,Other,29,Biratnagar,"Snacks, Beverage",2287.61,4
+270,Customer 270,Other,61,Biratnagar,"Dairy, Personal Care",4040.29,5
+271,Customer 271,Female,63,Lalitpur,Personal Care,2549.91,7
+272,Customer 272,Female,58,Bhaktapur,"Dairy, Snacks",4629.45,6
+273,Customer 273,Female,59,Bhaktapur,Personal Care,1826.96,3
+274,Customer 274,Other,22,Biratnagar,"Personal Care, Snacks",3846.77,12
+275,Customer 275,Male,39,Pokhara,"Household, Dairy",4682.99,11
+276,Customer 276,Female,20,Kathmandu,"Dairy, Beverage",3713.06,11
+277,Customer 277,Female,42,Bhaktapur,"Dairy, Household",1172.66,6
+278,Customer 278,Female,21,Pokhara,Household,2735.03,2
+279,Customer 279,Other,30,Biratnagar,"Household, Dairy",1389.71,12
+280,Customer 280,Female,49,Kathmandu,"Dairy, Household",3941.36,2
+281,Customer 281,Other,63,Pokhara,"Household, Personal Care",4415.27,9
+282,Customer 282,Male,64,Bhaktapur,Household,1052.26,7
+283,Customer 283,Male,35,Biratnagar,Dairy,3285.13,3
+284,Customer 284,Male,38,Kathmandu,Snacks,3055.54,12
+285,Customer 285,Other,38,Lalitpur,Household,1259.63,9
+286,Customer 286,Other,33,Biratnagar,"Dairy, Beverage",1592.49,4
+287,Customer 287,Other,65,Pokhara,Personal Care,2672.45,2
+288,Customer 288,Female,31,Kathmandu,Snacks,3488.58,9
+289,Customer 289,Other,43,Biratnagar,Beverage,2589.18,2
+290,Customer 290,Other,48,Pokhara,"Personal Care, Household",2684.0,12
+291,Customer 291,Male,52,Biratnagar,Personal Care,4258.75,6
+292,Customer 292,Female,64,Pokhara,Dairy,4952.54,2
+293,Customer 293,Female,22,Bhaktapur,Household,1242.74,7
+294,Customer 294,Other,18,Bhaktapur,Snacks,4562.05,9
+295,Customer 295,Female,41,Lalitpur,Snacks,4820.01,10
+296,Customer 296,Female,63,Bhaktapur,Beverage,4699.95,12
+297,Customer 297,Female,27,Lalitpur,"Beverage, Personal Care",2183.45,5
+298,Customer 298,Male,50,Kathmandu,"Snacks, Dairy",3680.78,4
+299,Customer 299,Male,59,Biratnagar,"Dairy, Household",1651.18,3
+300,Customer 300,Female,24,Biratnagar,"Personal Care, Snacks",3736.11,4
+301,Customer 301,Other,20,Pokhara,"Household, Dairy",4521.88,4
+302,Customer 302,Male,40,Lalitpur,"Snacks, Beverage",1003.08,7
+303,Customer 303,Other,30,Bhaktapur,Snacks,3498.37,4
+304,Customer 304,Female,53,Biratnagar,"Dairy, Personal Care",1905.71,10
+305,Customer 305,Male,23,Kathmandu,Household,4382.41,11
+306,Customer 306,Female,58,Kathmandu,Personal Care,4065.07,8
+307,Customer 307,Male,63,Biratnagar,Beverage,3819.39,9
+308,Customer 308,Female,65,Kathmandu,Dairy,2045.12,9
+309,Customer 309,Female,32,Pokhara,Snacks,4220.97,8
+310,Customer 310,Other,42,Pokhara,Beverage,1480.44,5
+311,Customer 311,Other,46,Kathmandu,Dairy,2443.15,10
+312,Customer 312,Other,64,Bhaktapur,"Household, Personal Care",2449.36,5
+313,Customer 313,Female,32,Lalitpur,Household,4345.55,3
+314,Customer 314,Other,29,Lalitpur,"Household, Personal Care",1175.24,11
+315,Customer 315,Female,47,Kathmandu,"Household, Personal Care",1461.89,6
+316,Customer 316,Other,32,Bhaktapur,"Household, Dairy",4130.37,9
+317,Customer 317,Other,57,Pokhara,Personal Care,4478.97,5
+318,Customer 318,Male,62,Biratnagar,Dairy,1454.57,4
+319,Customer 319,Female,48,Pokhara,"Dairy, Beverage",4666.74,3
+320,Customer 320,Female,63,Lalitpur,Household,3540.66,6
+321,Customer 321,Female,28,Bhaktapur,"Beverage, Household",2270.97,5
+322,Customer 322,Other,25,Lalitpur,"Personal Care, Household",3051.61,12
+323,Customer 323,Female,22,Biratnagar,"Household, Dairy",1665.7,8
+324,Customer 324,Other,35,Biratnagar,Snacks,3602.5,6
+325,Customer 325,Male,25,Pokhara,"Personal Care, Dairy",2430.27,9
+326,Customer 326,Male,29,Kathmandu,"Household, Dairy",1619.99,8
+327,Customer 327,Female,48,Kathmandu,"Dairy, Household",1197.03,2
+328,Customer 328,Other,62,Lalitpur,Dairy,2299.51,9
+329,Customer 329,Male,53,Lalitpur,"Dairy, Personal Care",1915.21,7
+330,Customer 330,Female,46,Pokhara,"Personal Care, Household",1767.61,11
+331,Customer 331,Female,27,Lalitpur,Dairy,4465.1,6
+332,Customer 332,Male,24,Pokhara,Beverage,4943.1,3
+333,Customer 333,Female,58,Bhaktapur,"Household, Personal Care",4578.89,4
+334,Customer 334,Male,37,Bhaktapur,Beverage,1828.94,2
+335,Customer 335,Female,31,Bhaktapur,Personal Care,4219.74,10
+336,Customer 336,Female,33,Lalitpur,Beverage,1360.0,11
+337,Customer 337,Other,42,Bhaktapur,"Beverage, Dairy",2424.36,2
+338,Customer 338,Female,20,Pokhara,Snacks,3849.76,11
+339,Customer 339,Male,50,Pokhara,"Dairy, Personal Care",2740.38,9
+340,Customer 340,Female,23,Pokhara,Beverage,1388.41,2
+341,Customer 341,Other,43,Lalitpur,"Snacks, Household",3281.88,10
+342,Customer 342,Female,63,Lalitpur,Personal Care,4159.24,3
+343,Customer 343,Female,49,Lalitpur,Household,3705.22,10
+344,Customer 344,Other,53,Lalitpur,"Personal Care, Snacks",3896.45,7
+345,Customer 345,Male,56,Lalitpur,Household,1179.61,11
+346,Customer 346,Male,43,Kathmandu,"Household, Dairy",2548.36,10
+347,Customer 347,Male,60,Kathmandu,"Personal Care, Dairy",3959.99,8
+348,Customer 348,Other,28,Biratnagar,"Dairy, Personal Care",2244.98,5
+349,Customer 349,Other,32,Pokhara,Personal Care,2745.28,10
+350,Customer 350,Male,19,Bhaktapur,Dairy,2444.24,8
+351,Customer 351,Male,38,Bhaktapur,"Beverage, Household",1517.35,3
+352,Customer 352,Other,45,Kathmandu,Dairy,3304.95,6
+353,Customer 353,Female,24,Bhaktapur,Dairy,4127.2,9
+354,Customer 354,Other,25,Kathmandu,Dairy,2017.27,9
+355,Customer 355,Female,63,Bhaktapur,Beverage,2786.61,5
+356,Customer 356,Female,58,Biratnagar,"Personal Care, Household",2503.66,4
+357,Customer 357,Male,56,Kathmandu,Personal Care,4907.72,3
+358,Customer 358,Other,32,Kathmandu,"Snacks, Dairy",1578.76,7
+359,Customer 359,Other,19,Biratnagar,Beverage,3233.04,11
+360,Customer 360,Other,26,Lalitpur,Beverage,2451.7,11
+361,Customer 361,Female,65,Pokhara,"Household, Beverage",3794.6,10
+362,Customer 362,Other,40,Pokhara,"Personal Care, Beverage",4957.93,8
+363,Customer 363,Male,23,Bhaktapur,"Dairy, Household",4701.53,9
+364,Customer 364,Female,31,Kathmandu,"Household, Beverage",3330.53,10
+365,Customer 365,Male,60,Biratnagar,Dairy,4042.43,8
+366,Customer 366,Male,46,Biratnagar,"Snacks, Personal Care",3599.19,6
+367,Customer 367,Male,39,Bhaktapur,"Household, Beverage",2108.63,4
+368,Customer 368,Male,62,Kathmandu,"Snacks, Beverage",2789.88,5
+369,Customer 369,Other,53,Lalitpur,Household,4106.82,5
+370,Customer 370,Female,52,Pokhara,Beverage,1703.13,2
+371,Customer 371,Female,41,Biratnagar,"Dairy, Personal Care",1912.69,3
+372,Customer 372,Other,39,Bhaktapur,Household,2444.79,4
+373,Customer 373,Female,63,Biratnagar,Household,4743.51,9
+374,Customer 374,Male,51,Biratnagar,Personal Care,3157.63,12
+375,Customer 375,Male,29,Bhaktapur,Personal Care,2891.93,7
+376,Customer 376,Male,62,Pokhara,Household,1322.43,8
+377,Customer 377,Other,19,Kathmandu,"Snacks, Personal Care",4594.03,9
+378,Customer 378,Female,30,Lalitpur,Personal Care,3851.65,12
+379,Customer 379,Male,46,Bhaktapur,Personal Care,3592.27,12
+380,Customer 380,Male,43,Kathmandu,"Snacks, Dairy",1270.39,11
+381,Customer 381,Other,44,Pokhara,"Snacks, Household",3970.38,7
+382,Customer 382,Other,19,Lalitpur,"Household, Dairy",3660.44,3
+383,Customer 383,Other,18,Biratnagar,"Personal Care, Snacks",3902.57,11
+384,Customer 384,Male,52,Biratnagar,Snacks,2359.57,11
+385,Customer 385,Female,65,Bhaktapur,Dairy,3526.4,11
+386,Customer 386,Other,54,Pokhara,Beverage,2828.84,8
+387,Customer 387,Female,62,Bhaktapur,"Personal Care, Beverage",4679.12,2
+388,Customer 388,Male,35,Pokhara,Snacks,2899.22,12
+389,Customer 389,Male,52,Kathmandu,Dairy,4570.49,3
+390,Customer 390,Other,60,Lalitpur,"Household, Beverage",1235.4,7
+391,Customer 391,Female,43,Lalitpur,Dairy,1161.35,7
+392,Customer 392,Other,22,Bhaktapur,Personal Care,2433.47,12
+393,Customer 393,Male,18,Lalitpur,Personal Care,2922.76,6
+394,Customer 394,Other,59,Bhaktapur,"Beverage, Snacks",4456.94,7
+395,Customer 395,Other,29,Biratnagar,Household,4427.7,2
+396,Customer 396,Other,44,Biratnagar,Household,4124.25,11
+397,Customer 397,Female,24,Bhaktapur,"Dairy, Household",3738.02,8
+398,Customer 398,Other,34,Biratnagar,Dairy,2763.79,3
+399,Customer 399,Female,29,Pokhara,Dairy,2162.37,7
+400,Customer 400,Other,22,Bhaktapur,Dairy,2645.51,12
+401,Customer 401,Other,62,Bhaktapur,Personal Care,3429.52,4
+402,Customer 402,Other,19,Biratnagar,"Dairy, Snacks",4705.46,3
+403,Customer 403,Female,45,Bhaktapur,Dairy,1317.57,4
+404,Customer 404,Male,44,Kathmandu,"Household, Snacks",2407.95,3
+405,Customer 405,Male,61,Lalitpur,"Snacks, Dairy",2094.28,2
+406,Customer 406,Male,43,Pokhara,"Personal Care, Beverage",2803.12,11
+407,Customer 407,Female,37,Pokhara,"Beverage, Household",2886.26,11
+408,Customer 408,Male,36,Lalitpur,Dairy,3446.88,10
+409,Customer 409,Male,33,Lalitpur,"Personal Care, Snacks",2041.36,4
+410,Customer 410,Male,63,Kathmandu,Dairy,4341.05,3
+411,Customer 411,Other,31,Kathmandu,Household,4296.9,9
+412,Customer 412,Other,55,Bhaktapur,Personal Care,2962.97,11
+413,Customer 413,Other,18,Lalitpur,"Beverage, Household",1907.43,10
+414,Customer 414,Female,37,Kathmandu,"Dairy, Personal Care",2128.61,12
+415,Customer 415,Male,19,Biratnagar,Beverage,4748.62,6
+416,Customer 416,Female,29,Biratnagar,"Household, Beverage",3710.04,2
+417,Customer 417,Male,59,Biratnagar,Dairy,4597.22,6
+418,Customer 418,Male,49,Lalitpur,"Snacks, Household",4184.51,10
+419,Customer 419,Male,58,Kathmandu,"Personal Care, Dairy",3798.1,5
+420,Customer 420,Female,20,Lalitpur,Household,1124.57,3
+421,Customer 421,Male,30,Kathmandu,"Snacks, Personal Care",1027.36,7
+422,Customer 422,Other,49,Pokhara,"Personal Care, Dairy",3547.9,12
+423,Customer 423,Female,28,Kathmandu,Household,1342.7,9
+424,Customer 424,Other,27,Bhaktapur,Household,2820.01,5
+425,Customer 425,Female,26,Pokhara,Beverage,3656.5,4
+426,Customer 426,Other,31,Lalitpur,"Beverage, Snacks",1396.12,12
+427,Customer 427,Female,38,Pokhara,"Household, Dairy",2345.11,10
+428,Customer 428,Other,25,Lalitpur,"Beverage, Dairy",1269.77,10
+429,Customer 429,Male,59,Kathmandu,Personal Care,1781.63,3
+430,Customer 430,Other,36,Bhaktapur,Beverage,1423.65,10
+431,Customer 431,Male,23,Biratnagar,"Beverage, Dairy",4824.01,11
+432,Customer 432,Female,18,Lalitpur,"Snacks, Beverage",1050.33,8
+433,Customer 433,Female,65,Biratnagar,"Household, Beverage",4209.66,2
+434,Customer 434,Male,47,Lalitpur,Personal Care,1388.55,4
+435,Customer 435,Male,21,Lalitpur,"Household, Dairy",3960.02,9
+436,Customer 436,Other,34,Lalitpur,Household,3249.68,2
+437,Customer 437,Male,54,Bhaktapur,"Personal Care, Beverage",3040.38,12
+438,Customer 438,Female,44,Kathmandu,Household,3823.63,4
+439,Customer 439,Female,56,Biratnagar,"Snacks, Dairy",3092.78,6
+440,Customer 440,Male,32,Bhaktapur,Dairy,4364.55,2
+441,Customer 441,Other,20,Pokhara,"Dairy, Personal Care",3211.99,7
+442,Customer 442,Other,19,Lalitpur,Personal Care,2471.5,7
+443,Customer 443,Female,38,Pokhara,"Beverage, Dairy",1038.83,6
+444,Customer 444,Female,55,Biratnagar,"Dairy, Household",2929.14,4
+445,Customer 445,Female,32,Biratnagar,Personal Care,1291.6,3
+446,Customer 446,Male,29,Kathmandu,Household,2108.35,4
+447,Customer 447,Female,25,Lalitpur,Dairy,4475.85,11
+448,Customer 448,Male,31,Kathmandu,"Household, Personal Care",1290.95,12
+449,Customer 449,Other,38,Bhaktapur,"Snacks, Household",4819.73,12
+450,Customer 450,Male,31,Pokhara,Beverage,1157.68,3
+451,Customer 451,Male,35,Biratnagar,Beverage,2815.55,6
+452,Customer 452,Male,28,Bhaktapur,Beverage,3070.26,11
+453,Customer 453,Male,45,Lalitpur,Personal Care,3904.72,7
+454,Customer 454,Other,19,Pokhara,"Personal Care, Snacks",4437.17,10
+455,Customer 455,Female,43,Biratnagar,"Personal Care, Beverage",1592.78,10
+456,Customer 456,Female,18,Pokhara,Household,3452.3,5
+457,Customer 457,Male,45,Biratnagar,"Dairy, Household",3505.06,12
+458,Customer 458,Male,57,Kathmandu,Household,1113.55,7
+459,Customer 459,Other,29,Kathmandu,Dairy,1406.38,9
+460,Customer 460,Other,30,Lalitpur,"Household, Personal Care",3107.99,3
+461,Customer 461,Other,23,Pokhara,Snacks,1692.24,7
+462,Customer 462,Other,42,Kathmandu,"Dairy, Snacks",4850.07,8
+463,Customer 463,Female,36,Lalitpur,"Beverage, Snacks",1053.19,9
+464,Customer 464,Other,25,Kathmandu,Snacks,1822.33,11
+465,Customer 465,Male,33,Biratnagar,Snacks,4048.32,8
+466,Customer 466,Female,39,Kathmandu,"Personal Care, Snacks",1816.82,5
+467,Customer 467,Other,62,Biratnagar,"Household, Beverage",4589.22,11
+468,Customer 468,Other,19,Kathmandu,Household,3404.33,5
+469,Customer 469,Other,39,Kathmandu,"Snacks, Beverage",4509.0,4
+470,Customer 470,Male,31,Kathmandu,Dairy,4928.12,12
+471,Customer 471,Male,25,Biratnagar,Beverage,1277.8,7
+472,Customer 472,Other,26,Bhaktapur,"Household, Beverage",2340.37,6
+473,Customer 473,Female,58,Pokhara,"Personal Care, Beverage",1567.41,7
+474,Customer 474,Other,34,Lalitpur,"Personal Care, Snacks",4784.06,7
+475,Customer 475,Male,29,Biratnagar,Household,2953.35,11
+476,Customer 476,Other,62,Bhaktapur,"Snacks, Personal Care",3767.39,11
+477,Customer 477,Other,38,Kathmandu,"Household, Snacks",1841.45,4
+478,Customer 478,Female,56,Pokhara,"Personal Care, Beverage",4774.45,5
+479,Customer 479,Male,35,Bhaktapur,Snacks,3838.33,4
+480,Customer 480,Male,63,Pokhara,Dairy,3190.4,5
+481,Customer 481,Other,21,Lalitpur,Beverage,3832.42,12
+482,Customer 482,Other,41,Pokhara,"Beverage, Dairy",4227.15,10
+483,Customer 483,Male,33,Biratnagar,"Household, Snacks",4482.98,4
+484,Customer 484,Other,31,Bhaktapur,Household,2238.57,8
+485,Customer 485,Female,42,Bhaktapur,"Household, Dairy",3524.52,2
+486,Customer 486,Other,58,Kathmandu,Beverage,1486.81,12
+487,Customer 487,Female,48,Pokhara,"Household, Snacks",4837.6,6
+488,Customer 488,Female,43,Kathmandu,"Snacks, Household",2763.19,8
+489,Customer 489,Female,27,Kathmandu,"Snacks, Dairy",3134.93,10
+490,Customer 490,Other,20,Biratnagar,"Dairy, Personal Care",2017.94,6
+491,Customer 491,Other,33,Biratnagar,"Personal Care, Household",1639.49,2
+492,Customer 492,Male,58,Bhaktapur,Snacks,2045.37,12
+493,Customer 493,Female,32,Lalitpur,Personal Care,3389.63,6
+494,Customer 494,Male,54,Biratnagar,Dairy,1352.64,7
+495,Customer 495,Male,32,Lalitpur,"Snacks, Dairy",2848.44,8
+496,Customer 496,Female,24,Lalitpur,Dairy,2257.02,9
+497,Customer 497,Male,45,Biratnagar,"Beverage, Personal Care",2890.63,11
+498,Customer 498,Female,63,Pokhara,"Household, Beverage",3189.94,4
+499,Customer 499,Female,37,Biratnagar,"Beverage, Household",1238.06,6
+500,Customer 500,Other,49,Kathmandu,Household,1164.25,12
+501,Customer 501,Other,40,Biratnagar,Household,4658.89,3
+502,Customer 502,Male,52,Lalitpur,"Beverage, Dairy",4510.61,5
+503,Customer 503,Male,52,Bhaktapur,Snacks,3843.18,3
+504,Customer 504,Other,22,Lalitpur,"Dairy, Household",2027.2,3
+505,Customer 505,Other,33,Lalitpur,"Dairy, Household",1971.51,11
+506,Customer 506,Male,48,Biratnagar,"Household, Personal Care",2509.51,9
+507,Customer 507,Female,32,Bhaktapur,Household,1324.91,3
+508,Customer 508,Female,23,Biratnagar,"Snacks, Dairy",4098.66,4
+509,Customer 509,Other,18,Pokhara,"Beverage, Snacks",1742.54,11
+510,Customer 510,Female,57,Bhaktapur,"Personal Care, Beverage",4233.36,11
+511,Customer 511,Other,47,Biratnagar,"Personal Care, Household",4138.61,8
+512,Customer 512,Male,30,Kathmandu,"Personal Care, Dairy",2778.99,9
+513,Customer 513,Female,18,Biratnagar,Household,4928.01,9
+514,Customer 514,Male,56,Pokhara,Personal Care,2397.16,4
+515,Customer 515,Other,19,Kathmandu,"Dairy, Household",4139.86,5
+516,Customer 516,Other,61,Kathmandu,"Personal Care, Household",3475.05,9
+517,Customer 517,Other,48,Bhaktapur,Personal Care,2193.98,5
+518,Customer 518,Male,49,Bhaktapur,Snacks,2111.32,9
+519,Customer 519,Male,57,Kathmandu,"Dairy, Snacks",3929.98,7
+520,Customer 520,Male,33,Biratnagar,Dairy,1303.32,3
+521,Customer 521,Other,60,Biratnagar,Snacks,1443.79,12
+522,Customer 522,Female,63,Pokhara,Personal Care,3168.0,9
+523,Customer 523,Female,23,Lalitpur,"Personal Care, Beverage",2065.59,6
+524,Customer 524,Female,20,Biratnagar,Personal Care,3346.97,6
+525,Customer 525,Female,50,Biratnagar,"Snacks, Personal Care",2493.28,9
+526,Customer 526,Other,38,Biratnagar,"Dairy, Personal Care",3870.86,2
+527,Customer 527,Other,64,Kathmandu,"Snacks, Dairy",2550.77,2
+528,Customer 528,Male,20,Bhaktapur,"Beverage, Dairy",2006.79,2
+529,Customer 529,Other,44,Bhaktapur,Beverage,1681.12,8
+530,Customer 530,Other,28,Kathmandu,"Personal Care, Snacks",3372.96,7
+531,Customer 531,Female,46,Biratnagar,"Beverage, Dairy",4181.06,11
+532,Customer 532,Female,64,Pokhara,Snacks,3532.41,12
+533,Customer 533,Other,62,Pokhara,Snacks,3007.38,9
+534,Customer 534,Other,28,Pokhara,"Beverage, Dairy",2798.26,5
+535,Customer 535,Other,57,Biratnagar,"Personal Care, Dairy",3129.8,10
+536,Customer 536,Male,30,Pokhara,Personal Care,2569.47,3
+537,Customer 537,Other,34,Kathmandu,Household,4689.01,8
+538,Customer 538,Other,50,Biratnagar,Household,4890.46,6
+539,Customer 539,Female,39,Biratnagar,"Household, Snacks",1810.74,9
+540,Customer 540,Male,64,Pokhara,Household,2355.88,8
+541,Customer 541,Male,33,Bhaktapur,"Dairy, Personal Care",4250.89,4
+542,Customer 542,Other,22,Biratnagar,Dairy,2716.25,9
+543,Customer 543,Female,21,Kathmandu,Snacks,3280.02,7
+544,Customer 544,Female,57,Kathmandu,Household,3869.66,12
+545,Customer 545,Male,60,Lalitpur,Dairy,4816.01,4
+546,Customer 546,Other,61,Bhaktapur,Personal Care,4981.79,9
+547,Customer 547,Female,29,Pokhara,"Household, Personal Care",3807.79,3
+548,Customer 548,Other,62,Pokhara,"Beverage, Dairy",3357.36,8
+549,Customer 549,Other,61,Pokhara,"Beverage, Personal Care",2231.43,7
+550,Customer 550,Other,31,Kathmandu,Snacks,4731.08,8
+551,Customer 551,Female,55,Lalitpur,Beverage,1695.43,3
+552,Customer 552,Other,37,Biratnagar,"Personal Care, Snacks",3415.5,12
+553,Customer 553,Other,40,Pokhara,"Personal Care, Beverage",2456.65,5
+554,Customer 554,Other,22,Pokhara,"Beverage, Snacks",1002.56,6
+555,Customer 555,Other,46,Biratnagar,"Snacks, Household",3070.09,8
+556,Customer 556,Female,46,Bhaktapur,Household,4552.04,3
+557,Customer 557,Female,20,Bhaktapur,Beverage,4995.46,2
+558,Customer 558,Female,36,Bhaktapur,"Beverage, Snacks",4896.63,8
+559,Customer 559,Other,49,Biratnagar,Dairy,2033.66,5
+560,Customer 560,Other,34,Kathmandu,Beverage,4002.22,12
+561,Customer 561,Male,46,Biratnagar,"Household, Snacks",2191.03,7
+562,Customer 562,Male,43,Lalitpur,Personal Care,3473.51,3
+563,Customer 563,Other,56,Biratnagar,Beverage,1584.61,9
+564,Customer 564,Other,35,Biratnagar,Household,3669.97,8
+565,Customer 565,Male,57,Pokhara,"Dairy, Personal Care",3932.96,8
+566,Customer 566,Female,31,Pokhara,Beverage,1043.93,12
+567,Customer 567,Other,55,Pokhara,"Dairy, Beverage",1606.14,5
+568,Customer 568,Male,49,Pokhara,Dairy,2987.53,2
+569,Customer 569,Other,34,Pokhara,Dairy,3878.8,11
+570,Customer 570,Male,55,Pokhara,Beverage,3169.7,7
+571,Customer 571,Male,44,Kathmandu,Beverage,3446.71,3
+572,Customer 572,Female,30,Biratnagar,Household,1709.09,10
+573,Customer 573,Male,63,Kathmandu,Personal Care,2916.92,7
+574,Customer 574,Female,21,Kathmandu,"Beverage, Dairy",1370.33,8
+575,Customer 575,Other,39,Biratnagar,Beverage,4113.81,8
+576,Customer 576,Other,42,Lalitpur,Snacks,1723.32,6
+577,Customer 577,Male,19,Kathmandu,"Personal Care, Beverage",1252.43,5
+578,Customer 578,Other,45,Bhaktapur,Personal Care,2347.44,2
+579,Customer 579,Female,20,Pokhara,"Household, Dairy",2460.93,3
+580,Customer 580,Other,54,Lalitpur,Snacks,2566.63,5
+581,Customer 581,Female,40,Biratnagar,Personal Care,3968.48,9
+582,Customer 582,Female,20,Lalitpur,"Household, Personal Care",1578.57,11
+583,Customer 583,Other,18,Lalitpur,Household,4322.0,3
+584,Customer 584,Female,28,Bhaktapur,Snacks,3216.95,11
+585,Customer 585,Other,46,Biratnagar,Personal Care,1763.87,5
+586,Customer 586,Female,51,Bhaktapur,"Snacks, Dairy",4444.48,9
+587,Customer 587,Female,51,Biratnagar,Beverage,2954.89,11
+588,Customer 588,Male,41,Bhaktapur,"Household, Dairy",4654.59,8
+589,Customer 589,Female,48,Biratnagar,"Dairy, Household",2259.12,8
+590,Customer 590,Other,65,Pokhara,"Personal Care, Dairy",4389.94,10
+591,Customer 591,Female,23,Bhaktapur,"Beverage, Dairy",4224.12,10
+592,Customer 592,Male,46,Pokhara,"Beverage, Personal Care",1309.97,12
+593,Customer 593,Male,57,Lalitpur,"Personal Care, Household",1667.45,8
+594,Customer 594,Other,33,Kathmandu,Personal Care,1377.34,6
+595,Customer 595,Male,23,Biratnagar,Beverage,1451.16,4
+596,Customer 596,Female,38,Pokhara,Dairy,4237.63,8
+597,Customer 597,Female,51,Bhaktapur,Dairy,1944.75,4
+598,Customer 598,Male,38,Lalitpur,"Beverage, Personal Care",4220.35,6
+599,Customer 599,Other,45,Pokhara,Personal Care,1731.99,2
+600,Customer 600,Male,59,Kathmandu,Beverage,1947.23,5
+601,Customer 601,Other,27,Kathmandu,Dairy,4505.21,3
+602,Customer 602,Other,61,Kathmandu,"Snacks, Dairy",3558.06,5
+603,Customer 603,Other,61,Pokhara,"Beverage, Household",1314.55,11
+604,Customer 604,Male,41,Kathmandu,Personal Care,2157.8,11
+605,Customer 605,Female,27,Lalitpur,Snacks,3675.73,10
+606,Customer 606,Male,46,Lalitpur,Dairy,2769.51,3
+607,Customer 607,Female,37,Bhaktapur,"Personal Care, Beverage",2220.02,6
+608,Customer 608,Female,48,Pokhara,Dairy,3788.96,9
+609,Customer 609,Other,29,Pokhara,Household,4030.85,11
+610,Customer 610,Male,23,Lalitpur,"Dairy, Personal Care",2069.7,8
+611,Customer 611,Other,38,Biratnagar,Dairy,4430.41,9
+612,Customer 612,Male,18,Lalitpur,Dairy,1069.42,10
+613,Customer 613,Other,24,Bhaktapur,Snacks,1223.77,6
+614,Customer 614,Female,39,Pokhara,"Household, Personal Care",3529.15,8
+615,Customer 615,Female,58,Lalitpur,"Household, Personal Care",4078.94,2
+616,Customer 616,Other,55,Biratnagar,Beverage,1029.64,3
+617,Customer 617,Male,61,Bhaktapur,Beverage,4037.3,9
+618,Customer 618,Male,21,Pokhara,"Dairy, Personal Care",3842.31,6
+619,Customer 619,Male,35,Bhaktapur,"Household, Personal Care",4697.78,3
+620,Customer 620,Female,41,Lalitpur,Dairy,3386.6,3
+621,Customer 621,Male,25,Kathmandu,Personal Care,2381.68,2
+622,Customer 622,Other,26,Kathmandu,"Beverage, Personal Care",4698.32,9
+623,Customer 623,Female,48,Lalitpur,Personal Care,4082.41,2
+624,Customer 624,Female,38,Lalitpur,"Dairy, Household",4162.42,11
+625,Customer 625,Female,53,Lalitpur,"Household, Snacks",2030.03,11
+626,Customer 626,Male,39,Pokhara,Snacks,1603.44,11
+627,Customer 627,Male,54,Biratnagar,"Personal Care, Snacks",1027.75,12
+628,Customer 628,Female,61,Biratnagar,Household,4017.95,12
+629,Customer 629,Female,36,Pokhara,Household,2331.86,2
+630,Customer 630,Other,25,Lalitpur,Dairy,3206.58,9
+631,Customer 631,Male,50,Pokhara,"Snacks, Personal Care",1422.02,2
+632,Customer 632,Female,44,Lalitpur,Beverage,3215.09,4
+633,Customer 633,Female,60,Bhaktapur,"Household, Snacks",1386.39,5
+634,Customer 634,Other,30,Lalitpur,"Personal Care, Snacks",3638.02,3
+635,Customer 635,Other,50,Lalitpur,"Household, Beverage",4700.02,7
+636,Customer 636,Male,58,Biratnagar,Personal Care,4112.46,7
+637,Customer 637,Other,37,Lalitpur,"Beverage, Dairy",4425.79,9
+638,Customer 638,Female,33,Pokhara,Personal Care,2749.86,2
+639,Customer 639,Female,21,Lalitpur,"Household, Dairy",4373.31,3
+640,Customer 640,Other,20,Biratnagar,"Snacks, Personal Care",1026.82,12
+641,Customer 641,Other,65,Biratnagar,"Snacks, Household",3578.77,4
+642,Customer 642,Male,63,Kathmandu,"Personal Care, Household",3147.57,11
+643,Customer 643,Other,45,Lalitpur,Personal Care,4736.93,10
+644,Customer 644,Male,20,Bhaktapur,Snacks,4281.59,6
+645,Customer 645,Other,32,Pokhara,"Household, Personal Care",3644.23,5
+646,Customer 646,Female,30,Biratnagar,Snacks,1534.29,7
+647,Customer 647,Female,51,Lalitpur,Personal Care,4262.2,5
+648,Customer 648,Other,46,Biratnagar,Snacks,3949.3,9
+649,Customer 649,Female,44,Pokhara,Snacks,4033.42,2
+650,Customer 650,Female,37,Pokhara,Dairy,1032.51,2
+651,Customer 651,Other,31,Bhaktapur,Dairy,4941.9,12
+652,Customer 652,Female,23,Biratnagar,Dairy,3130.45,6
+653,Customer 653,Male,52,Pokhara,Beverage,4854.2,10
+654,Customer 654,Female,31,Kathmandu,"Personal Care, Dairy",3565.33,9
+655,Customer 655,Male,45,Biratnagar,"Personal Care, Beverage",4324.94,3
+656,Customer 656,Other,39,Bhaktapur,Household,3481.92,3
+657,Customer 657,Female,49,Kathmandu,"Household, Personal Care",4688.64,8
+658,Customer 658,Male,33,Pokhara,"Personal Care, Snacks",1188.41,6
+659,Customer 659,Other,46,Biratnagar,"Dairy, Household",3051.38,12
+660,Customer 660,Other,58,Lalitpur,Beverage,4938.53,5
+661,Customer 661,Male,24,Bhaktapur,"Personal Care, Beverage",3344.99,10
+662,Customer 662,Female,55,Bhaktapur,Dairy,1465.29,6
+663,Customer 663,Female,25,Biratnagar,Personal Care,1101.44,9
+664,Customer 664,Male,59,Kathmandu,Personal Care,2337.52,8
+665,Customer 665,Female,18,Lalitpur,"Household, Snacks",2457.37,7
+666,Customer 666,Other,49,Biratnagar,"Snacks, Beverage",3202.49,9
+667,Customer 667,Male,55,Bhaktapur,Household,4384.03,10
+668,Customer 668,Male,60,Pokhara,Personal Care,4399.11,2
+669,Customer 669,Other,43,Kathmandu,Snacks,3497.24,10
+670,Customer 670,Female,30,Kathmandu,Dairy,1003.08,3
+671,Customer 671,Male,38,Bhaktapur,"Snacks, Personal Care",3592.79,2
+672,Customer 672,Other,48,Bhaktapur,Dairy,3590.6,4
+673,Customer 673,Male,53,Pokhara,"Beverage, Household",2395.97,12
+674,Customer 674,Male,49,Kathmandu,Beverage,4289.92,4
+675,Customer 675,Female,59,Pokhara,"Household, Beverage",4955.42,10
+676,Customer 676,Other,52,Kathmandu,"Personal Care, Dairy",1632.31,7
+677,Customer 677,Other,59,Lalitpur,Household,3287.39,10
+678,Customer 678,Female,57,Kathmandu,"Dairy, Snacks",1606.27,11
+679,Customer 679,Female,38,Pokhara,"Household, Beverage",2173.69,4
+680,Customer 680,Male,46,Lalitpur,Dairy,1219.91,6
+681,Customer 681,Male,20,Lalitpur,"Beverage, Personal Care",2145.73,4
+682,Customer 682,Male,60,Bhaktapur,"Snacks, Personal Care",2219.95,7
+683,Customer 683,Male,44,Kathmandu,Snacks,1596.07,11
+684,Customer 684,Female,52,Pokhara,"Personal Care, Dairy",4655.41,9
+685,Customer 685,Female,26,Pokhara,Dairy,4102.92,4
+686,Customer 686,Female,33,Biratnagar,Beverage,3242.64,7
+687,Customer 687,Female,65,Kathmandu,Household,1405.99,7
+688,Customer 688,Female,41,Pokhara,Dairy,2390.83,9
+689,Customer 689,Female,65,Bhaktapur,"Beverage, Personal Care",2836.03,11
+690,Customer 690,Male,34,Bhaktapur,Personal Care,3864.07,8
+691,Customer 691,Other,50,Biratnagar,Household,3888.66,8
+692,Customer 692,Female,56,Bhaktapur,"Personal Care, Household",4261.05,5
+693,Customer 693,Other,50,Bhaktapur,"Beverage, Household",3970.57,5
+694,Customer 694,Male,19,Biratnagar,"Dairy, Household",3289.51,9
+695,Customer 695,Female,36,Biratnagar,Household,1680.63,10
+696,Customer 696,Other,43,Biratnagar,Household,4363.76,4
+697,Customer 697,Female,63,Biratnagar,Household,4753.88,10
+698,Customer 698,Other,56,Biratnagar,Dairy,4406.64,11
+699,Customer 699,Other,44,Biratnagar,Beverage,4451.76,10
+700,Customer 700,Other,41,Pokhara,"Personal Care, Snacks",1479.33,3
+701,Customer 701,Male,49,Bhaktapur,Household,4446.33,10
+702,Customer 702,Other,45,Pokhara,"Snacks, Personal Care",3302.71,6
+703,Customer 703,Female,36,Lalitpur,"Household, Dairy",3141.81,3
+704,Customer 704,Male,46,Lalitpur,Personal Care,1537.65,11
+705,Customer 705,Female,47,Pokhara,"Snacks, Household",3195.93,11
+706,Customer 706,Male,43,Pokhara,"Personal Care, Household",1753.43,5
+707,Customer 707,Female,25,Lalitpur,Dairy,1302.16,7
+708,Customer 708,Female,39,Bhaktapur,"Snacks, Personal Care",2888.76,11
+709,Customer 709,Male,64,Lalitpur,Household,1446.34,4
+710,Customer 710,Other,59,Pokhara,"Beverage, Dairy",1204.06,3
+711,Customer 711,Other,38,Lalitpur,Household,1439.14,6
+712,Customer 712,Male,18,Bhaktapur,"Snacks, Dairy",2883.5,3
+713,Customer 713,Male,52,Bhaktapur,Snacks,3495.8,9
+714,Customer 714,Other,52,Biratnagar,Beverage,4896.09,3
+715,Customer 715,Male,49,Biratnagar,Dairy,1035.01,10
+716,Customer 716,Other,40,Biratnagar,Personal Care,1304.45,7
+717,Customer 717,Other,62,Bhaktapur,Personal Care,2166.83,8
+718,Customer 718,Male,64,Biratnagar,Dairy,3466.13,3
+719,Customer 719,Other,36,Bhaktapur,"Snacks, Beverage",4256.8,4
+720,Customer 720,Other,64,Lalitpur,"Household, Snacks",3981.97,6
+721,Customer 721,Male,52,Bhaktapur,Beverage,2467.14,5
+722,Customer 722,Other,19,Biratnagar,Dairy,4834.8,8
+723,Customer 723,Female,38,Lalitpur,"Household, Personal Care",2908.19,3
+724,Customer 724,Other,28,Pokhara,"Snacks, Beverage",3654.05,9
+725,Customer 725,Other,18,Bhaktapur,"Personal Care, Dairy",4086.48,5
+726,Customer 726,Male,36,Biratnagar,"Dairy, Beverage",3794.3,12
+727,Customer 727,Other,30,Biratnagar,"Snacks, Personal Care",1060.89,3
+728,Customer 728,Other,64,Pokhara,Dairy,4671.29,3
+729,Customer 729,Male,21,Biratnagar,Dairy,3392.66,7
+730,Customer 730,Female,25,Pokhara,Household,1898.88,2
+731,Customer 731,Male,25,Kathmandu,Snacks,2854.4,3
+732,Customer 732,Female,28,Biratnagar,"Personal Care, Beverage",3063.26,3
+733,Customer 733,Other,20,Biratnagar,"Dairy, Household",1767.49,8
+734,Customer 734,Other,42,Biratnagar,Personal Care,4371.78,3
+735,Customer 735,Male,45,Pokhara,Dairy,2885.26,3
+736,Customer 736,Female,40,Bhaktapur,"Beverage, Snacks",2644.08,6
+737,Customer 737,Other,33,Lalitpur,"Household, Personal Care",3785.49,5
+738,Customer 738,Other,49,Kathmandu,Personal Care,4294.86,9
+739,Customer 739,Male,43,Lalitpur,"Beverage, Personal Care",1980.22,8
+740,Customer 740,Female,32,Bhaktapur,Dairy,2176.96,6
+741,Customer 741,Male,22,Kathmandu,Beverage,4835.81,6
+742,Customer 742,Other,33,Biratnagar,Snacks,1349.36,12
+743,Customer 743,Female,21,Biratnagar,"Household, Beverage",3667.65,11
+744,Customer 744,Female,64,Biratnagar,"Household, Dairy",1678.54,9
+745,Customer 745,Male,48,Pokhara,"Dairy, Snacks",1769.28,3
+746,Customer 746,Other,18,Pokhara,"Household, Snacks",1283.21,5
+747,Customer 747,Other,31,Bhaktapur,"Snacks, Beverage",4231.86,5
+748,Customer 748,Other,32,Kathmandu,"Snacks, Beverage",4652.54,8
+749,Customer 749,Female,20,Biratnagar,Household,2107.87,7
+750,Customer 750,Other,50,Kathmandu,Household,4645.91,11
+751,Customer 751,Other,23,Lalitpur,"Beverage, Dairy",3741.57,7
+752,Customer 752,Female,35,Lalitpur,"Personal Care, Household",1876.41,5
+753,Customer 753,Other,41,Lalitpur,"Snacks, Dairy",3239.12,5
+754,Customer 754,Female,58,Pokhara,"Personal Care, Snacks",1395.57,12
+755,Customer 755,Male,32,Kathmandu,Beverage,3678.71,6
+756,Customer 756,Male,35,Pokhara,"Beverage, Household",1962.68,12
+757,Customer 757,Male,47,Pokhara,"Personal Care, Dairy",3731.49,5
+758,Customer 758,Female,32,Pokhara,"Household, Dairy",1589.84,7
+759,Customer 759,Other,38,Kathmandu,Household,1006.19,7
+760,Customer 760,Other,27,Kathmandu,"Snacks, Personal Care",2477.26,6
+761,Customer 761,Male,61,Pokhara,"Personal Care, Beverage",1844.49,3
+762,Customer 762,Female,61,Pokhara,Beverage,3664.69,11
+763,Customer 763,Male,57,Bhaktapur,"Household, Dairy",1610.77,11
+764,Customer 764,Male,35,Bhaktapur,"Dairy, Personal Care",2958.93,12
+765,Customer 765,Male,35,Pokhara,Personal Care,3974.19,3
+766,Customer 766,Male,31,Pokhara,Personal Care,4568.89,3
+767,Customer 767,Female,45,Pokhara,Snacks,2228.96,5
+768,Customer 768,Female,23,Bhaktapur,"Snacks, Beverage",4064.68,3
+769,Customer 769,Female,30,Lalitpur,"Beverage, Snacks",2729.17,10
+770,Customer 770,Male,54,Kathmandu,Dairy,1953.2,7
+771,Customer 771,Male,37,Bhaktapur,Household,2064.23,6
+772,Customer 772,Female,39,Bhaktapur,"Beverage, Dairy",1498.27,7
+773,Customer 773,Other,40,Biratnagar,Household,4358.12,12
+774,Customer 774,Female,56,Lalitpur,Beverage,1862.46,2
+775,Customer 775,Other,26,Kathmandu,Personal Care,1465.56,3
+776,Customer 776,Male,31,Lalitpur,Household,1189.23,5
+777,Customer 777,Female,55,Biratnagar,Household,2454.82,9
+778,Customer 778,Other,57,Lalitpur,Snacks,1354.08,8
+779,Customer 779,Other,50,Kathmandu,"Household, Personal Care",1617.33,4
+780,Customer 780,Female,56,Lalitpur,"Snacks, Household",3119.1,6
+781,Customer 781,Male,30,Pokhara,Beverage,4429.5,6
+782,Customer 782,Male,18,Bhaktapur,Snacks,4387.14,9
+783,Customer 783,Other,33,Bhaktapur,Household,1592.22,9
+784,Customer 784,Male,42,Kathmandu,Personal Care,2053.94,7
+785,Customer 785,Female,65,Kathmandu,Beverage,3804.73,3
+786,Customer 786,Other,43,Kathmandu,Beverage,1750.18,10
+787,Customer 787,Other,23,Pokhara,Snacks,3918.59,4
+788,Customer 788,Male,46,Lalitpur,"Beverage, Personal Care",1560.89,6
+789,Customer 789,Male,35,Biratnagar,"Beverage, Personal Care",4138.3,12
+790,Customer 790,Male,29,Kathmandu,"Personal Care, Household",1196.47,5
+791,Customer 791,Other,25,Biratnagar,"Dairy, Personal Care",2791.59,9
+792,Customer 792,Female,24,Pokhara,Household,2439.51,12
+793,Customer 793,Male,53,Lalitpur,Beverage,4681.8,9
+794,Customer 794,Female,52,Pokhara,"Dairy, Household",3638.14,5
+795,Customer 795,Other,39,Kathmandu,"Household, Snacks",4316.39,3
+796,Customer 796,Female,53,Biratnagar,Household,1780.11,3
+797,Customer 797,Male,44,Bhaktapur,Snacks,3456.53,2
+798,Customer 798,Other,61,Bhaktapur,"Beverage, Personal Care",4911.51,7
+799,Customer 799,Male,50,Pokhara,"Beverage, Snacks",3339.17,10
+800,Customer 800,Other,41,Kathmandu,"Dairy, Snacks",2223.19,11
+801,Customer 801,Female,45,Pokhara,"Personal Care, Household",4981.93,4
+802,Customer 802,Other,26,Lalitpur,"Beverage, Snacks",3817.24,2
+803,Customer 803,Female,20,Kathmandu,Snacks,1375.73,9
+804,Customer 804,Female,55,Kathmandu,Dairy,3923.24,4
+805,Customer 805,Female,51,Bhaktapur,"Personal Care, Snacks",4107.58,6
+806,Customer 806,Female,45,Lalitpur,"Personal Care, Dairy",4274.93,9
+807,Customer 807,Female,35,Lalitpur,Snacks,4555.03,4
+808,Customer 808,Other,19,Biratnagar,Snacks,4396.52,12
+809,Customer 809,Other,44,Kathmandu,Dairy,3435.77,9
+810,Customer 810,Male,31,Biratnagar,"Beverage, Personal Care",2230.58,12
+811,Customer 811,Other,22,Bhaktapur,"Beverage, Snacks",2290.62,12
+812,Customer 812,Female,28,Kathmandu,Personal Care,3283.68,3
+813,Customer 813,Female,51,Pokhara,"Beverage, Personal Care",3209.98,5
+814,Customer 814,Female,39,Biratnagar,Household,4662.55,11
+815,Customer 815,Female,43,Bhaktapur,Personal Care,4641.11,4
+816,Customer 816,Female,34,Kathmandu,Snacks,3163.5,6
+817,Customer 817,Female,53,Bhaktapur,Beverage,4231.94,9
+818,Customer 818,Female,40,Lalitpur,"Snacks, Beverage",1981.98,5
+819,Customer 819,Male,55,Kathmandu,Snacks,2154.11,11
+820,Customer 820,Female,51,Kathmandu,Personal Care,4356.33,12
+821,Customer 821,Other,50,Kathmandu,"Dairy, Beverage",1689.36,11
+822,Customer 822,Male,60,Pokhara,Household,4453.79,9
+823,Customer 823,Female,41,Pokhara,Beverage,2723.91,4
+824,Customer 824,Other,51,Pokhara,"Household, Beverage",1519.35,9
+825,Customer 825,Other,33,Biratnagar,Dairy,1383.89,5
+826,Customer 826,Other,62,Pokhara,Beverage,2946.0,5
+827,Customer 827,Female,29,Lalitpur,"Beverage, Household",3350.65,4
+828,Customer 828,Male,53,Kathmandu,Snacks,4624.09,6
+829,Customer 829,Male,48,Bhaktapur,Personal Care,1036.02,8
+830,Customer 830,Male,41,Biratnagar,Snacks,1783.96,10
+831,Customer 831,Male,32,Pokhara,"Snacks, Beverage",4032.79,2
+832,Customer 832,Other,58,Kathmandu,"Dairy, Household",2887.0,7
+833,Customer 833,Female,34,Kathmandu,Household,2026.44,10
+834,Customer 834,Female,53,Bhaktapur,"Dairy, Household",2954.61,11
+835,Customer 835,Male,53,Bhaktapur,Personal Care,2585.32,2
+836,Customer 836,Female,19,Pokhara,Personal Care,3271.23,4
+837,Customer 837,Female,46,Pokhara,Personal Care,4722.7,8
+838,Customer 838,Other,63,Lalitpur,"Snacks, Beverage",3973.7,4
+839,Customer 839,Female,41,Kathmandu,"Dairy, Personal Care",2251.04,11
+840,Customer 840,Other,19,Bhaktapur,Household,3897.32,12
+841,Customer 841,Female,40,Pokhara,"Household, Personal Care",4771.13,5
+842,Customer 842,Male,39,Pokhara,"Beverage, Personal Care",3123.73,2
+843,Customer 843,Female,51,Pokhara,"Personal Care, Snacks",2646.88,4
+844,Customer 844,Female,62,Pokhara,Beverage,4196.21,9
+845,Customer 845,Female,24,Biratnagar,Household,2392.6,12
+846,Customer 846,Female,51,Pokhara,"Household, Snacks",1191.86,7
+847,Customer 847,Female,44,Biratnagar,"Personal Care, Household",3542.99,7
+848,Customer 848,Male,28,Bhaktapur,"Snacks, Household",2471.31,12
+849,Customer 849,Other,30,Lalitpur,"Dairy, Household",3698.8,4
+850,Customer 850,Other,47,Kathmandu,Beverage,1852.84,11
+851,Customer 851,Female,18,Bhaktapur,Dairy,4810.72,12
+852,Customer 852,Other,31,Kathmandu,"Dairy, Personal Care",4881.23,11
+853,Customer 853,Other,38,Lalitpur,Personal Care,4760.91,8
+854,Customer 854,Female,31,Pokhara,Personal Care,3991.86,3
+855,Customer 855,Female,49,Lalitpur,Dairy,1512.73,11
+856,Customer 856,Female,61,Kathmandu,"Personal Care, Beverage",2867.0,6
+857,Customer 857,Male,23,Biratnagar,Dairy,4694.66,3
+858,Customer 858,Female,40,Pokhara,Dairy,4274.45,4
+859,Customer 859,Other,46,Biratnagar,"Personal Care, Snacks",1444.64,3
+860,Customer 860,Male,56,Kathmandu,"Household, Snacks",2904.2,8
+861,Customer 861,Other,60,Pokhara,Beverage,4700.51,9
+862,Customer 862,Male,50,Lalitpur,Dairy,2921.7,11
+863,Customer 863,Female,51,Biratnagar,"Beverage, Dairy",2103.23,11
+864,Customer 864,Male,41,Pokhara,"Snacks, Personal Care",1887.38,8
+865,Customer 865,Female,48,Lalitpur,"Household, Beverage",1911.06,2
+866,Customer 866,Other,54,Bhaktapur,"Personal Care, Dairy",2232.49,11
+867,Customer 867,Male,47,Lalitpur,Beverage,1697.97,6
+868,Customer 868,Other,57,Bhaktapur,"Dairy, Beverage",2785.97,4
+869,Customer 869,Female,34,Pokhara,"Personal Care, Snacks",3850.31,8
+870,Customer 870,Female,38,Biratnagar,Household,3380.8,6
+871,Customer 871,Female,44,Pokhara,"Dairy, Beverage",4896.17,9
+872,Customer 872,Male,22,Bhaktapur,Household,3645.98,12
+873,Customer 873,Male,24,Bhaktapur,"Household, Beverage",3886.29,4
+874,Customer 874,Other,42,Biratnagar,"Dairy, Snacks",2886.16,6
+875,Customer 875,Other,20,Kathmandu,Beverage,4449.04,9
+876,Customer 876,Male,49,Bhaktapur,Beverage,4791.99,8
+877,Customer 877,Female,44,Kathmandu,"Snacks, Dairy",2876.2,9
+878,Customer 878,Female,43,Bhaktapur,"Personal Care, Snacks",4973.53,7
+879,Customer 879,Female,27,Bhaktapur,"Beverage, Personal Care",2832.58,5
+880,Customer 880,Other,59,Biratnagar,"Personal Care, Dairy",2096.47,8
+881,Customer 881,Female,41,Bhaktapur,"Snacks, Household",3244.16,11
+882,Customer 882,Male,53,Lalitpur,Beverage,1482.48,2
+883,Customer 883,Female,26,Kathmandu,Dairy,1437.91,9
+884,Customer 884,Other,40,Kathmandu,Household,2482.68,10
+885,Customer 885,Female,51,Kathmandu,Household,1391.67,11
+886,Customer 886,Female,64,Bhaktapur,"Dairy, Snacks",4698.03,8
+887,Customer 887,Male,19,Bhaktapur,Household,2669.58,3
+888,Customer 888,Female,20,Bhaktapur,"Household, Beverage",3288.19,3
+889,Customer 889,Other,33,Pokhara,Personal Care,4739.26,11
+890,Customer 890,Female,36,Kathmandu,Personal Care,1132.32,5
+891,Customer 891,Female,31,Lalitpur,"Dairy, Beverage",2796.14,9
+892,Customer 892,Other,55,Kathmandu,"Beverage, Household",3523.04,8
+893,Customer 893,Other,60,Lalitpur,Dairy,4682.03,9
+894,Customer 894,Male,53,Lalitpur,Household,3109.63,5
+895,Customer 895,Other,21,Bhaktapur,"Personal Care, Beverage",4053.38,12
+896,Customer 896,Other,50,Lalitpur,"Personal Care, Dairy",4213.26,11
+897,Customer 897,Male,21,Biratnagar,Snacks,1018.13,7
+898,Customer 898,Male,34,Bhaktapur,"Household, Beverage",3958.27,9
+899,Customer 899,Other,56,Lalitpur,"Snacks, Personal Care",3518.18,10
+900,Customer 900,Female,19,Kathmandu,"Snacks, Dairy",4958.36,11
+901,Customer 901,Male,41,Kathmandu,"Snacks, Household",4362.9,12
+902,Customer 902,Other,44,Bhaktapur,Dairy,3672.71,11
+903,Customer 903,Female,39,Biratnagar,"Household, Snacks",2451.71,9
+904,Customer 904,Female,54,Biratnagar,Personal Care,3604.27,10
+905,Customer 905,Male,52,Pokhara,"Beverage, Household",2157.54,7
+906,Customer 906,Other,20,Lalitpur,"Beverage, Dairy",3015.75,8
+907,Customer 907,Female,54,Biratnagar,"Snacks, Personal Care",4697.89,9
+908,Customer 908,Male,51,Kathmandu,"Household, Beverage",1283.09,10
+909,Customer 909,Male,34,Lalitpur,Dairy,3243.31,11
+910,Customer 910,Female,31,Biratnagar,Beverage,2309.16,5
+911,Customer 911,Other,53,Kathmandu,Dairy,4068.57,10
+912,Customer 912,Female,56,Pokhara,Beverage,3655.36,5
+913,Customer 913,Male,25,Kathmandu,Household,4847.52,12
+914,Customer 914,Female,32,Lalitpur,"Personal Care, Dairy",3707.73,7
+915,Customer 915,Female,27,Bhaktapur,"Beverage, Household",4020.07,7
+916,Customer 916,Other,24,Bhaktapur,Household,1903.16,4
+917,Customer 917,Female,50,Kathmandu,"Snacks, Personal Care",2475.2,8
+918,Customer 918,Other,63,Lalitpur,Household,4928.09,2
+919,Customer 919,Male,59,Pokhara,"Beverage, Dairy",3356.35,11
+920,Customer 920,Other,35,Kathmandu,"Snacks, Personal Care",1588.56,10
+921,Customer 921,Other,23,Biratnagar,Household,1436.4,6
+922,Customer 922,Other,61,Bhaktapur,"Personal Care, Household",4797.77,4
+923,Customer 923,Male,38,Biratnagar,Household,1954.47,5
+924,Customer 924,Female,41,Bhaktapur,"Personal Care, Dairy",4035.64,7
+925,Customer 925,Male,61,Lalitpur,"Beverage, Household",1374.8,5
+926,Customer 926,Other,18,Lalitpur,"Beverage, Personal Care",2559.99,5
+927,Customer 927,Male,22,Kathmandu,Dairy,2707.62,6
+928,Customer 928,Female,47,Lalitpur,Beverage,3671.41,10
+929,Customer 929,Male,27,Pokhara,"Household, Beverage",3875.24,3
+930,Customer 930,Other,39,Pokhara,"Personal Care, Snacks",2124.8,4
+931,Customer 931,Female,50,Pokhara,"Household, Beverage",3042.94,7
+932,Customer 932,Male,42,Bhaktapur,"Dairy, Beverage",2684.28,9
+933,Customer 933,Male,24,Biratnagar,Personal Care,3378.72,10
+934,Customer 934,Male,36,Kathmandu,Personal Care,1822.73,6
+935,Customer 935,Other,28,Biratnagar,Beverage,3429.7,5
+936,Customer 936,Male,26,Lalitpur,"Dairy, Personal Care",1084.18,7
+937,Customer 937,Male,52,Biratnagar,"Beverage, Snacks",3993.3,3
+938,Customer 938,Male,36,Biratnagar,"Beverage, Personal Care",2039.94,11
+939,Customer 939,Other,43,Lalitpur,Dairy,3133.09,12
+940,Customer 940,Female,46,Biratnagar,"Household, Beverage",4718.02,12
+941,Customer 941,Female,57,Bhaktapur,Household,2471.17,9
+942,Customer 942,Male,20,Lalitpur,"Beverage, Dairy",1014.51,3
+943,Customer 943,Male,27,Bhaktapur,"Personal Care, Dairy",4268.36,2
+944,Customer 944,Male,38,Biratnagar,Dairy,3091.69,12
+945,Customer 945,Male,18,Biratnagar,"Snacks, Dairy",2653.29,9
+946,Customer 946,Male,54,Lalitpur,"Household, Personal Care",4627.76,5
+947,Customer 947,Other,18,Bhaktapur,Household,2128.15,2
+948,Customer 948,Male,53,Bhaktapur,Dairy,3369.15,12
+949,Customer 949,Other,64,Kathmandu,"Personal Care, Beverage",2417.74,7
+950,Customer 950,Female,21,Bhaktapur,Household,1671.09,12
+951,Customer 951,Other,26,Lalitpur,"Beverage, Snacks",1508.42,9
+952,Customer 952,Other,28,Biratnagar,"Personal Care, Beverage",1892.03,8
+953,Customer 953,Other,47,Lalitpur,"Beverage, Personal Care",2170.04,5
+954,Customer 954,Male,26,Pokhara,"Snacks, Personal Care",2006.27,9
+955,Customer 955,Other,63,Pokhara,"Dairy, Beverage",1827.73,4
+956,Customer 956,Female,42,Bhaktapur,"Personal Care, Snacks",3527.18,2
+957,Customer 957,Other,19,Biratnagar,Beverage,1060.84,5
+958,Customer 958,Female,54,Bhaktapur,"Beverage, Snacks",1781.66,12
+959,Customer 959,Other,31,Bhaktapur,Dairy,4572.53,7
+960,Customer 960,Female,27,Kathmandu,"Household, Snacks",2469.04,2
+961,Customer 961,Female,36,Biratnagar,"Dairy, Snacks",2608.67,4
+962,Customer 962,Female,52,Pokhara,Household,1053.09,5
+963,Customer 963,Other,41,Pokhara,Personal Care,3542.72,5
+964,Customer 964,Female,35,Pokhara,"Household, Personal Care",2198.8,8
+965,Customer 965,Other,23,Kathmandu,"Snacks, Household",2130.72,8
+966,Customer 966,Male,62,Biratnagar,"Personal Care, Beverage",1977.54,9
+967,Customer 967,Female,45,Biratnagar,Snacks,3888.89,4
+968,Customer 968,Female,40,Bhaktapur,"Personal Care, Dairy",1491.93,9
+969,Customer 969,Male,34,Pokhara,Dairy,3327.31,9
+970,Customer 970,Female,43,Lalitpur,Snacks,3226.81,8
+971,Customer 971,Other,30,Kathmandu,"Snacks, Personal Care",2555.5,5
+972,Customer 972,Female,63,Biratnagar,"Snacks, Personal Care",1146.91,10
+973,Customer 973,Male,61,Lalitpur,"Dairy, Snacks",2378.58,6
+974,Customer 974,Male,46,Lalitpur,Snacks,3279.94,10
+975,Customer 975,Male,51,Bhaktapur,"Dairy, Household",3150.72,12
+976,Customer 976,Female,50,Lalitpur,Beverage,2895.54,7
+977,Customer 977,Female,36,Biratnagar,Personal Care,1966.59,4
+978,Customer 978,Female,27,Biratnagar,Personal Care,4235.02,2
+979,Customer 979,Female,50,Biratnagar,"Household, Personal Care",2802.03,7
+980,Customer 980,Female,33,Lalitpur,Beverage,1850.89,2
+981,Customer 981,Other,20,Bhaktapur,Dairy,2958.25,3
+982,Customer 982,Other,49,Pokhara,Personal Care,1563.95,6
+983,Customer 983,Female,58,Biratnagar,Dairy,2106.66,12
+984,Customer 984,Male,38,Lalitpur,Household,2591.61,7
+985,Customer 985,Other,59,Lalitpur,"Beverage, Dairy",2200.25,12
+986,Customer 986,Female,51,Kathmandu,Beverage,3594.49,8
+987,Customer 987,Male,24,Kathmandu,Personal Care,4715.88,3
+988,Customer 988,Other,57,Pokhara,Dairy,1007.44,12
+989,Customer 989,Female,60,Pokhara,"Snacks, Personal Care",2902.03,8
+990,Customer 990,Male,26,Bhaktapur,Beverage,4964.21,7
+991,Customer 991,Other,22,Kathmandu,Household,1909.97,12
+992,Customer 992,Male,62,Lalitpur,"Personal Care, Snacks",2609.82,4
+993,Customer 993,Male,19,Pokhara,"Dairy, Snacks",1759.52,7
+994,Customer 994,Other,20,Kathmandu,"Snacks, Dairy",1290.01,7
+995,Customer 995,Other,45,Pokhara,"Household, Dairy",3528.75,5
+996,Customer 996,Other,26,Kathmandu,Household,2150.86,2
+997,Customer 997,Other,23,Kathmandu,"Beverage, Dairy",2359.68,3
+998,Customer 998,Other,48,Kathmandu,"Beverage, Snacks",3867.37,8
+999,Customer 999,Other,54,Pokhara,"Snacks, Dairy",4107.41,11
+1000,Customer 1000,Male,56,Kathmandu,Household,2887.86,4
