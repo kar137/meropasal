@@ -1,0 +1,201 @@
+product_id,product_name,category,brand,standard_price
+1,Pepsi Bev1,Beverage,Pepsi,98.67
+2,Wai Wai Sna2,Snacks,Wai Wai,442.06
+3,Nestle Bev3,Beverage,Nestle,253.9
+4,Nestle Bev4,Beverage,Nestle,373.24
+5,Pepsi Bev5,Beverage,Pepsi,70.13
+6,Surf Excel Hou6,Household,Surf Excel,166.85
+7,Coca-Cola Bev7,Beverage,Coca-Cola,265.17
+8,Lays Sna8,Snacks,Lays,222.77
+9,Lays Sna9,Snacks,Lays,497.81
+10,Coca-Cola Bev10,Beverage,Coca-Cola,395.55
+11,Kurkure Sna11,Snacks,Kurkure,155.91
+12,Vim Hou12,Household,Vim,360.23
+13,Wai Wai Sna13,Snacks,Wai Wai,150.77
+14,Himalaya Per14,Personal Care,Himalaya,157.24
+15,Kurkure Sna15,Snacks,Kurkure,158.38
+16,Nestle Bev16,Beverage,Nestle,83.59
+17,Pringles Sna17,Snacks,Pringles,19.53
+18,Pringles Sna18,Snacks,Pringles,11.86
+19,Pepsi Bev19,Beverage,Pepsi,102.05
+20,Pringles Sna20,Snacks,Pringles,416.42
+21,Amul Dai21,Dairy,Amul,140.97
+22,Lays Sna22,Snacks,Lays,22.57
+23,Nestle Dai23,Dairy,Nestle,85.97
+24,Pepsi Bev24,Beverage,Pepsi,497.72
+25,Kurkure Sna25,Snacks,Kurkure,130.4
+26,Surf Excel Hou26,Household,Surf Excel,33.28
+27,Yak Cheese Dai27,Dairy,Yak Cheese,115.7
+28,Himalaya Per28,Personal Care,Himalaya,470.61
+29,Red Bull Bev29,Beverage,Red Bull,183.92
+30,Lays Sna30,Snacks,Lays,112.18
+31,Pepsi Bev31,Beverage,Pepsi,98.01
+32,Himalaya Per32,Personal Care,Himalaya,328.48
+33,Wai Wai Sna33,Snacks,Wai Wai,215.58
+34,Wai Wai Sna34,Snacks,Wai Wai,111.21
+35,Coca-Cola Bev35,Beverage,Coca-Cola,456.7
+36,Lux Per36,Personal Care,Lux,362.33
+37,Harpic Hou37,Household,Harpic,378.06
+38,Nestle Bev38,Beverage,Nestle,268.28
+39,Patanjali Per39,Personal Care,Patanjali,119.28
+40,Himalaya Per40,Personal Care,Himalaya,280.53
+41,Coca-Cola Bev41,Beverage,Coca-Cola,99.08
+42,Colin Hou42,Household,Colin,498.68
+43,Pepsi Bev43,Beverage,Pepsi,309.75
+44,Pringles Sna44,Snacks,Pringles,188.56
+45,Himalaya Per45,Personal Care,Himalaya,333.7
+46,Amul Dai46,Dairy,Amul,262.9
+47,Pepsi Bev47,Beverage,Pepsi,88.57
+48,Harpic Hou48,Household,Harpic,182.1
+49,Harpic Hou49,Household,Harpic,56.92
+50,Himalaya Per50,Personal Care,Himalaya,49.86
+51,Kurkure Sna51,Snacks,Kurkure,221.82
+52,Harpic Hou52,Household,Harpic,167.11
+53,Patanjali Per53,Personal Care,Patanjali,295.15
+54,Coca-Cola Bev54,Beverage,Coca-Cola,403.98
+55,Vim Hou55,Household,Vim,225.19
+56,Dove Per56,Personal Care,Dove,124.82
+57,Vim Hou57,Household,Vim,135.42
+58,Patanjali Per58,Personal Care,Patanjali,136.26
+59,Vim Hou59,Household,Vim,273.53
+60,Lays Sna60,Snacks,Lays,110.75
+61,Lux Per61,Personal Care,Lux,391.1
+62,Patanjali Per62,Personal Care,Patanjali,330.62
+63,Lux Per63,Personal Care,Lux,461.46
+64,Lays Sna64,Snacks,Lays,121.9
+65,Coca-Cola Bev65,Beverage,Coca-Cola,142.63
+66,Amul Dai66,Dairy,Amul,165.82
+67,Vim Hou67,Household,Vim,317.86
+68,Dairy Milk Dai68,Dairy,Dairy Milk,73.31
+69,Nestle Bev69,Beverage,Nestle,206.53
+70,Kurkure Sna70,Snacks,Kurkure,385.68
+71,Pepsi Bev71,Beverage,Pepsi,411.43
+72,Harpic Hou72,Household,Harpic,144.61
+73,Coca-Cola Bev73,Beverage,Coca-Cola,305.09
+74,Vim Hou74,Household,Vim,237.44
+75,Vim Hou75,Household,Vim,386.86
+76,Dairy Milk Dai76,Dairy,Dairy Milk,207.99
+77,Vim Hou77,Household,Vim,223.83
+78,Yak Cheese Dai78,Dairy,Yak Cheese,344.32
+79,Vim Hou79,Household,Vim,358.04
+80,Coca-Cola Bev80,Beverage,Coca-Cola,258.27
+81,Vim Hou81,Household,Vim,199.67
+82,Surf Excel Hou82,Household,Surf Excel,284.3
+83,Pringles Sna83,Snacks,Pringles,84.63
+84,Wai Wai Sna84,Snacks,Wai Wai,37.74
+85,Coca-Cola Bev85,Beverage,Coca-Cola,346.91
+86,Pepsi Bev86,Beverage,Pepsi,307.83
+87,Amul Dai87,Dairy,Amul,65.53
+88,Nestle Dai88,Dairy,Nestle,65.11
+89,Surf Excel Hou89,Household,Surf Excel,205.24
+90,Himalaya Per90,Personal Care,Himalaya,236.05
+91,Patanjali Per91,Personal Care,Patanjali,43.37
+92,Coca-Cola Bev92,Beverage,Coca-Cola,180.04
+93,Pringles Sna93,Snacks,Pringles,178.42
+94,Pringles Sna94,Snacks,Pringles,197.45
+95,Coca-Cola Bev95,Beverage,Coca-Cola,31.47
+96,Harpic Hou96,Household,Harpic,275.08
+97,Surf Excel Hou97,Household,Surf Excel,372.01
+98,Pringles Sna98,Snacks,Pringles,195.7
+99,Pepsi Bev99,Beverage,Pepsi,196.21
+100,Dove Per100,Personal Care,Dove,198.3
+101,Pringles Sna101,Snacks,Pringles,235.95
+102,Patanjali Per102,Personal Care,Patanjali,402.26
+103,Wai Wai Sna103,Snacks,Wai Wai,125.15
+104,Lux Per104,Personal Care,Lux,336.04
+105,Lays Sna105,Snacks,Lays,257.52
+106,Coca-Cola Bev106,Beverage,Coca-Cola,495.31
+107,Lays Sna107,Snacks,Lays,463.2
+108,Red Bull Bev108,Beverage,Red Bull,325.63
+109,Vim Hou109,Household,Vim,112.19
+110,Red Bull Bev110,Beverage,Red Bull,137.03
+111,Pepsi Bev111,Beverage,Pepsi,354.84
+112,Surf Excel Hou112,Household,Surf Excel,421.96
+113,Pepsi Bev113,Beverage,Pepsi,354.85
+114,Dove Per114,Personal Care,Dove,224.12
+115,Nestle Dai115,Dairy,Nestle,430.71
+116,Dove Per116,Personal Care,Dove,432.57
+117,Amul Dai117,Dairy,Amul,237.32
+118,Amul Dai118,Dairy,Amul,294.94
+119,Patanjali Per119,Personal Care,Patanjali,305.99
+120,Red Bull Bev120,Beverage,Red Bull,225.64
+121,Surf Excel Hou121,Household,Surf Excel,388.02
+122,Dove Per122,Personal Care,Dove,261.38
+123,Nestle Dai123,Dairy,Nestle,91.26
+124,Kurkure Sna124,Snacks,Kurkure,340.17
+125,Pepsi Bev125,Beverage,Pepsi,102.24
+126,Colin Hou126,Household,Colin,170.32
+127,Lays Sna127,Snacks,Lays,319.48
+128,Himalaya Per128,Personal Care,Himalaya,182.62
+129,Vim Hou129,Household,Vim,174.9
+130,Nestle Dai130,Dairy,Nestle,93.82
+131,Lux Per131,Personal Care,Lux,362.43
+132,Lux Per132,Personal Care,Lux,194.48
+133,Wai Wai Sna133,Snacks,Wai Wai,86.56
+134,Coca-Cola Bev134,Beverage,Coca-Cola,429.65
+135,Amul Dai135,Dairy,Amul,43.74
+136,Pringles Sna136,Snacks,Pringles,348.06
+137,Amul Dai137,Dairy,Amul,431.58
+138,Lux Per138,Personal Care,Lux,190.33
+139,Pringles Sna139,Snacks,Pringles,106.58
+140,Dove Per140,Personal Care,Dove,103.91
+141,Amul Dai141,Dairy,Amul,349.97
+142,Harpic Hou142,Household,Harpic,427.28
+143,Kurkure Sna143,Snacks,Kurkure,333.08
+144,Nestle Bev144,Beverage,Nestle,18.32
+145,Lays Sna145,Snacks,Lays,357.95
+146,Nestle Dai146,Dairy,Nestle,488.54
+147,Nestle Dai147,Dairy,Nestle,251.1
+148,Nestle Bev148,Beverage,Nestle,40.01
+149,Wai Wai Sna149,Snacks,Wai Wai,32.42
+150,Amul Dai150,Dairy,Amul,315.09
+151,Amul Dai151,Dairy,Amul,314.14
+152,Wai Wai Sna152,Snacks,Wai Wai,492.49
+153,Amul Dai153,Dairy,Amul,202.77
+154,Dairy Milk Dai154,Dairy,Dairy Milk,434.97
+155,Kurkure Sna155,Snacks,Kurkure,477.35
+156,Lux Per156,Personal Care,Lux,118.55
+157,Lux Per157,Personal Care,Lux,426.69
+158,Wai Wai Sna158,Snacks,Wai Wai,238.88
+159,Pepsi Bev159,Beverage,Pepsi,49.36
+160,Himalaya Per160,Personal Care,Himalaya,378.96
+161,Lays Sna161,Snacks,Lays,196.74
+162,Wai Wai Sna162,Snacks,Wai Wai,133.03
+163,Colin Hou163,Household,Colin,134.44
+164,Wai Wai Sna164,Snacks,Wai Wai,329.08
+165,Lux Per165,Personal Care,Lux,342.25
+166,Wai Wai Sna166,Snacks,Wai Wai,327.77
+167,Kurkure Sna167,Snacks,Kurkure,176.37
+168,Himalaya Per168,Personal Care,Himalaya,357.12
+169,Vim Hou169,Household,Vim,200.68
+170,Surf Excel Hou170,Household,Surf Excel,430.11
+171,Himalaya Per171,Personal Care,Himalaya,218.62
+172,Vim Hou172,Household,Vim,464.64
+173,Pringles Sna173,Snacks,Pringles,229.39
+174,Red Bull Bev174,Beverage,Red Bull,356.33
+175,Harpic Hou175,Household,Harpic,441.12
+176,Pepsi Bev176,Beverage,Pepsi,222.88
+177,Wai Wai Sna177,Snacks,Wai Wai,359.26
+178,Nestle Dai178,Dairy,Nestle,17.81
+179,Dove Per179,Personal Care,Dove,95.42
+180,Lays Sna180,Snacks,Lays,58.15
+181,Patanjali Per181,Personal Care,Patanjali,235.54
+182,Colin Hou182,Household,Colin,340.75
+183,Harpic Hou183,Household,Harpic,378.61
+184,Pepsi Bev184,Beverage,Pepsi,431.19
+185,Vim Hou185,Household,Vim,244.02
+186,Surf Excel Hou186,Household,Surf Excel,223.5
+187,Nestle Dai187,Dairy,Nestle,401.37
+188,Wai Wai Sna188,Snacks,Wai Wai,245.24
+189,Red Bull Bev189,Beverage,Red Bull,83.12
+190,Red Bull Bev190,Beverage,Red Bull,271.81
+191,Lays Sna191,Snacks,Lays,73.09
+192,Harpic Hou192,Household,Harpic,248.18
+193,Red Bull Bev193,Beverage,Red Bull,61.71
+194,Lux Per194,Personal Care,Lux,200
+195,Colin Hou195,Household,Colin,166.66
+196,Patanjali Per196,Personal Care,Patanjali,162.93
+197,Surf Excel Hou197,Household,Surf Excel,409.33
+198,Pringles Sna198,Snacks,Pringles,254.77
+199,Nestle Dai199,Dairy,Nestle,347.98
+200,Colin Hou200,Household,Colin,292.85
