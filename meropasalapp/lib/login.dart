@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'shop.dart';
+import 'screens/customer_homepage.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  final bool isCustomer;
+  const LoginPage({super.key, this.isCustomer = true});
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -17,19 +19,32 @@ class _LoginPageState extends State<LoginPage> {
   final _nameController = TextEditingController();
   final _confirmPassController = TextEditingController();
 
+  // Track the user type (customer or shopkeeper)
+  late bool isCustomer;
+
+  @override
+  void initState() {
+    super.initState();
+    isCustomer = widget.isCustomer;
+  }
+
   void _showDialog(String title, String message, {bool success = false}) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text(
           title,
-          style: TextStyle(color: success ? Colors.green : Colors.red),
+          style: TextStyle(
+            color: success ? Color(0xFF10B981) : Color(0xFFEF4444),
+            fontWeight: FontWeight.w600,
+          ),
         ),
-        content: Text(message),
+        content: Text(message, style: TextStyle(color: Color(0xFF111827))),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
+            style: TextButton.styleFrom(foregroundColor: Color(0xFF4F46E5)),
             child: const Text("OK"),
           ),
         ],
@@ -37,13 +52,15 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // Using isCustomer from initState
+
   void _onLogin() async {
     if (_formKey.currentState!.validate()) {
       showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const Center(
-          child: CircularProgressIndicator(color: Color(0xFF57C4DE)),
+          child: CircularProgressIndicator(color: Color(0xFF4F46E5)),
         ),
       );
       await Future.delayed(const Duration(seconds: 1));
@@ -51,7 +68,9 @@ class _LoginPageState extends State<LoginPage> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => ShopHomePage()),
+          MaterialPageRoute(
+            builder: (_) => isCustomer ? CustomerHomePage() : ShopHomePage(),
+          ),
         );
       }
     }
@@ -90,7 +109,33 @@ class _LoginPageState extends State<LoginPage> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text("$name login clicked!"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Color(0xFF4F46E5),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  Widget _buildSocialButton({
+    required IconData icon,
+    required Color color,
+    required VoidCallback onPressed,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        border: Border.all(color: Color(0xFFE5E7EB), width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: IconButton(
+        icon: Icon(icon, color: color, size: 28),
+        onPressed: onPressed,
       ),
     );
   }
@@ -98,18 +143,23 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF57C4DE),
+      backgroundColor: Color(
+        0xFFF9FAFC,
+      ), // Light background to match welcome page
       body: Center(
         child: SingleChildScrollView(
           child: Stack(
             children: [
-              // Blue curved header
+              // Header background
               Container(
-                height: 340,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF57C4DE),
+                height: 280,
+                decoration: BoxDecoration(
+                  color: Color(
+                    0xFF4F46E5,
+                  ), // Royal Indigo to match welcome page
                   borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(90),
+                    bottomRight: Radius.circular(80),
+                    bottomLeft: Radius.circular(80),
                   ),
                 ),
               ),
@@ -124,56 +174,30 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ShaderMask(
-                            shaderCallback: (Rect bounds) {
-                              return const LinearGradient(
-                                colors: [Color(0xFFFFD700), Color(0xFF57C4DE)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ).createShader(bounds);
-                            },
-                            child: const Text(
-                              "नमस्ते!",
-                              style: TextStyle(
-                                fontSize: 38,
-                                fontWeight: FontWeight.bold,
-                                color: Color(
-                                  0xFF2C3E50,
-                                ), // Slightly dark blue-gray
-                                letterSpacing: 1.5,
-                                shadows: [
-                                  Shadow(
-                                    blurRadius: 8,
-                                    color: Colors.black12, // Lighter shadow
-                                    offset: Offset(2, 2),
-                                  ),
-                                ],
-                              ),
+                          Text(
+                            "नमस्ते!",
+                            style: TextStyle(
+                              fontSize: 36,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              letterSpacing: 1.2,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 12),
                           Row(
                             children: const [
                               Icon(
-                                Icons.storefront,
-                                color: Colors.white,
-                                size: 32,
+                                Icons.storefront_rounded,
+                                color: Colors.white70,
+                                size: 28,
                               ),
                               SizedBox(width: 8),
                               Text(
-                                "पसलेमा स्वागत छ",
+                                "पसलमा स्वागत छ",
                                 style: TextStyle(
-                                  fontSize: 28,
+                                  fontSize: 24,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.2,
-                                  shadows: [
-                                    Shadow(
-                                      blurRadius: 6,
-                                      color: Colors.black26,
-                                      offset: Offset(1, 2),
-                                    ),
-                                  ],
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
@@ -186,19 +210,19 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 52),
                   // White card with tabs and form
                   Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 22),
+                    margin: const EdgeInsets.symmetric(horizontal: 24),
                     padding: const EdgeInsets.symmetric(
-                      vertical: 36,
-                      horizontal: 18,
+                      vertical: 32,
+                      horizontal: 24,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(36),
+                      borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.07),
-                          blurRadius: 16,
-                          offset: const Offset(0, 8),
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
                         ),
                       ],
                     ),
@@ -207,8 +231,8 @@ class _LoginPageState extends State<LoginPage> {
                         // Tabs
                         Container(
                           decoration: BoxDecoration(
-                            color: const Color(0xFFEAF8FB),
-                            borderRadius: BorderRadius.circular(30),
+                            color: const Color(0xFFF1F5F9),
+                            borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
                             children: [
@@ -218,12 +242,12 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: isLogin
-                                          ? const Color(0xFF57C4DE)
+                                          ? const Color(0xFF4F46E5)
                                           : Colors.transparent,
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
                                     padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
+                                      vertical: 16,
                                     ),
                                     child: Center(
                                       child: Text(
@@ -231,9 +255,9 @@ class _LoginPageState extends State<LoginPage> {
                                         style: TextStyle(
                                           color: isLogin
                                               ? Colors.white
-                                              : const Color(0xFF57C4DE),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17,
+                                              : const Color(0xFF6B7280),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
                                         ),
                                       ),
                                     ),
@@ -246,26 +270,123 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: !isLogin
-                                          ? const Color(0xFF57C4DE)
+                                          ? const Color(0xFF4F46E5)
                                           : Colors.transparent,
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
                                     padding: const EdgeInsets.symmetric(
-                                      vertical: 14,
+                                      vertical: 16,
                                     ),
                                     child: Center(
                                       child: Text(
-                                        "Sign In",
+                                        "Sign Up",
                                         style: TextStyle(
                                           color: !isLogin
                                               ? Colors.white
-                                              : const Color(0xFF57C4DE),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17,
+                                              : const Color(0xFF6B7280),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16,
                                         ),
                                       ),
                                     ),
                                   ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // User Type Selection (Customer or Shopkeeper)
+                        const SizedBox(height: 16),
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF1F5F9),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                "I am a: ",
+                                style: TextStyle(
+                                  color: Color(0xFF6B7280),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    // Customer option
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            setState(() => isCustomer = true),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: isCustomer
+                                                ? const Color(0xFF10B981)
+                                                : Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 8,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "ग्राहक",
+                                              style: TextStyle(
+                                                color: isCustomer
+                                                    ? Colors.white
+                                                    : const Color(0xFF6B7280),
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    // Shopkeeper option
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () =>
+                                            setState(() => isCustomer = false),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: !isCustomer
+                                                ? const Color(0xFF4F46E5)
+                                                : Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 8,
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              "पसलधारक",
+                                              style: TextStyle(
+                                                color: !isCustomer
+                                                    ? Colors.white
+                                                    : const Color(0xFF6B7280),
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -284,15 +405,32 @@ class _LoginPageState extends State<LoginPage> {
                                   decoration: InputDecoration(
                                     hintText: "Full Name",
                                     contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 18,
-                                      horizontal: 22,
+                                      vertical: 16,
+                                      horizontal: 20,
                                     ),
                                     border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(28),
-                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE5E7EB),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE5E7EB),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFF4F46E5),
+                                        width: 1.5,
+                                      ),
                                     ),
                                     filled: true,
-                                    fillColor: const Color(0xFFF5FBFC),
+                                    fillColor: Colors.white,
                                   ),
                                   validator: (v) {
                                     if (!isLogin &&
@@ -310,15 +448,32 @@ class _LoginPageState extends State<LoginPage> {
                                 decoration: InputDecoration(
                                   hintText: "Username or Email",
                                   contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 18,
-                                    horizontal: 22,
+                                    vertical: 16,
+                                    horizontal: 20,
                                   ),
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(28),
-                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE5E7EB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE5E7EB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                      color: Color(0xFF4F46E5),
+                                      width: 1.5,
+                                    ),
                                   ),
                                   filled: true,
-                                  fillColor: const Color(0xFFF5FBFC),
+                                  fillColor: Colors.white,
                                 ),
                                 validator: (v) =>
                                     v == null || v.isEmpty ? "Required" : null,
@@ -331,21 +486,38 @@ class _LoginPageState extends State<LoginPage> {
                                 decoration: InputDecoration(
                                   hintText: "Password",
                                   contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 18,
-                                    horizontal: 22,
+                                    vertical: 16,
+                                    horizontal: 20,
                                   ),
                                   border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(28),
-                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE5E7EB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE5E7EB),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                      color: Color(0xFF4F46E5),
+                                      width: 1.5,
+                                    ),
                                   ),
                                   filled: true,
-                                  fillColor: const Color(0xFFF5FBFC),
+                                  fillColor: Colors.white,
                                   suffixIcon: IconButton(
                                     icon: Icon(
                                       _obscure
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: const Color(0xFF57C4DE),
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
+                                      color: const Color(0xFF6B7280),
                                     ),
                                     onPressed: () =>
                                         setState(() => _obscure = !_obscure),
@@ -366,21 +538,38 @@ class _LoginPageState extends State<LoginPage> {
                                   decoration: InputDecoration(
                                     hintText: "Confirm Password",
                                     contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 18,
-                                      horizontal: 22,
+                                      vertical: 16,
+                                      horizontal: 20,
                                     ),
                                     border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(28),
-                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE5E7EB),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE5E7EB),
+                                        width: 1,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFF4F46E5),
+                                        width: 1.5,
+                                      ),
                                     ),
                                     filled: true,
-                                    fillColor: const Color(0xFFF5FBFC),
+                                    fillColor: Colors.white,
                                     suffixIcon: IconButton(
                                       icon: Icon(
                                         _obscureConfirm
-                                            ? Icons.visibility
-                                            : Icons.visibility_off,
-                                        color: const Color(0xFF57C4DE),
+                                            ? Icons.visibility_outlined
+                                            : Icons.visibility_off_outlined,
+                                        color: const Color(0xFF6B7280),
                                       ),
                                       onPressed: () => setState(
                                         () =>
@@ -403,16 +592,21 @@ class _LoginPageState extends State<LoginPage> {
                                 child: ElevatedButton(
                                   onPressed: isLogin ? _onLogin : _onSignIn,
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF57C4DE),
+                                    backgroundColor: const Color(
+                                      0xFF4F46E5,
+                                    ), // Royal Indigo
+                                    elevation: 2,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30),
+                                      borderRadius: BorderRadius.circular(12),
                                     ),
+                                    padding: EdgeInsets.symmetric(vertical: 16),
                                   ),
                                   child: Text(
-                                    isLogin ? "Log In" : "Sign In",
+                                    isLogin ? "Log In" : "Sign Up",
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
@@ -424,25 +618,28 @@ class _LoginPageState extends State<LoginPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              height: 1,
-                              width: 32,
-                              color: Colors.grey[300],
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                color: Color(0xFFE5E7EB),
+                              ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
                               child: Text(
                                 "or",
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.black54,
+                                  color: Color(0xFF6B7280),
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 1,
-                              width: 32,
-                              color: Colors.grey[300],
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                color: Color(0xFFE5E7EB),
+                              ),
                             ),
                           ],
                         ),
@@ -451,30 +648,21 @@ class _LoginPageState extends State<LoginPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            IconButton(
-                              icon: const Icon(
-                                Icons.facebook,
-                                color: Colors.blue,
-                                size: 32,
-                              ),
+                            _buildSocialButton(
+                              icon: Icons.facebook_rounded,
+                              color: Color(0xFF1877F2),
                               onPressed: () => _onSocial("Facebook"),
                             ),
-                            const SizedBox(width: 8),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.alternate_email,
-                                color: Colors.lightBlue,
-                                size: 30,
-                              ),
+                            const SizedBox(width: 16),
+                            _buildSocialButton(
+                              icon: Icons.alternate_email_rounded,
+                              color: Color(0xFF1DA1F2),
                               onPressed: () => _onSocial("Twitter"),
                             ),
-                            const SizedBox(width: 8),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.g_mobiledata,
-                                color: Colors.redAccent,
-                                size: 32,
-                              ),
+                            const SizedBox(width: 16),
+                            _buildSocialButton(
+                              icon: Icons.g_mobiledata_rounded,
+                              color: Color(0xFFEA4335),
                               onPressed: () => _onSocial("Google"),
                             ),
                           ],
