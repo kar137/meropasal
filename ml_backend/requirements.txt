@@ -1,0 +1,15 @@
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+scikit-learn
+joblib
+folium
+streamlit-folium
+pydeck
+wordcloud
+xgboost
+lightgbm
+prophet
