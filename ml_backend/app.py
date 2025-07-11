@@ -8,7 +8,7 @@ import tempfile
 from wordcloud import WordCloud
 from sklearn.cluster import KMeans  # Add this import
 import matplotlib.pyplot as plt
-from meropasal.ml_backend.retail_analytics_pipeline import RetailAnalyticsPipeline
+from retail_analytics_pipeline import RetailAnalyticsPipeline
 
 # Configure page
 st.set_page_config(
