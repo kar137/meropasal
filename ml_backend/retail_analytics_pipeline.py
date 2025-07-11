@@ -826,19 +826,344 @@ class RetailAnalyticsPipeline:
                 'error': str(e)
             }
 
-    def get_available_combinations(self):
-        """Get all available product-shop combinations with historical data"""
-        if self.monthly_data is None:
-            return pd.DataFrame()
+    def _generate_shopkeeper_recommendations(self):
+        """Generate recommendations for shopkeepers"""
+        recommendations = []
     
-        combinations = self.monthly_data.groupby(['product_id', 'shop_id']).agg({
-            'monthly_quantity': ['count', 'mean', 'sum'],
-            'product_name': 'first',
-            'shop_city': 'first'
-        }).reset_index()
+        if self.monthly_data is None or not self.is_trained:
+            return recommendations
     
-        # Flatten column names
-        combinations.columns = ['product_id', 'shop_id', 'data_points', 'avg_monthly_qty', 
-                          'total_qty', 'product_name', 'shop_city']
+        try:
+            # Get recent performance for each shop
+            recent_data = self.monthly_data.groupby(['shop_id', 'product_id']).agg({
+                'monthly_quantity': 'mean',
+                'product_name': 'first',
+                'category': 'first'
+            }).reset_index()
+        
+            for shop_id in recent_data['shop_id'].unique():
+                shop_data = recent_data[recent_data['shop_id'] == shop_id]
+            
+                if len(shop_data) == 0:
+                    continue
+            
+                # Find underperforming products (bottom 30%)
+                threshold = shop_data['monthly_quantity'].quantile(0.3)
+                underperforming = shop_data[shop_data['monthly_quantity'] <= threshold]
+            
+                # Find top performing products for comparison
+                top_performing = shop_data.nlargest(3, 'monthly_quantity')
+            
+                # Generate recommendations for underperforming products
+                for _, product in underperforming.head(3).iterrows():
+                    recommendations.append({
+                        'shop_id': shop_id,
+                        'product_id': product['product_id'],
+                        'product_name': product['product_name'],
+                        'type': 'increase_marketing',
+                        'reason': f'Low sales compared to other products: {product["monthly_quantity"]:.1f} units/month',
+                        'current_avg': product['monthly_quantity'],
+                        'predicted': product['monthly_quantity'] * 1.3,  # 30% improvement target
+                        'priority': 'high' if product['monthly_quantity'] < threshold * 0.5 else 'medium'
+                    })
+            
+                # Generate recommendations for inventory optimization
+                for _, product in top_performing.iterrows():
+                    recommendations.append({
+                        'shop_id': shop_id,
+                        'product_id': product['product_id'],
+                        'product_name': product['product_name'],
+                        'type': 'optimize_inventory',
+                        'reason': f'High demand product: {product["monthly_quantity"]:.1f} units/month',
+                        'current_avg': product['monthly_quantity'],
+                        'predicted': product['monthly_quantity'] * 1.1,  # 10% increase
+                        'priority': 'medium'
+                    })
     
-        return combinations.sort_values('data_points', ascending=False)
+        except Exception as e:
+            print(f"Error generating shopkeeper recommendations: {e}")
+    
+        return recommendations
+
+    def _generate_customer_recommendations(self):
+        """Generate customer recommendations"""
+        recommendations = []
+    
+        if not hasattr(self, 'customer_profiles') or len(self.customer_profiles) == 0:
+            return recommendations
+    
+        try:
+            # Get top customers by spending
+            top_customers = self.customer_profiles.nlargest(10, 'total_amount_sum')
+        
+            for customer_id in top_customers.index:
+                # Get customer purchase history
+                customer_data = self.data[self.data['customer_id'] == customer_id]
+            
+                if len(customer_data) == 0:
+                    continue
+            
+                # Get most purchased categories
+                category_purchases = customer_data.groupby('category')['quantity'].sum().sort_values(ascending=False)
+            
+                if len(category_purchases) > 0:
+                    top_category = category_purchases.index[0]
+                
+                    # Get products from favorite category that customer hasn't bought
+                    customer_products = set(customer_data['product_id'].unique())
+                    category_products = self.products[self.products['category'] == top_category]
+                
+                    # Recommend new products from favorite category
+                    for _, product in category_products.head(3).iterrows():
+                        if product['product_id'] not in customer_products:
+                            recommendations.append({
+                                'customer_id': customer_id,
+                                'product_id': product['product_id'],
+                                'product_name': product['product_name'],
+                                'category': product['category'],
+                                'reason': f'Based on preference for {top_category} products',
+                                'confidence': 'high' if len(category_purchases) > 3 else 'medium'
+                            })
+                
+                # Cross-category recommendations
+                if len(category_purchases) > 1:
+                    second_category = category_purchases.index[1]
+                    second_cat_products = self.products[self.products['category'] == second_category]
+                    
+                    for _, product in second_cat_products.head(2).iterrows():
+                        if product['product_id'] not in customer_products:
+                            recommendations.append({
+                                'customer_id': customer_id,
+                                'product_id': product['product_id'],
+                                'product_name': product['product_name'],
+                                'category': product['category'],
+                                'reason': f'Cross-category recommendation from {second_category}',
+                                'confidence': 'medium'
+                            })
+    
+        except Exception as e:
+            print(f"Error generating customer recommendations: {e}")
+    
+        return recommendations
+
+    def get_competitive_analysis(self, product_id):
+        """Get competitive analysis for a product"""
+        try:
+            product_id = str(product_id)
+        
+            # Get product info
+            product_info = self.products[self.products['product_id'] == product_id]
+            if len(product_info) == 0:
+                return {'error': 'Product not found'}
+            
+            category = product_info['category'].iloc[0]
+            
+            # Get top products in same category by sales volume
+            top_products = self.monthly_data[
+                self.monthly_data['category'] == category
+            ].groupby(['product_id']).agg({
+                'monthly_quantity': 'mean',
+                'monthly_revenue': 'mean'
+            }).reset_index().nlargest(5, 'monthly_quantity')
+            
+            # Get top shops for this product
+            top_shops = self.monthly_data[
+                self.monthly_data['product_id'] == product_id
+            ].groupby(['shop_id']).agg({
+                'monthly_quantity': 'mean',
+                'monthly_revenue': 'mean'
+            }).reset_index().nlargest(5, 'monthly_quantity')
+            
+            # Get category performance metrics
+            category_metrics = self.monthly_data[
+                self.monthly_data['category'] == category
+            ].agg({
+                'monthly_quantity': ['mean', 'sum'],
+                'monthly_revenue': ['mean', 'sum']
+            })
+            
+            # Get market share
+            total_category_sales = self.monthly_data[
+                self.monthly_data['category'] == category
+            ]['monthly_quantity'].sum()
+            
+            product_sales = self.monthly_data[
+                self.monthly_data['product_id'] == product_id
+            ]['monthly_quantity'].sum()
+            
+            market_share = (product_sales / total_category_sales * 100) if total_category_sales > 0 else 0
+            
+            return {
+                'category': category,
+                'top_products': top_products,
+                'top_shops': top_shops,
+                'market_share': market_share,
+                'category_metrics': category_metrics,
+                'product_sales': product_sales,
+                'total_category_sales': total_category_sales
+            }
+        
+        except Exception as e:
+            print(f"Error in competitive analysis: {e}")
+            return {'error': f'Analysis failed: {str(e)}'}
+
+    def set_subscription(self, subscription_type):
+        """Set subscription type (free or premium)"""
+        self.subscription = subscription_type.lower()
+
+    def save_outputs(self, output_dir):
+        """Save analysis outputs to directory"""
+        try:
+            os.makedirs(output_dir, exist_ok=True)
+        
+            # Save monthly data
+            if self.monthly_data is not None:
+                self.monthly_data.to_csv(os.path.join(output_dir, 'monthly_data.csv'), index=False)
+                print("Saved monthly_data.csv")
+        
+            # Save customer profiles
+            if hasattr(self, 'customer_profiles') and len(self.customer_profiles) > 0:
+                self.customer_profiles.to_csv(os.path.join(output_dir, 'customer_profiles.csv'))
+                print("Saved customer_profiles.csv")
+        
+            # Save model if trained
+            if self.model is not None and self.is_trained:
+                joblib.dump(self.model, os.path.join(output_dir, 'model.pkl'))
+                print("Saved model.pkl")
+        
+            # Save recommendations
+            try:
+                shop_recs = self._generate_shopkeeper_recommendations()
+                if shop_recs:
+                    pd.DataFrame(shop_recs).to_csv(os.path.join(output_dir, 'shop_recommendations.csv'), index=False)
+                    print("Saved shop_recommendations.csv")
+            
+                customer_recs = self._generate_customer_recommendations()
+                if customer_recs:
+                    pd.DataFrame(customer_recs).to_csv(os.path.join(output_dir, 'customer_recommendations.csv'), index=False)
+                    print("Saved customer_recommendations.csv")
+            except Exception as e:
+                print(f"Could not save recommendations: {e}")
+        
+            # Save basic statistics
+            if self.data is not None:
+                stats = {
+                    'total_revenue': self.data['total_amount'].sum(),
+                    'total_transactions': len(self.data),
+                    'unique_products': self.products['product_id'].nunique(),
+                    'unique_shops': self.shops['shop_id'].nunique(),
+                    'unique_customers': self.data['customer_id'].nunique() if 'customer_id' in self.data.columns else 0,
+                    'date_range': f"{self.data['transaction_time'].min()} to {self.data['transaction_time'].max()}"
+                }
+            
+                with open(os.path.join(output_dir, 'summary_stats.txt'), 'w') as f:
+                    for key, value in stats.items():
+                        f.write(f"{key}: {value}\n")
+            print("Saved summary_stats.txt")
+        
+            print(f"✅ All outputs saved to {output_dir}")
+            return True
+        
+        except Exception as e:
+            print(f"❌ Error saving outputs: {e}")
+            return False
+
+    def generate_naming_recommendations(self):
+        """Generate product naming recommendations (Premium feature)"""
+        try:
+            if self.subscription != 'premium':
+                return {'error': 'Premium feature only'}
+        
+            # Get all product names
+            product_names = ' '.join(self.products['product_name'].astype(str))
+        
+            # Simple word frequency analysis
+            from collections import Counter
+            import re
+        
+            # Extract words (remove special characters, convert to lowercase)
+            words = re.findall(r'\b[a-zA-Z]+\b', product_names.lower())
+        
+            # Filter out common words
+            stop_words = {'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'from', 'up', 'about', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'between', 'among', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'can', 'could'}
+        
+            filtered_words = [word for word in words if len(word) > 2 and word not in stop_words]
+        
+            # Get word frequencies
+            word_freq = Counter(filtered_words)
+            top_words = word_freq.most_common(20)
+        
+            # Generate recommendation
+            if top_words:
+                most_common = top_words[0][0]
+                recommendation = f"Consider including '{most_common}' in product names - it appears frequently in your successful products."
+            else:
+                recommendation = "Consider using clear, descriptive terms in product names."
+        
+            return {
+                'top_words': top_words,
+                'total_words_analyzed': len(words),
+                'unique_words': len(set(words)),
+                'recommendation': recommendation
+            }
+        
+        except Exception as e:
+            print(f"Error in naming recommendations: {e}")
+            return {'error': f'Analysis failed: {str(e)}'}
+
+    def run_scenario(self, product_id, shop_id, price_change, marketing_boost, season):
+        """Run what-if scenario analysis"""
+        try:
+            # Get base prediction
+            base_prediction = self.predict_for_product_shop(product_id, shop_id)
+            base_qty = base_prediction['predicted_quantity']
+        
+            # Apply scenario adjustments
+            adjusted_qty = base_qty
+        
+            # Price elasticity effect
+            price_elasticity = -0.5  # Assume -0.5 elasticity
+            adjusted_qty *= (1 + price_change * price_elasticity)
+        
+            # Marketing boost effect (1-5 scale, baseline 3)
+            marketing_effect = (marketing_boost - 3) * 0.1  # 10% per level
+            adjusted_qty *= (1 + marketing_effect)
+        
+            # Seasonal adjustment
+            seasonal_multipliers = {
+                'normal': 1.0,
+                'holiday': 1.3,    # 30% boost during holidays
+                'summer': 0.8      # 20% drop in summer
+            }
+            adjusted_qty *= seasonal_multipliers.get(season, 1.0)
+        
+            # Ensure non-negative
+            adjusted_qty = max(0, adjusted_qty)
+        
+            # Calculate changes
+            change = adjusted_qty - base_qty
+            change_pct = (change / base_qty * 100) if base_qty > 0 else 0
+        
+            return {
+                'original': base_qty,
+                'predicted': adjusted_qty,
+                'change': change,
+                'change_pct': change_pct,
+                'confidence': base_prediction.get('confidence', 'unknown'),
+                'note': base_prediction.get('note', ''),
+                'scenario_details': {
+                    'price_change': price_change,
+                    'marketing_boost': marketing_boost,
+                    'season': season
+                }
+            }
+        
+        except Exception as e:
+            print(f"Error in scenario analysis: {e}")
+            return {
+                'original': 0,
+                'predicted': 0,
+                'change': 0,
+                'change_pct': 0,
+                'error': str(e)
+            }
