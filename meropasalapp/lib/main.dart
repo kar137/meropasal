@@ -1,37 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:meropasalapp/pages/login_page.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'shop.dart';
+import 'login.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyRootApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class MyRootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'नेपाल पसल प्रबन्धक',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primarySwatch: Colors.green,
+        primaryColor: Color(0xFF1E88E5),
+        fontFamily: 'Roboto',
       ),
-      home: LoginPage(),
+      home: LoginPage(),  // Always start at login
+      debugShowCheckedModeBanner: false,
     );
   }
 }
