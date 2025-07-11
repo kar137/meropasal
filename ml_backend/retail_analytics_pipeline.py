@@ -501,6 +501,27 @@ class RetailAnalyticsPipeline:
             'price': self.subscription_plans[self.current_subscription]['price']
         }
     
+    def get_available_combinations(self):
+        """Get all available product-shop combinations with historical data"""
+        if self.monthly_data is None:
+            return pd.DataFrame()
+        
+        try:
+            combinations = self.monthly_data.groupby(['product_id', 'shop_id']).agg({
+                'monthly_quantity': ['count', 'mean', 'sum'],
+                'product_name': 'first',
+                'shop_city': 'first'
+            }).reset_index()
+            
+            # Flatten column names
+            combinations.columns = ['product_id', 'shop_id', 'data_points', 'avg_monthly_qty', 
+                                  'total_qty', 'product_name', 'shop_city']
+            
+            return combinations.sort_values('data_points', ascending=False)
+        except Exception as e:
+            print(f"Error getting available combinations: {e}")
+            return pd.DataFrame()
+    
     def is_ready_for_training(self):
         """Check if pipeline is ready for model training"""
         if self.monthly_data is None:
@@ -687,12 +708,12 @@ class RetailAnalyticsPipeline:
         product_info = self.products[self.products['product_id'] == product_id]
         if len(product_info) == 0:
             return {
-                'predicted_quantity': 0,
+                'predicted_quantity': 10,  # Default fallback
                 'last_actual': 0,
                 'last_date': 'No data',
                 'confidence': 'very_low',
                 'historical_points': 0,
-                'note': 'Product not found in catalog'
+                'note': 'Product not found in catalog - using default estimate'
             }
     
         product_category = product_info['category'].iloc[0]
@@ -841,7 +862,7 @@ class RetailAnalyticsPipeline:
                 'category': 'first'
             }).reset_index()
         
-            for shop_id in recent_data['shop_id'].unique():
+            for shop_id in recent_data['shop_id'].unique()[:5]:  # Limit to first 5 shops
                 shop_data = recent_data[recent_data['shop_id'] == shop_id]
             
                 if len(shop_data) == 0:
@@ -851,9 +872,6 @@ class RetailAnalyticsPipeline:
                 threshold = shop_data['monthly_quantity'].quantile(0.3)
                 underperforming = shop_data[shop_data['monthly_quantity'] <= threshold]
             
-                # Find top performing products for comparison
-                top_performing = shop_data.nlargest(3, 'monthly_quantity')
-            
                 # Generate recommendations for underperforming products
                 for _, product in underperforming.head(3).iterrows():
                     recommendations.append({
@@ -861,23 +879,10 @@ class RetailAnalyticsPipeline:
                         'product_id': product['product_id'],
                         'product_name': product['product_name'],
                         'type': 'increase_marketing',
-                        'reason': f'Low sales compared to other products: {product["monthly_quantity"]:.1f} units/month',
+                        'reason': f'Low sales: {product["monthly_quantity"]:.1f} units/month',
                         'current_avg': product['monthly_quantity'],
-                        'predicted': product['monthly_quantity'] * 1.3,  # 30% improvement target
+                        'predicted': product['monthly_quantity'] * 1.3,
                         'priority': 'high' if product['monthly_quantity'] < threshold * 0.5 else 'medium'
-                    })
-            
-                # Generate recommendations for inventory optimization
-                for _, product in top_performing.iterrows():
-                    recommendations.append({
-                        'shop_id': shop_id,
-                        'product_id': product['product_id'],
-                        'product_name': product['product_name'],
-                        'type': 'optimize_inventory',
-                        'reason': f'High demand product: {product["monthly_quantity"]:.1f} units/month',
-                        'current_avg': product['monthly_quantity'],
-                        'predicted': product['monthly_quantity'] * 1.1,  # 10% increase
-                        'priority': 'medium'
                     })
     
         except Exception as e:
@@ -894,7 +899,7 @@ class RetailAnalyticsPipeline:
     
         try:
             # Get top customers by spending
-            top_customers = self.customer_profiles.nlargest(10, 'total_amount_sum')
+            top_customers = self.customer_profiles.nlargest(5, 'total_amount_sum')
         
             for customer_id in top_customers.index:
                 # Get customer purchase history
@@ -914,7 +919,7 @@ class RetailAnalyticsPipeline:
                     category_products = self.products[self.products['category'] == top_category]
                 
                     # Recommend new products from favorite category
-                    for _, product in category_products.head(3).iterrows():
+                    for _, product in category_products.head(2).iterrows():
                         if product['product_id'] not in customer_products:
                             recommendations.append({
                                 'customer_id': customer_id,
@@ -923,22 +928,6 @@ class RetailAnalyticsPipeline:
                                 'category': product['category'],
                                 'reason': f'Based on preference for {top_category} products',
                                 'confidence': 'high' if len(category_purchases) > 3 else 'medium'
-                            })
-                
-                # Cross-category recommendations
-                if len(category_purchases) > 1:
-                    second_category = category_purchases.index[1]
-                    second_cat_products = self.products[self.products['category'] == second_category]
-                    
-                    for _, product in second_cat_products.head(2).iterrows():
-                        if product['product_id'] not in customer_products:
-                            recommendations.append({
-                                'customer_id': customer_id,
-                                'product_id': product['product_id'],
-                                'product_name': product['product_name'],
-                                'category': product['category'],
-                                'reason': f'Cross-category recommendation from {second_category}',
-                                'confidence': 'medium'
                             })
     
         except Exception as e:
@@ -962,45 +951,20 @@ class RetailAnalyticsPipeline:
             top_products = self.monthly_data[
                 self.monthly_data['category'] == category
             ].groupby(['product_id']).agg({
-                'monthly_quantity': 'mean',
-                'monthly_revenue': 'mean'
+                'monthly_quantity': 'mean'
             }).reset_index().nlargest(5, 'monthly_quantity')
             
             # Get top shops for this product
             top_shops = self.monthly_data[
                 self.monthly_data['product_id'] == product_id
             ].groupby(['shop_id']).agg({
-                'monthly_quantity': 'mean',
-                'monthly_revenue': 'mean'
+                'monthly_quantity': 'mean'
             }).reset_index().nlargest(5, 'monthly_quantity')
-            
-            # Get category performance metrics
-            category_metrics = self.monthly_data[
-                self.monthly_data['category'] == category
-            ].agg({
-                'monthly_quantity': ['mean', 'sum'],
-                'monthly_revenue': ['mean', 'sum']
-            })
-            
-            # Get market share
-            total_category_sales = self.monthly_data[
-                self.monthly_data['category'] == category
-            ]['monthly_quantity'].sum()
-            
-            product_sales = self.monthly_data[
-                self.monthly_data['product_id'] == product_id
-            ]['monthly_quantity'].sum()
-            
-            market_share = (product_sales / total_category_sales * 100) if total_category_sales > 0 else 0
             
             return {
                 'category': category,
                 'top_products': top_products,
-                'top_shops': top_shops,
-                'market_share': market_share,
-                'category_metrics': category_metrics,
-                'product_sales': product_sales,
-                'total_category_sales': total_category_sales
+                'top_shops': top_shops
             }
         
         except Exception as e:
@@ -1031,37 +995,7 @@ class RetailAnalyticsPipeline:
                 joblib.dump(self.model, os.path.join(output_dir, 'model.pkl'))
                 print("Saved model.pkl")
         
-            # Save recommendations
-            try:
-                shop_recs = self._generate_shopkeeper_recommendations()
-                if shop_recs:
-                    pd.DataFrame(shop_recs).to_csv(os.path.join(output_dir, 'shop_recommendations.csv'), index=False)
-                    print("Saved shop_recommendations.csv")
-            
-                customer_recs = self._generate_customer_recommendations()
-                if customer_recs:
-                    pd.DataFrame(customer_recs).to_csv(os.path.join(output_dir, 'customer_recommendations.csv'), index=False)
-                    print("Saved customer_recommendations.csv")
-            except Exception as e:
-                print(f"Could not save recommendations: {e}")
-        
-            # Save basic statistics
-            if self.data is not None:
-                stats = {
-                    'total_revenue': self.data['total_amount'].sum(),
-                    'total_transactions': len(self.data),
-                    'unique_products': self.products['product_id'].nunique(),
-                    'unique_shops': self.shops['shop_id'].nunique(),
-                    'unique_customers': self.data['customer_id'].nunique() if 'customer_id' in self.data.columns else 0,
-                    'date_range': f"{self.data['transaction_time'].min()} to {self.data['transaction_time'].max()}"
-                }
-            
-                with open(os.path.join(output_dir, 'summary_stats.txt'), 'w') as f:
-                    for key, value in stats.items():
-                        f.write(f"{key}: {value}\n")
-            print("Saved summary_stats.txt")
-        
-            print(f"✅ All outputs saved to {output_dir}")
+            print(f"✅ Outputs saved to {output_dir}")
             return True
         
         except Exception as e:
@@ -1085,8 +1019,7 @@ class RetailAnalyticsPipeline:
             words = re.findall(r'\b[a-zA-Z]+\b', product_names.lower())
         
             # Filter out common words
-            stop_words = {'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'from', 'up', 'about', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'between', 'among', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'can', 'could'}
-        
+            stop_words = {'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'}
             filtered_words = [word for word in words if len(word) > 2 and word not in stop_words]
         
             # Get word frequencies
@@ -1102,8 +1035,6 @@ class RetailAnalyticsPipeline:
         
             return {
                 'top_words': top_words,
-                'total_words_analyzed': len(words),
-                'unique_words': len(set(words)),
                 'recommendation': recommendation
             }
         
