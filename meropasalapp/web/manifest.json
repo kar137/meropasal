@@ -1,6 +1,6 @@
 {
-    "name": "meropasalapp",
-    "short_name": "meropasalapp",
+    "name": "mobileapp",
+    "short_name": "mobileapp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
