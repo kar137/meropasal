@@ -780,59 +780,120 @@ if st.session_state.pipeline and st.session_state.data_loaded:
             
             # Customer recommendations
             st.markdown("### 💡 Personalized Recommendations")
+            
+            # Debug toggle
+            show_debug = st.checkbox("Show Debug Info", key="debug_customer_recs")
+
+            if show_debug:
+                insights = st.session_state.pipeline.get_customer_insights()
+                st.json(insights)
+
             try:
-                # Check if we have customer data
-                if hasattr(st.session_state.pipeline, 'customer_profiles') and len(st.session_state.pipeline.customer_profiles) > 0:
-                    # Try to generate recommendations
-                    try:
-                        recs = st.session_state.pipeline._generate_customer_recommendations()
-                        
-                        if recs and len(recs) > 0:
-                            # Select a customer
-                            available_customers = list(st.session_state.pipeline.customer_profiles.index.unique())
-                            if available_customers:
-                                customer_id = st.selectbox(
-                                    "Select Customer",
-                                    available_customers,
-                                    key="customer_select"
-                                )
-                                
-                                # Filter recommendations
-                                customer_recs = [r for r in recs if r.get('customer_id') == customer_id]
-                                
-                                if customer_recs:
-                                    st.markdown(f"#### Recommendations for customer {customer_id}")
-                                    for rec in customer_recs[:3]:  # Show top 3 recommendations
-                                        st.markdown(f"""
-                                        <div class='card'>
-                                            <h4>{rec.get('product_name', 'Product')}</h4>
-                                            <p><strong>Category:</strong> {rec.get('category', 'Unknown')}</p>
-                                            <p><strong>Reason:</strong> {rec.get('reason', 'Recommended based on purchase history')}</p>
-                                        </div>
-                                        """, unsafe_allow_html=True)
-                                else:
-                                    st.info(f"No specific recommendations available for customer {customer_id}")
-                            else:
-                                st.info("No customers available for recommendations")
-                        else:
-                            st.info("No customer recommendations generated")
-                    except AttributeError:
-                        st.info("Customer recommendation feature not available in current pipeline version")
-                    except Exception as rec_error:
-                        st.warning(f"Could not generate customer recommendations: {str(rec_error)}")
-                        st.info("Showing basic customer analysis instead")
-                        
-                        # Show basic customer analysis
-                        if len(st.session_state.pipeline.customer_profiles) > 0:
-                            st.markdown("#### Top Customers by Spending")
-                            if 'total_amount_sum' in st.session_state.pipeline.customer_profiles.columns:
-                                top_customers = st.session_state.pipeline.customer_profiles.nlargest(5, 'total_amount_sum')
-                                st.dataframe(top_customers[['total_amount_sum', 'quantity_sum']].round(2))
-                else:
-                    st.info("Customer recommendations require customer profile data")
+                # Generate recommendations
+                recs = st.session_state.pipeline._generate_customer_recommendations()
+                
+                if recs and len(recs) > 0:
+                    st.success(f"Generated {len(recs)} customer recommendations")
                     
+                    # Group recommendations by customer
+                    customers_with_recs = {}
+                    for rec in recs:
+                        customer_id = rec['customer_id']
+                        if customer_id not in customers_with_recs:
+                            customers_with_recs[customer_id] = []
+                        customers_with_recs[customer_id].append(rec)
+                    
+                    # Customer selector
+                    selected_customer = st.selectbox(
+                        "Select Customer for Recommendations",
+                        options=list(customers_with_recs.keys()),
+                        key="customer_rec_select"
+                    )
+                    
+                    if selected_customer:
+                        # Show customer summary first
+                        customer_summary = st.session_state.pipeline.get_customer_purchase_summary(selected_customer)
+                        
+                        if 'error' not in customer_summary:
+                            col1, col2, col3 = st.columns(3)
+                            with col1:
+                                st.metric("Total Spending", f"${customer_summary['total_spending']:.2f}")
+                                st.metric("Total Transactions", customer_summary['total_transactions'])
+                            
+                            with col2:
+                                st.metric("Avg Transaction", f"${customer_summary['avg_transaction_value']:.2f}")
+                                st.metric("Total Items", customer_summary['total_items'])
+                            
+                            with col3:
+                                st.metric("Favorite Category", customer_summary['favorite_category'])
+                                st.metric("Shops Visited", customer_summary['unique_shops'])
+                        
+                        # Show recommendations for selected customer
+                        st.markdown(f"#### Recommendations for Customer {selected_customer}")
+                        
+                        customer_recs = customers_with_recs[selected_customer]
+                        
+                        for i, rec in enumerate(customer_recs):
+                            confidence_colors = {
+                                'high': '#28a745',
+                                'medium': '#ffc107', 
+                                'low': '#fd7e14'
+                            }
+                            color = confidence_colors.get(rec.get('confidence', 'low'), '#6c757d')
+                            
+                            st.markdown(f"""
+                            <div class='card'>
+                                <h4>{rec.get('product_name', 'Product')}</h4>
+                                <p><strong>Category:</strong> {rec.get('category', 'Unknown')}</p>
+                                <p><strong>Recommended Shop:</strong> {rec.get('recommended_shop', 'Any')}</p>
+                                <p><strong>Reason:</strong> {rec.get('reason', 'Recommended for you')}</p>
+                                <p style='color: {color}; font-weight: bold;'>Confidence: {rec.get('confidence', 'unknown').title()}</p>
+                                <small>Type: {rec.get('recommendation_type', 'general').replace('_', ' ').title()}</small>
+                            </div>
+                            """, unsafe_allow_html=True)
+                else:
+                    st.warning("No customer recommendations generated")
+                    
+                    # Show why no recommendations
+                    insights = st.session_state.pipeline.get_customer_insights()
+                    if 'error' in insights:
+                        st.error(f"Error: {insights['error']}")
+                    else:
+                        st.info("**Possible reasons for no recommendations:**")
+                        st.markdown("- All customers have purchased all available products")
+                        st.markdown("- Insufficient transaction history") 
+                        st.markdown("- Data quality issues")
+                        
+                        if insights.get('total_customers', 0) > 0:
+                            st.markdown(f"**Available data:** {insights['total_customers']} customers, {insights.get('total_transactions', 0)} transactions")
+                
+                # Customer insights section (premium only)
+                if st.session_state.subscription == "Premium":
+                    st.markdown("### 📊 Customer Insights")
+                    
+                    # Customer distribution by segment
+                    try:
+                        segment_dist = st.session_state.pipeline.customer_profiles['segment'].value_counts().reset_index()
+                        segment_dist.columns = ['Segment', 'Count']
+                        
+                        fig = px.pie(
+                            segment_dist, 
+                            values='Count', 
+                            names='Segment',
+                            title="Customer Distribution by Segment",
+                            color_discrete_sequence=px.colors.sequential.RdBu
+                        )
+                        st.plotly_chart(fig, use_container_width=True)
+                        
+                    except Exception as e:
+                        st.error(f"Error generating segment distribution: {str(e)}")
+                
             except Exception as e:
-                st.error(f"Error in customer recommendations section: {str(e)}")
+                st.error(f"Error in customer recommendations: {str(e)}")
+                
+                if show_debug:
+                    import traceback
+                    st.code(traceback.format_exc())
             
             # Word cloud of popular terms (premium only)
             if st.session_state.subscription == "Premium":
