@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'map_page.dart';
 
 class CustomerHomePage extends StatefulWidget {
   const CustomerHomePage({Key? key}) : super(key: key);
@@ -68,34 +69,64 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Location Bar
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.location_on_outlined, color: Color(0xFF6B7280)),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      "Kalanki Chowk, Kathmandu",
-                      style: TextStyle(color: Color(0xFF111827), fontSize: 15),
-                      overflow: TextOverflow.ellipsis,
+            GestureDetector(
+              onTap: () {
+                _showLocationSearchModal(context);
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
                     ),
-                  ),
-                  Icon(Icons.keyboard_arrow_right, color: Color(0xFF6B7280)),
-                ],
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.location_on_outlined, color: Color(0xFF6B7280)),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        "Kalanki Chowk, Kathmandu",
+                        style: TextStyle(
+                          color: Color(0xFF111827),
+                          fontSize: 15,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                MapPage(location: "Kalanki Chowk, Kathmandu"),
+                          ),
+                        ).then((result) {
+                          if (result != null &&
+                              result is Map<String, dynamic>) {
+                            setState(() {
+                              // Update with the returned location data
+                              // You can store this data in your state if needed
+                            });
+                          }
+                        });
+                      },
+                      child: Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Color(0xFF6B7280),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Service Categories
             Padding(
@@ -226,6 +257,15 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
           setState(() {
             _selectedIndex = index;
           });
+
+          // Handle navigation for History tab
+          if (index == 3) {
+            // History tab
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HistoryPage()),
+            );
+          }
         },
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
@@ -271,14 +311,9 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
         // Handle category tap
         // If it's history, navigate to history page
         if (title == "History") {
-          // Navigate to history page
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryPage()));
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Opening $title...'),
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: Color(0xFF4F46E5),
-            ),
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HistoryPage()),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -433,6 +468,230 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
           ),
         ],
       ),
+    );
+  }
+
+  // Show location search modal
+  void _showLocationSearchModal(BuildContext context) {
+    String currentLocation = "Kalanki Chowk, Kathmandu";
+    TextEditingController searchController = TextEditingController(
+      text: currentLocation,
+    );
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.85,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Handle bar
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: 12),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE5E7EB),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+
+              // Title
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  "Enter your location",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF111827),
+                  ),
+                ),
+              ),
+
+              // Search bar
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF3F4F6),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      hintText: "Search location",
+                      prefixIcon: Icon(Icons.search, color: Color(0xFF6B7280)),
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.symmetric(vertical: 16),
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 16),
+
+              // Current location button
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            MapPage(location: "Current Location"),
+                      ),
+                    ).then((result) {
+                      if (result != null && result is Map<String, dynamic>) {
+                        setState(() {
+                          // Update with the returned location data
+                          // This could update a variable in this class to store the user's location
+                        });
+                      }
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFFE5E7EB)),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.my_location, color: Color(0xFF4F46E5)),
+                        SizedBox(width: 12),
+                        Text(
+                          "Use current location",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Color(0xFF4F46E5),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 16),
+
+              // Recent locations title
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  "Recent Locations",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF111827),
+                  ),
+                ),
+              ),
+
+              // Recent locations list
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  children: [
+                    _buildLocationItem(
+                      "Kalanki Chowk, Kathmandu",
+                      isSelected: true,
+                    ),
+                    _buildLocationItem("New Road, Kathmandu"),
+                    _buildLocationItem("Thamel, Kathmandu"),
+                    _buildLocationItem("Pulchowk, Lalitpur"),
+                    _buildLocationItem("Bhaktapur Durbar Square"),
+                  ],
+                ),
+              ),
+
+              // Search button
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (searchController.text.isNotEmpty) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              MapPage(location: searchController.text),
+                        ),
+                      ).then((result) {
+                        if (result != null && result is Map<String, dynamic>) {
+                          setState(() {
+                            // Update with the searched location data
+                            // You could update the UI to show the selected location
+                          });
+                        }
+                      });
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF4F46E5),
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text(
+                    "Search This Area",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  // Build location item for the search modal
+  Widget _buildLocationItem(String location, {bool isSelected = false}) {
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(vertical: 4),
+      leading: Icon(
+        Icons.location_on_outlined,
+        color: isSelected ? Color(0xFF4F46E5) : Color(0xFF6B7280),
+      ),
+      title: Text(
+        location,
+        style: TextStyle(
+          fontSize: 16,
+          color: isSelected ? Color(0xFF4F46E5) : Color(0xFF111827),
+          fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
+        ),
+      ),
+      onTap: () {
+        Navigator.pop(context);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MapPage(location: location)),
+        ).then((result) {
+          if (result != null && result is Map<String, dynamic>) {
+            // Process the returned location data
+            // You could update the UI or store the data as needed
+          }
+        });
+      },
     );
   }
 
