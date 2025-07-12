@@ -1,7 +1,7 @@
 name: meropasalapp
 description: "A new Flutter project."
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -15,11 +15,16 @@ dependencies:
   speech_to_text: ^7.0.0
   path_provider: ^2.1.3
   share_plus: ^7.2.1
-  
-  
+  # Replaced Google Maps with OpenStreetMap packages
+  flutter_map: ^5.0.0
+  latlong2: ^0.9.0
+  geolocator: ^10.1.0
+  cached_network_image: ^3.3.0
+  # Other dependencies
   editable: ^2.0.0
   universal_html: ^2.2.4
   get: ^4.7.2
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -27,7 +32,6 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
-
   uses-material-design: true
 
   # Removed the fonts section because the font file is missing.
