@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'shop.dart';
-import 'welcome.dart'; // Import the new welcome page
+import 'location_example.dart';
 
 void main() async {
   // Ensure Flutter is initialized before doing anything
@@ -14,20 +12,26 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(MyRootApp());
+  runApp(const LocationExampleApp());
 }
 
-class MyRootApp extends StatelessWidget {
+class LocationExampleApp extends StatelessWidget {
+  const LocationExampleApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'नेपाल पसल प्रबन्धक',
+      title: 'MeroPasal Location',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        primaryColor: Color(0xFF1E88E5),
+        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF1E88E5),
         fontFamily: 'Roboto',
       ),
-      home: WelcomePage(), // Changed from LoginPage() to WelcomePage()
+      home: const LocationExample(
+        title: 'Location Example',
+        isSearchResults:
+            true, // Set to true to show shop markers instead of vehicles
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'search_page.dart';
+import 'location_search_modal.dart';
+import 'location_map_page.dart';
 
 class CustomerHomePage extends StatefulWidget {
   const CustomerHomePage({Key? key}) : super(key: key);
@@ -9,6 +12,19 @@ class CustomerHomePage extends StatefulWidget {
 
 class _CustomerHomePageState extends State<CustomerHomePage> {
   int _selectedIndex = 0;
+
+  // Show location search modal
+  void _showLocationSearchModal() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        height: MediaQuery.of(context).size.height * 0.85,
+        child: LocationSearchModal(currentLocation: "Kalanki Chowk, Kathmandu"),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,31 +84,39 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Location Bar
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.location_on_outlined, color: Color(0xFF6B7280)),
-                  SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      "Kalanki Chowk, Kathmandu",
-                      style: TextStyle(color: Color(0xFF111827), fontSize: 15),
-                      overflow: TextOverflow.ellipsis,
+            GestureDetector(
+              onTap: () {
+                _showLocationSearchModal();
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
                     ),
-                  ),
-                  Icon(Icons.keyboard_arrow_right, color: Color(0xFF6B7280)),
-                ],
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.location_on_outlined, color: Color(0xFF6B7280)),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        "Kalanki Chowk, Kathmandu",
+                        style: TextStyle(
+                          color: Color(0xFF111827),
+                          fontSize: 15,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Icon(Icons.keyboard_arrow_right, color: Color(0xFF6B7280)),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 16),
@@ -269,7 +293,6 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
     return GestureDetector(
       onTap: () {
         // Handle category tap
-        // If it's history, navigate to history page
         if (title == "History") {
           // Navigate to history page
           // Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryPage()));
@@ -281,11 +304,11 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
             ),
           );
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Opening $title category...'),
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: Color(0xFF4F46E5),
+          // Navigate to search page with the category
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchPage(category: title),
             ),
           );
         }
@@ -341,97 +364,125 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
     String type,
     String distance,
   ) {
-    return Container(
-      width: 220,
-      margin: EdgeInsets.only(right: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Store image
-          Container(
-            height: 120,
-            decoration: BoxDecoration(
-              color: Color(0xFFE5E7EB),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-            ),
-            child: Center(
-              child: Icon(Icons.storefront, size: 40, color: Color(0xFF6B7280)),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LocationMapPage(
+              itemName: "Store Location",
+              shopName: name,
+              itemCategory: type,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        name,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF111827),
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF10B981),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.star, color: Colors.white, size: 12),
-                          SizedBox(width: 2),
-                          Text(
-                            rating,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
+        );
+      },
+      child: Container(
+        width: 220,
+        margin: EdgeInsets.only(right: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Store image
+            Container(
+              height: 120,
+              decoration: BoxDecoration(
+                color: Color(0xFFE5E7EB),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.storefront,
+                  size: 40,
+                  color: Color(0xFF6B7280),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFF111827),
                           ),
-                        ],
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 4),
-                Text(
-                  type,
-                  style: TextStyle(fontSize: 13, color: Color(0xFF6B7280)),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 6),
-                Row(
-                  children: [
-                    Icon(Icons.location_on, size: 14, color: Color(0xFF6B7280)),
-                    SizedBox(width: 2),
-                    Text(
-                      distance,
-                      style: TextStyle(fontSize: 13, color: Color(0xFF6B7280)),
-                    ),
-                  ],
-                ),
-              ],
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 2,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF10B981),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.star, color: Colors.white, size: 12),
+                            SizedBox(width: 2),
+                            Text(
+                              rating,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    type,
+                    style: TextStyle(fontSize: 13, color: Color(0xFF6B7280)),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 6),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        size: 14,
+                        color: Color(0xFF6B7280),
+                      ),
+                      SizedBox(width: 2),
+                      Text(
+                        distance,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xFF6B7280),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
