@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'user.dart';
+import '../kyc_verification.dart';
 
 class UserProfileScreen extends StatelessWidget {
   final User user;
@@ -25,12 +26,16 @@ class UserProfileScreen extends StatelessWidget {
               backgroundImage: user.profileImageUrl.isNotEmpty
                   ? NetworkImage(user.profileImageUrl)
                   : null,
-              child: user.profileImageUrl.isEmpty ? const Icon(Icons.person, size: 60) : null,
+              child: user.profileImageUrl.isEmpty
+                  ? const Icon(Icons.person, size: 60)
+                  : null,
             ),
             const SizedBox(height: 20),
             Text(
               user.name,
-              style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 12),
             Text(
@@ -51,13 +56,28 @@ class UserProfileScreen extends StatelessWidget {
               leading: const Icon(Icons.phone),
               title: Text(user.contact),
             ),
-            ListTile(
-              leading: const Icon(Icons.email),
-              title: Text(user.email),
-            ),
-            ListTile(
-              leading: const Icon(Icons.web),
-              title: Text(user.website),
+            ListTile(leading: const Icon(Icons.email), title: Text(user.email)),
+            ListTile(leading: const Icon(Icons.web), title: Text(user.website)),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const KycVerificationPage(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.verified_user),
+              label: const Text("Complete KYC Verification"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF10B981),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
+              ),
             ),
           ],
         ),
