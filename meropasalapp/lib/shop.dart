@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:meropasalapp/utils/app_colors.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:qr_flutter/qr_flutter.dart';
+import 'qr_scanner.dart';
 import 'screens/dashboard_page.dart';
 import 'dart:math';
 import 'login.dart'; // Import your login page
@@ -15,8 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'पसले',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        primaryColor: Color(0xFF1E88E5),
+        primaryColor: AppColors.MainColor,
         fontFamily: 'Roboto',
       ),
       home: LoginPage(), // Show login page first
@@ -157,7 +159,10 @@ class _ShopHomePageState extends State<ShopHomePage>
       if (!_kycDocumentsUploaded) {
         _showKycVerificationDialog();
       } else {
-        _showSnackBar('KYC verification is already in progress!', Colors.blue);
+        _showSnackBar(
+          'KYC verification is already in progress!',
+          AppColors.MainColor,
+        );
       }
     });
 
@@ -799,7 +804,7 @@ class _ShopHomePageState extends State<ShopHomePage>
       borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
       child: BottomNavigationBar(
         backgroundColor: Colors.white,
-        selectedItemColor: Color(0xFF1E88E5),
+        selectedItemColor: AppColors.MainColor,
         unselectedItemColor: Colors.grey[500],
         currentIndex: _selectedNavbarIndex,
         elevation: 14,
@@ -817,8 +822,8 @@ class _ShopHomePageState extends State<ShopHomePage>
           ),
 
           BottomNavigationBarItem(
-            icon: Icon(Icons.info_rounded, size: 28),
-            label: "हाम्रो बारेमा",
+            icon: Icon(Icons.qr_code, size: 28),
+            label: "QR जेनेरेटर",
           ),
         ],
         onTap: (index) {
@@ -828,7 +833,7 @@ class _ShopHomePageState extends State<ShopHomePage>
           if (index == 1) {
             _showProfileDialog();
           } else if (index == 2) {
-            _showAboutUsDialog();
+            _showQRGeneratorDialog();
           }
           // index==0 is home, do nothing (just stay here)
         },
@@ -843,7 +848,7 @@ class _ShopHomePageState extends State<ShopHomePage>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         title: Row(
           children: [
-            Icon(Icons.person_rounded, color: Color(0xFF1E88E5)),
+            Icon(Icons.person_rounded, color: AppColors.MainColor),
             SizedBox(width: 10),
             Text('प्रोफाइल', style: TextStyle(fontWeight: FontWeight.bold)),
           ],
@@ -854,7 +859,7 @@ class _ShopHomePageState extends State<ShopHomePage>
             children: [
               CircleAvatar(
                 radius: 36,
-                backgroundColor: Color(0xFF1E88E5),
+                backgroundColor: AppColors.MainColor,
                 child: Icon(Icons.person, size: 48, color: Colors.white),
               ),
               SizedBox(height: 14),
@@ -950,37 +955,114 @@ class _ShopHomePageState extends State<ShopHomePage>
     );
   }
 
-  void _showAboutUsDialog() {
+  void _showQRGeneratorDialog() {
+    final TextEditingController productNameController = TextEditingController();
+    final TextEditingController quantityController = TextEditingController();
+    final TextEditingController rateController = TextEditingController();
+    String qrData = "";
+
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        title: Row(
-          children: [
-            Icon(Icons.info_rounded, color: Color(0xFF1E88E5)),
-            SizedBox(width: 10),
-            Text(
-              'हाम्रो बारेमा',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) => AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+          title: Row(
             children: [
+              Icon(Icons.qr_code, color: AppColors.MainColor),
+              SizedBox(width: 10),
               Text(
-                'पसले एप्लिकेशनले तपाईंलाई दैनिक पसलको कामकाजलाई सजिलो बनाउँछ। यसले उत्पादनहरू थप्न, किनमेल र बिक्री रेकर्ड गर्न, र विश्लेषण गर्न मद्दत गर्दछ।',
-                style: TextStyle(fontSize: 16),
+                'QR जेनेरेटर',
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 12),
-              Text(
-                'सहयोग र सुझावका लागि हामीलाई सम्पर्क गर्नुहोस्:',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 8),
-              Text('Email: support@pasal.com'),
             ],
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: productNameController,
+                  decoration: const InputDecoration(
+                    labelText: 'उत्पादनको नाम',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: quantityController,
+                  decoration: const InputDecoration(
+                    labelText: 'मात्रा',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: rateController,
+                  decoration: const InputDecoration(
+                    labelText: 'दर',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            qrData =
+                                "Product: ${productNameController.text}, Quantity: ${quantityController.text}, Rate: ${rateController.text}";
+                          });
+                        },
+                        child: const Text('QR कोड बनाउनुहोस्'),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => QrScannerPage(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.qr_code_scanner),
+                        label: const Text('स्क्यान गर्नुहोस्'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                if (qrData.isNotEmpty)
+                  Container(
+                    width: 200,
+                    height: 200,
+                    child: QrImageView(
+                      data: qrData,
+                      version: QrVersions.auto,
+                      size: 200.0,
+                      gapless: false,
+                      errorStateBuilder: (context, err) {
+                        return const Center(
+                          child: Text(
+                            'कुनै त्रुटि भयो...',
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
@@ -1194,10 +1276,10 @@ class _ShopHomePageState extends State<ShopHomePage>
       backgroundColor: Color(0xFFF5F5F5),
       appBar: AppBar(
         title: Text(
-          'पसले',
+          'मेरो पसल',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Color(0xFF1E88E5),
+        backgroundColor: AppColors.MainColor,
         elevation: 8,
         actions: [
           IconButton(
@@ -1269,7 +1351,7 @@ class _ShopHomePageState extends State<ShopHomePage>
                           hintText: 'उत्पादन खोज्नुहोस्...',
                           prefixIcon: Icon(
                             Icons.search,
-                            color: Color(0xFF1E88E5),
+                            color: AppColors.MainColor,
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(25),
@@ -1301,7 +1383,7 @@ class _ShopHomePageState extends State<ShopHomePage>
                                   style: TextStyle(
                                     color: isSelected
                                         ? Colors.white
-                                        : Color(0xFF1E88E5),
+                                        : AppColors.MainColor,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
@@ -1313,7 +1395,7 @@ class _ShopHomePageState extends State<ShopHomePage>
                                   });
                                 },
                                 backgroundColor: Colors.white,
-                                selectedColor: Color(0xFF1E88E5),
+                                selectedColor: AppColors.MainColor,
                                 elevation: isSelected ? 4 : 2,
                               ),
                             );
@@ -1562,7 +1644,7 @@ class _ShopHomePageState extends State<ShopHomePage>
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showAddProductDialog(),
-        backgroundColor: Color(0xFF1E88E5),
+        backgroundColor: AppColors.MainColor,
         icon: Icon(Icons.add, color: Colors.white),
         label: Text(
           'नयाँ उत्पादन थप्नुहोस्',

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'search_page.dart';
 import 'location_search_modal.dart';
 import 'location_map_page.dart';
+import '../qr_scanner.dart';
 
 class CustomerHomePage extends StatefulWidget {
   const CustomerHomePage({Key? key}) : super(key: key);
@@ -247,9 +248,17 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
+          if (index == 2) {
+            // Navigate to QR Scanner
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => QrScannerPage()),
+            );
+          } else {
+            setState(() {
+              _selectedIndex = index;
+            });
+          }
         },
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
@@ -275,9 +284,9 @@ class _CustomerHomePageState extends State<CustomerHomePage> {
             label: 'Orders',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.discount_outlined),
-            activeIcon: Icon(Icons.discount),
-            label: 'Offers',
+            icon: Icon(Icons.qr_code_scanner),
+            activeIcon: Icon(Icons.qr_code_scanner),
+            label: 'QR Scanner',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history_outlined),

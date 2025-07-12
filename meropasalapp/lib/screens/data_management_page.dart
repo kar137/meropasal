@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meropasalapp/utils/app_colors.dart';
 import '../controllers/transaction_controller.dart';
 import '../services/data_initialization_service.dart';
 
@@ -19,7 +20,7 @@ class _DataManagementPageState extends State<DataManagementPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Data Management'),
-        backgroundColor: Colors.blue[600],
+        backgroundColor: AppColors.MainColor,
         foregroundColor: Colors.white,
       ),
       body: Obx(
@@ -66,7 +67,7 @@ class _DataManagementPageState extends State<DataManagementPage> {
           children: [
             Row(
               children: [
-                Icon(Icons.dashboard, color: Colors.blue[600]),
+                Icon(Icons.dashboard, color: AppColors.MainColor),
                 const SizedBox(width: 8),
                 const Text(
                   'Data Status',
@@ -185,7 +186,7 @@ class _DataManagementPageState extends State<DataManagementPage> {
                         : const Icon(Icons.sync),
                     label: const Text('Sync with ML'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[600],
+                      backgroundColor: AppColors.MainColor,
                       foregroundColor: Colors.white,
                     ),
                   ),
@@ -379,7 +380,7 @@ class _DataManagementPageState extends State<DataManagementPage> {
               icon: const Icon(Icons.add),
               label: const Text('Add Transaction'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[600],
+                backgroundColor: AppColors.MainColor,
                 foregroundColor: Colors.white,
                 minimumSize: const Size(double.infinity, 40),
               ),

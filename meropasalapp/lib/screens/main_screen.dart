@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'homepage.dart';
 import 'user_profile.dart';
-import 'logs_screen.dart';
+import '../qr_scanner.dart';
 import 'custom_bottom_navbar.dart';
 import 'user.dart';
 
@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
           profileImageUrl: '',
         ),
       ),
-      const LogsScreen(),
+      QrScannerPage(),
     ];
   }
 

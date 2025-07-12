@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meropasalapp/utils/app_colors.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'shop.dart';
 import 'welcome.dart'; // Import the new welcome page
@@ -23,9 +24,16 @@ class MyRootApp extends StatelessWidget {
     return MaterialApp(
       title: 'नेपाल पसल प्रबन्धक',
       theme: ThemeData(
-        primarySwatch: Colors.green,
-        primaryColor: Color(0xFF1E88E5),
         fontFamily: 'Roboto',
+        appBarTheme: AppBarTheme(
+          backgroundColor: AppColors.MainColor,
+          titleTextStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          foregroundColor: Colors.white,
+        ),
       ),
       home: WelcomePage(), // Changed from LoginPage() to WelcomePage()
       debugShowCheckedModeBanner: false,

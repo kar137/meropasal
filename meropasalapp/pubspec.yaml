@@ -26,6 +26,8 @@ dependencies:
   get: ^4.7.2
   flutter_svg: ^2.0.9
   image_picker: ^1.1.2
+  qr_flutter: ^4.1.0
+  mobile_scanner: ^7.0.1
 
 dev_dependencies:
   flutter_test:
