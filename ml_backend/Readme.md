@@ -13,7 +13,7 @@
 
 #### Developed by: [Karan Bista](https://github.com/kar137)
 ## Live Demo
-🔗  https://pasale.streamlit.app/
+🔗  https://meropasal.streamlit.app/
 
 ## How It Works
 
