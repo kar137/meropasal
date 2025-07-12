@@ -3,6 +3,7 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'screens/dashboard_page.dart';
 import 'dart:math';
 import 'login.dart'; // Import your login page
+import 'kyc_verification.dart'; // Import KYC verification page
 
 void main() {
   runApp(MyApp());
@@ -98,6 +99,8 @@ class SaleRecord {
 }
 
 class ShopHomePage extends StatefulWidget {
+  const ShopHomePage({Key? key}) : super(key: key);
+
   @override
   _ShopHomePageState createState() => _ShopHomePageState();
 }
@@ -126,6 +129,10 @@ class _ShopHomePageState extends State<ShopHomePage>
   bool _isDialogOpen = false;
   int _selectedNavbarIndex = 0;
 
+  // KYC verification status
+  bool _kycDocumentsUploaded = false;
+  final String _kycStatusKey = 'kyc_status_';
+
   // Current shop information
   late Shop _currentShop;
 
@@ -141,6 +148,18 @@ class _ShopHomePageState extends State<ShopHomePage>
       phone: '९८४५६७८९०१',
       type: 'किराना',
     );
+
+    // Check KYC status (in a real app, this would be retrieved from local storage or server)
+    _checkKycStatus();
+
+    // Show KYC verification dialog after the widget is built (only if not verified)
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_kycDocumentsUploaded) {
+        _showKycVerificationDialog();
+      } else {
+        _showSnackBar('KYC verification is already in progress!', Colors.blue);
+      }
+    });
 
     _products = [
       // खानेकुरा
@@ -886,6 +905,38 @@ class _ShopHomePageState extends State<ShopHomePage>
                   style: TextStyle(fontSize: 13),
                 ),
               ),
+              // KYC verification status
+              ListTile(
+                leading: Icon(
+                  _kycDocumentsUploaded
+                      ? Icons.verified_user
+                      : Icons.pending_actions,
+                  color: _kycDocumentsUploaded
+                      ? Color(0xFF43A047)
+                      : Colors.orange,
+                ),
+                title: Text('KYC स्थिति:'),
+                subtitle: Text(
+                  _kycDocumentsUploaded
+                      ? 'प्रमाणीकरण प्रक्रियामा'
+                      : 'प्रमाणीकरण आवश्यक',
+                ),
+                trailing: _kycDocumentsUploaded
+                    ? null
+                    : ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          _showKycVerificationDialog();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF4F46E5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text('प्रमाणीकरण गर्नुहोस्'),
+                      ),
+              ),
             ],
           ),
         ),
@@ -1016,6 +1067,127 @@ class _ShopHomePageState extends State<ShopHomePage>
     );
   }
 
+  void _showKycVerificationDialog() {
+    // If documents are already uploaded, don't show the dialog
+    if (_kycDocumentsUploaded) {
+      _showSnackBar('KYC verification is already in progress!', Colors.blue);
+      return;
+    }
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text(
+          "KYC Verification Required",
+          style: TextStyle(
+            color: Color(0xFF4F46E5),
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "As a shopkeeper, you need to complete KYC verification to operate your shop on our platform.",
+              style: TextStyle(color: Color(0xFF111827)),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF1F5F9),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: const [
+                  Icon(Icons.info_outline, color: Color(0xFF4F46E5)),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      "You'll need to upload identity documents and proof of business.",
+                      style: TextStyle(color: Color(0xFF6B7280), fontSize: 13),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: TextButton.styleFrom(foregroundColor: Color(0xFF6B7280)),
+            child: const Text("Later"),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => KycVerificationPage(
+                    onDocumentsUploaded: (bool success) {
+                      if (success) {
+                        _updateKycStatus(true);
+                        _showSnackBar(
+                          'KYC documents uploaded successfully!',
+                          Colors.green,
+                        );
+                      }
+                    },
+                  ),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF4F46E5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+            child: const Text("Verify Now"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Check if KYC has been verified
+  void _checkKycStatus() {
+    // In a real app, you would check local storage or make an API call
+    // For demo purposes, we'll just set it to false initially
+    _kycDocumentsUploaded = false;
+
+    // Simulate checking if user has already uploaded documents
+    // In a real app, you'd use SharedPreferences or check with your backend
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // _kycDocumentsUploaded = prefs.getBool(_kycStatusKey + _currentShop.id) ?? false;
+  }
+
+  // Update KYC status after documents are uploaded
+  void _updateKycStatus(bool uploaded) {
+    setState(() {
+      _kycDocumentsUploaded = uploaded;
+    });
+
+    // In a real app, you'd save this to SharedPreferences or your backend
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.setBool(_kycStatusKey + _currentShop.id, uploaded);
+  }
+
+  // For testing purposes - simulate already verified user
+  void _simulateVerifiedUser() {
+    setState(() {
+      _kycDocumentsUploaded = true;
+    });
+    _showSnackBar('KYC already verified!', Colors.green);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1028,6 +1200,27 @@ class _ShopHomePageState extends State<ShopHomePage>
         backgroundColor: Color(0xFF1E88E5),
         elevation: 8,
         actions: [
+          IconButton(
+            icon: Icon(
+              _kycDocumentsUploaded
+                  ? Icons.verified_user
+                  : Icons.pending_actions,
+              color: Colors.white,
+            ),
+            tooltip: _kycDocumentsUploaded
+                ? "KYC Verification In Progress"
+                : "KYC Verification Required",
+            onPressed: () {
+              if (_kycDocumentsUploaded) {
+                _showSnackBar(
+                  'KYC verification is already in progress!',
+                  Colors.blue,
+                );
+              } else {
+                _showKycVerificationDialog();
+              }
+            },
+          ),
           IconButton(
             icon: Icon(Icons.dashboard, color: Colors.white),
             tooltip: "ड्यासबोर्ड",
@@ -1342,6 +1535,7 @@ class _ShopHomePageState extends State<ShopHomePage>
               ],
             ),
           ),
+
           // Voice search button (bottom left)
           Align(
             alignment: Alignment.bottomLeft,

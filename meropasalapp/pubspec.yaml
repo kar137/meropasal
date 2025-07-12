@@ -25,6 +25,7 @@ dependencies:
   universal_html: ^2.2.4
   get: ^4.7.2
   flutter_svg: ^2.0.9
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
