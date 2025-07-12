@@ -1,0 +1,6 @@
+customer_id,total_amount_sum,total_amount_mean,total_amount_count,quantity_sum,age_first,avg_monthly_spending_first,visits_per_month_first,actual_price_mean,is_weekend_mean,segment
+1,180500.0,150.04,1203,6660,29,1406.82,12,75.02,0.0,1
+2,359700.0,150.13,2396,13016,32,4250.83,3,75.16,0.0,0
+3,350430.0,150.27,2332,12734,53,4588.2,12,75.08,0.0,0
+4,303080.0,150.11,2019,11121,31,1007.41,11,75.15,0.0,1
+5,308250.0,150.0,2055,11290,22,1150.9,7,75.0,0.0,1

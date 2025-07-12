@@ -1,0 +1,26 @@
+{
+  "total_revenue": 1501960.0,
+  "avg_transaction_value": 150.1209395302349,
+  "total_transactions": 10005,
+  "unique_customers": 5,
+  "avg_customer_age": 34.278260869565216,
+  "top_customer_city": "Bhaktapur",
+  "weekend_vs_weekday_ratio": 0.0,
+  "top_products": {
+    "Lays Sna180": 409,
+    "Lays Sna145": 369,
+    "Pringles Sna136": 364,
+    "Wai Wai Sna13": 363,
+    "Pepsi Bev125": 361
+  },
+  "payment_preferences": {
+    "CASH": 0.34272863568215894,
+    "UPI": 0.3351324337831084,
+    "CARD": 0.3216391804097951,
+    "Cash": 0.0001999000499750125,
+    "Card": 0.0001999000499750125,
+    "Digital": 9.995002498750625e-05
+  },
+  "avg_price_markup": 1.0694220549658144,
+  "price_variance": 0.05199037036462315
+}

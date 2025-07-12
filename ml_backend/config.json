@@ -1,0 +1,9 @@
+{
+  "ml_backend_path": "C:\\Users\\suraj\\OneDrive\\Desktop\\getx file\\meropasal\\ml_backend",
+  "flutter_data_path": "C:\\Users\\suraj\\OneDrive\\Desktop\\getx file\\meropasal\\meropasalapp",
+  "api_port": 5000,
+  "sync_interval_minutes": 5,
+  "auto_backup": true,
+  "max_backups": 10,
+  "log_level": "INFO"
+}

@@ -1,0 +1,6 @@
+transaction_id,customer_id,product_id,shop_id,quantity,actual_price,transaction_date,payment_method,customer_name,gender,age,city,preferred_categories,avg_monthly_spending,visits_per_month,product_name,category,brand,standard_price,city_shop,district,price_difference,price_ratio,total_amount,month,day_of_week,is_weekend
+T1001,1,1,1,2,100.0,2024-07-12 10:30:00,Cash,Customer 1,Other,29,Pokhara,"Snacks, Personal Care",1406.82,12,Pepsi Bev1,Beverage,Pepsi,98.67,Lalitpur,Bhaktapur,1.3299999999999983,1.0134792743488394,200.0,7,4,0
+T1002,2,2,2,1,450.0,2024-07-11 14:15:00,Card,Customer 2,Female,32,Bhaktapur,"Household, Personal Care",4250.83,3,Wai Wai Sna2,Snacks,Wai Wai,442.06,Biratnagar,Kathmandu,7.939999999999998,1.0179613627109443,450.0,7,3,0
+T1003,3,3,3,3,260.0,2024-07-10 09:45:00,Digital,Customer 3,Male,53,Biratnagar,Beverage,4588.2,12,Nestle Bev3,Beverage,Nestle,253.9,Bhaktapur,Lalitpur,6.099999999999994,1.0240252067743205,780.0,7,2,0
+T1004,4,4,4,1,380.0,2024-07-09 16:20:00,Cash,Customer 4,Other,31,Lalitpur,Beverage,1007.41,11,Nestle Bev4,Beverage,Nestle,373.24,Pokhara,Lalitpur,6.759999999999991,1.0181116707748366,380.0,7,1,0
+T1005,5,5,5,2,75.0,2024-07-08 11:10:00,Card,Customer 5,Other,22,Kathmandu,Snacks,1150.9,7,Pepsi Bev5,Beverage,Pepsi,70.13,Pokhara,Kathmandu,4.8700000000000045,1.0694424639954372,150.0,7,0,0
