@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-07-12T21:20:46.433369",
+  "sync_results": {
+    "customers": {
+      "success": true,
+      "records": 1000,
+      "message": "Successfully synced 1000 records"
+    },
+    "transactions": {
+      "success": true,
+      "records": 20005,
+      "message": "Successfully synced 20005 records"
+    },
+    "products": {
+      "success": true,
+      "records": 200,
+      "message": "Successfully synced 200 records"
+    },
+    "shops": {
+      "success": true,
+      "records": 50,
+      "message": "Successfully synced 50 records"
+    },
+    "features": {
+      "success": false,
+      "message": "Source file not found"
+    }
+  },
+  "total_files_synced": 4,
+  "total_files": 5
+}

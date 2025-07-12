@@ -1,0 +1,50 @@
+2025-07-12 20:11:06,249 - INFO - Extracted 5 feature records
+2025-07-12 20:11:06,268 - INFO - Extracted 5 feature records
+2025-07-12 20:13:50,127 - INFO - Extracted 5 feature records
+2025-07-12 20:13:50,155 - INFO - Extracted 5 feature records
+2025-07-12 20:16:46,411 - INFO - Extracted 5 feature records
+2025-07-12 20:16:46,441 - INFO - Extracted 5 feature records
+2025-07-12 20:17:14,623 - INFO - Extracted 5 feature records
+2025-07-12 20:17:14,641 - INFO - Extracted 5 feature records
+2025-07-12 20:17:33,522 - INFO - Extracted 5 feature records
+2025-07-12 20:17:33,544 - INFO - Extracted 5 feature records
+2025-07-12 20:19:10,988 - INFO - Extracted 5 feature records
+2025-07-12 20:22:40,695 - INFO - Extracted 5 feature records
+2025-07-12 20:25:52,937 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-12 20:25:52,938 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-12 20:26:15,461 - INFO - 127.0.0.1 - - [12/Jul/2025 20:26:15] "[33mGET / HTTP/1.1[0m" 404 -
+2025-07-12 20:26:15,957 - INFO - 127.0.0.1 - - [12/Jul/2025 20:26:15] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-07-12 20:28:05,017 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-12 20:28:05,018 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-12 20:28:11,538 - INFO - 127.0.0.1 - - [12/Jul/2025 20:28:11] "[33mGET / HTTP/1.1[0m" 404 -
+2025-07-12 20:28:13,337 - INFO - 127.0.0.1 - - [12/Jul/2025 20:28:13] "[33mGET / HTTP/1.1[0m" 404 -
+2025-07-12 21:06:05,398 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-12 21:06:05,398 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-12 21:06:54,491 - INFO - Data backup created: C:\Users\suraj\OneDrive\Desktop\getx file\meropasal\ml_backend\backups\20250712_210654
+2025-07-12 21:06:54,559 - INFO - Extracted 5 feature records
+2025-07-12 21:06:54,559 - INFO - Starting data synchronization...
+2025-07-12 21:06:54,576 - INFO - Synced customers: 1000 records
+2025-07-12 21:06:57,731 - INFO - Synced transactions: 10005 records
+2025-07-12 21:06:57,789 - INFO - Synced products: 200 records
+2025-07-12 21:06:57,798 - INFO - Synced shops: 50 records
+2025-07-12 21:06:57,799 - WARNING - Source file not found: C:\Users\suraj\OneDrive\Desktop\getx file\meropasal\meropasalapp\extracted_features.csv
+2025-07-12 21:07:47,006 - ERROR - Failed to update pipeline: 'RetailAnalyticsPipeline' object has no attribute 'load_data'
+2025-07-12 21:07:47,007 - INFO - Sync report generated: C:\Users\suraj\OneDrive\Desktop\getx file\meropasal\ml_backend\sync_report.json
+2025-07-12 21:07:47,007 - INFO - Data synchronization completed successfully
+2025-07-12 21:17:49,517 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-07-12 21:17:49,517 - INFO - [33mPress CTRL+C to quit[0m
+2025-07-12 21:20:40,899 - INFO - Data backup created: C:\Users\suraj\OneDrive\Desktop\getx file\meropasal\ml_backend\backups\20250712_212040
+2025-07-12 21:20:41,168 - INFO - Extracted 10005 feature records
+2025-07-12 21:20:41,168 - INFO - Starting data synchronization...
+2025-07-12 21:20:41,183 - INFO - Synced customers: 1000 records
+2025-07-12 21:20:43,817 - INFO - Synced transactions: 20005 records
+2025-07-12 21:20:43,868 - INFO - Synced products: 200 records
+2025-07-12 21:20:43,881 - INFO - Synced shops: 50 records
+2025-07-12 21:20:43,882 - WARNING - Source file not found: C:\Users\suraj\OneDrive\Desktop\getx file\meropasal\meropasalapp\extracted_features.csv
+2025-07-12 21:20:46,433 - ERROR - Failed to update pipeline: 'RetailAnalyticsPipeline' object has no attribute 'load_data'
+2025-07-12 21:20:46,433 - INFO - Sync report generated: C:\Users\suraj\OneDrive\Desktop\getx file\meropasal\ml_backend\sync_report.json
+2025-07-12 21:20:46,433 - INFO - Data synchronization completed successfully

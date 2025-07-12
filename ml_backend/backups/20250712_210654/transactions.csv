@@ -1,0 +1,6 @@
+transaction_id,customer_id,product_id,shop_id,quantity,actual_price,transaction_date,payment_method
+T1001,1,1,1,2,100.0,2024-07-12T10:30:00,Cash
+T1002,2,2,2,1,450.0,2024-07-11T14:15:00,Card
+T1003,3,3,3,3,260.0,2024-07-10T09:45:00,Digital
+T1004,4,4,4,1,380.0,2024-07-09T16:20:00,Cash
+T1005,5,5,5,2,75.0,2024-07-08T11:10:00,Card

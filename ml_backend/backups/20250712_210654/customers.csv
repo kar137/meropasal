@@ -1,0 +1,6 @@
+customer_id,customer_name,gender,age,city,preferred_categories,avg_monthly_spending,visits_per_month
+1,Customer 1,Other,29,Pokhara,"Snacks, Personal Care",1406.82,12
+2,Customer 2,Female,32,Bhaktapur,"Household, Personal Care",4250.83,3
+3,Customer 3,Male,53,Biratnagar,Beverage,4588.2,12
+4,Customer 4,Other,31,Lalitpur,Beverage,1007.41,11
+5,Customer 5,Other,22,Kathmandu,Snacks,1150.9,7

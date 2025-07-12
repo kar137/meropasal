@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeroPasal Analytics Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #2c3e50 !important;
+        }
+
+        .kpi-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .kpi-card h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .kpi-card p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .top-items-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .top-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .top-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .item-value {
+            font-weight: 600;
+            color: #27ae60;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-online {
+            background-color: #27ae60;
+        }
+
+        .status-offline {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-chart-line me-2"></i>
+                MeroPasal Analytics Dashboard
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="text-light me-3">
+                    <span class="status-indicator status-online"></span>
+                    Real-time Data
+                </span>
+                <button class="btn refresh-btn" onclick="refreshDashboard()">
+                    <i class="fas fa-sync-alt me-2"></i>
+                    Refresh
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid mt-4">
+        <!-- KPI Cards -->
+        <div class="row" id="kpi-section">
+            <div class="col-md-2">
+                <div class="kpi-card">
+                    <h3 id="total-revenue">-</h3>
+                    <p>Total Revenue</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="kpi-card">
+                    <h3 id="total-transactions">-</h3>
+                    <p>Total Transactions</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="kpi-card">
+                    <h3 id="avg-transaction">-</h3>
+                    <p>Avg Transaction</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="kpi-card">
+                    <h3 id="unique-customers">-</h3>
+                    <p>Unique Customers</p>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="kpi-card">
+                    <h3 id="revenue-growth">-</h3>
+                    <p>Revenue Growth</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row 1 -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="chart-container">
+                    <div class="chart-title">Sales Trend</div>
+                    <div id="sales-trend-chart" class="loading">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        <p>Loading chart...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart-container">
+                    <div class="chart-title">Payment Methods</div>
+                    <div id="payment-methods-chart" class="loading">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        <p>Loading chart...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row 2 -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="chart-container">
+                    <div class="chart-title">Sales by Category</div>
+                    <div id="category-distribution-chart" class="loading">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        <p>Loading chart...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="chart-container">
+                    <div class="chart-title">Customer Value vs Frequency</div>
+                    <div id="customer-analysis-chart" class="loading">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        <p>Loading chart...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row 3 -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="chart-container">
+                    <div class="chart-title">Sales by Hour</div>
+                    <div id="hourly-sales-chart" class="loading">
+                        <i class="fas fa-spinner fa-spin fa-2x"></i>
+                        <p>Loading chart...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart-container">
+                    <div class="chart-title">Top Products</div>
+                    <div id="top-products" class="loading">
+                        <i class="fas fa-spinner fa-spin fa-1x"></i>
+                        <p>Loading...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="chart-container">
+                    <div class="chart-title">Top Customers</div>
+                    <div id="top-customers" class="loading">
+                        <i class="fas fa-spinner fa-spin fa-1x"></i>
+                        <p>Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Dashboard functionality
+        class Dashboard {
+            constructor() {
+                this.loadDashboard();
+            }
+
+            async loadDashboard() {
+                try {
+                    await Promise.all([
+                        this.loadKPIs(),
+                        this.loadCharts(),
+                        this.loadTopItems()
+                    ]);
+                } catch (error) {
+                    console.error('Error loading dashboard:', error);
+                }
+            }
+
+            async loadKPIs() {
+                try {
+                    const response = await fetch('/api/dashboard/kpis');
+                    const result = await response.json();
+
+                    if (result.success) {
+                        const data = result.data;
+                        document.getElementById('total-revenue').textContent = data.total_revenue;
+                        document.getElementById('total-transactions').textContent = data.total_transactions;
+                        document.getElementById('avg-transaction').textContent = data.avg_transaction_value;
+                        document.getElementById('unique-customers').textContent = data.unique_customers;
+                        document.getElementById('revenue-growth').textContent = data.revenue_growth;
+                    }
+                } catch (error) {
+                    console.error('Error loading KPIs:', error);
+                }
+            }
+
+            async loadCharts() {
+                const charts = [
+                    { endpoint: '/api/dashboard/charts/sales-trend', elementId: 'sales-trend-chart' },
+                    { endpoint: '/api/dashboard/charts/category-distribution', elementId: 'category-distribution-chart' },
+                    { endpoint: '/api/dashboard/charts/customer-analysis', elementId: 'customer-analysis-chart' },
+                    { endpoint: '/api/dashboard/charts/payment-methods', elementId: 'payment-methods-chart' },
+                    { endpoint: '/api/dashboard/charts/hourly-sales', elementId: 'hourly-sales-chart' }
+                ];
+
+                for (const chart of charts) {
+                    try {
+                        const response = await fetch(chart.endpoint);
+                        const result = await response.json();
+
+                        if (result.success) {
+                            const plotData = JSON.parse(result.chart);
+                            Plotly.newPlot(chart.elementId, plotData.data, plotData.layout, { responsive: true });
+                        } else {
+                            document.getElementById(chart.elementId).innerHTML = `<div class="error">Error loading chart: ${result.error}</div>`;
+                        }
+                    } catch (error) {
+                        console.error(`Error loading chart ${chart.endpoint}:`, error);
+                        document.getElementById(chart.elementId).innerHTML = '<div class="error">Failed to load chart</div>';
+                    }
+                }
+            }
+
+            async loadTopItems() {
+                try {
+                    // Load top products
+                    const productsResponse = await fetch('/api/dashboard/top-products?limit=10');
+                    const productsResult = await productsResponse.json();
+
+                    if (productsResult.success) {
+                        this.renderTopItems('top-products', productsResult.data, 'total_amount');
+                    }
+
+                    // Load top customers
+                    const customersResponse = await fetch('/api/dashboard/top-customers?limit=10');
+                    const customersResult = await customersResponse.json();
+
+                    if (customersResult.success) {
+                        this.renderTopItems('top-customers', customersResult.data, 'total_amount');
+                    }
+                } catch (error) {
+                    console.error('Error loading top items:', error);
+                }
+            }
+
+            renderTopItems(elementId, data, valueField) {
+                const container = document.getElementById(elementId);
+                const items = Object.entries(data);
+
+                if (items.length === 0) {
+                    container.innerHTML = '<div class="text-center text-muted">No data available</div>';
+                    return;
+                }
+
+                const html = `
+                    <div class="top-items-list">
+                        ${items.map(([key, value], index) => `
+                            <div class="top-item">
+                                <span class="item-name">
+                                    <span class="badge bg-primary me-2">${index + 1}</span>
+                                    ${key}
+                                </span>
+                                <span class="item-value">₹${value[valueField].toLocaleString()}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                container.innerHTML = html;
+            }
+        }
+
+        // Refresh dashboard
+        async function refreshDashboard() {
+            const refreshBtn = document.querySelector('.refresh-btn');
+            const originalContent = refreshBtn.innerHTML;
+
+            // Show loading state
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Refreshing...';
+            refreshBtn.disabled = true;
+
+            try {
+                // Refresh data on server
+                await fetch('/api/dashboard/refresh');
+
+                // Reload dashboard
+                const dashboard = new Dashboard();
+
+                // Show success message briefly
+                refreshBtn.innerHTML = '<i class="fas fa-check me-2"></i>Updated!';
+
+                setTimeout(() => {
+                    refreshBtn.innerHTML = originalContent;
+                    refreshBtn.disabled = false;
+                }, 2000);
+
+            } catch (error) {
+                console.error('Error refreshing dashboard:', error);
+                refreshBtn.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Error';
+
+                setTimeout(() => {
+                    refreshBtn.innerHTML = originalContent;
+                    refreshBtn.disabled = false;
+                }, 3000);
+            }
+        }
+
+        // Auto-refresh every 5 minutes
+        setInterval(() => {
+            refreshDashboard();
+        }, 300000);
+
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            new Dashboard();
+        });
+    </script>
+</body>
+
+</html>
