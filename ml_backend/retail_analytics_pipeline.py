@@ -194,6 +194,9 @@ class RetailAnalyticsPipeline:
                 if 'customer_id' not in self.customers.columns:
                     print("Creating customer profiles from transaction data...")
                     unique_customers = transactions['customer_id'].unique()
+                    if self.customers['customer_id'].dtype != object or not self.customers['customer_id'].iloc[0].startswith('CUST_'):
+                        self.customers['customer_id'] = self.customers['customer_id'].apply(lambda x: f"CUST_{int(x):06d}")
+                    # ...existing code...
                     self.customers = pd.DataFrame({
                         'customer_id': unique_customers,
                         'gender': 'Unknown',
@@ -217,6 +220,10 @@ class RetailAnalyticsPipeline:
                 # Create customers from transactions if file doesn't exist
                 print("Customer file not found. Creating customer profiles from transaction data...")
                 unique_customers = transactions['customer_id'].unique()
+                if 'preferred_categories' in self.customers.columns:
+                    self.customers['preferred_categories'] = self.customers['preferred_categories'].apply(
+                        lambda x: [cat.strip() for cat in str(x).split(',')] if pd.notnull(x) else []
+                    )
                 self.customers = pd.DataFrame({
                     'customer_id': unique_customers,
                     'gender': 'Unknown',
@@ -453,7 +460,7 @@ class RetailAnalyticsPipeline:
             except:
                 # If parsing fails, keep as is
                 pass
-        
+    
         self.customer_profiles = self.data.groupby('customer_id').agg({
             'total_amount': ['sum', 'mean', 'count'],
             'quantity': 'sum',
@@ -481,6 +488,10 @@ class RetailAnalyticsPipeline:
             self.customer_profiles['quantity_sum'] / 
             self.customer_profiles['total_amount_count']
         )
+        
+        # Automatically perform customer segmentation
+        print("Performing customer segmentation...")
+        self.perform_customer_segmentation()
         
         print(f"✅ Created profiles for {len(self.customer_profiles)} customers")
         return self.customer_profiles
@@ -515,7 +526,8 @@ class RetailAnalyticsPipeline:
             
             # Flatten column names
             combinations.columns = ['product_id', 'shop_id', 'data_points', 'avg_monthly_qty', 
-                                  'total_qty', 'product_name', 'shop_city']
+                                  'total_qty', 'product_name', 'shop_city'
+            ]
             
             return combinations.sort_values('data_points', ascending=False)
         except Exception as e:
@@ -893,19 +905,19 @@ class RetailAnalyticsPipeline:
     def _generate_customer_recommendations(self):
         """Generate customer recommendations based on purchase history and shop interactions"""
         recommendations = []
-    
+
         # First, ensure we have transaction data
         if self.data is None or len(self.data) == 0:
             print("DEBUG: No transaction data available")
             return recommendations
-    
+
         # Check if customer_id exists in data
         if 'customer_id' not in self.data.columns:
             print("DEBUG: No customer_id column in transaction data")
             return recommendations
-    
+
         print(f"DEBUG: Transaction data has {len(self.data)} records with {self.data['customer_id'].nunique()} unique customers")
-    
+
         try:
             # Get customer purchase behavior directly from transaction data
             customer_behavior = self.data.groupby('customer_id').agg({
@@ -930,8 +942,8 @@ class RetailAnalyticsPipeline:
             if len(customer_behavior) > 0:
                 print(f"DEBUG: Top customer spent: {customer_behavior['total_spending'].iloc[0]:.2f}")
             
-            # Generate recommendations for top customers
-            for idx, customer in customer_behavior.head(10).iterrows():  # Top 10 customers
+            # INCREASED: Generate recommendations for more customers (top 25 instead of 10)
+            for idx, customer in customer_behavior.head(25).iterrows():
                 customer_id = customer['customer_id']
                 purchased_products = set(customer['product_list'])
                 visited_shops = set(customer['shop_list'])
@@ -939,12 +951,12 @@ class RetailAnalyticsPipeline:
                 
                 print(f"DEBUG: Processing customer {customer_id} - purchased {len(purchased_products)} products, top category: {top_category}")
                 
-                # Strategy 1: Recommend products from favorite category not yet purchased
+                # Strategy 1: Recommend MORE products from favorite category (increased from 2 to 5)
                 category_products = self.products[self.products['category'] == top_category]
                 category_recs = 0
                 
                 for _, product in category_products.iterrows():
-                    if product['product_id'] not in purchased_products and category_recs < 2:
+                    if product['product_id'] not in purchased_products and category_recs < 5:  # INCREASED
                         # Find which shops sell this product
                         product_shops = self.data[self.data['product_id'] == product['product_id']]['shop_id'].unique()
                         
@@ -970,10 +982,10 @@ class RetailAnalyticsPipeline:
                                 'recommendation_type': 'category_preference'
                             })
                             category_recs += 1
-                
-                # Strategy 2: Recommend popular products from visited shops
+
+                # Strategy 2: Recommend MORE popular products from visited shops (increased from 1 to 3)
                 shop_recs = 0
-                for shop_id in list(visited_shops)[:3]:  # Top 3 visited shops
+                for shop_id in list(visited_shops)[:5]:  # Check more shops
                     # Get popular products in this shop that customer hasn't bought
                     shop_products = self.data[self.data['shop_id'] == shop_id].groupby('product_id').agg({
                         'quantity': 'sum',
@@ -981,8 +993,8 @@ class RetailAnalyticsPipeline:
                         'category': 'first'
                     }).sort_values('quantity', ascending=False)
                     
-                    for product_id, product_data in shop_products.head(5).iterrows():
-                        if product_id not in purchased_products and shop_recs < 1:
+                    for product_id, product_data in shop_products.head(10).iterrows():  # Check more products
+                        if product_id not in purchased_products and shop_recs < 3:  # INCREASED
                             recommendations.append({
                                 'customer_id': customer_id,
                                 'product_id': product_id,
@@ -994,229 +1006,352 @@ class RetailAnalyticsPipeline:
                                 'recommendation_type': 'shop_popularity'
                             })
                             shop_recs += 1
+                            if shop_recs >= 3:  # Break when we have enough from this strategy
+                                break
+
+                # Strategy 3: ENHANCED Cross-category recommendations
+                # Get customer's secondary categories
+                if len(customer['category_list']) > 1:
+                    customer_categories = pd.Series(customer['category_list']).value_counts()
+                    cross_recs = 0
+                    
+                    # Recommend from secondary categories the customer hasn't explored much
+                    for category in customer_categories.index[1:4]:  # Skip top category, get next 3
+                        if cross_recs >= 3:  # INCREASED
                             break
-            
+                        
+                        category_products = self.products[self.products['category'] == category]
+                        for _, product in category_products.head(5).iterrows():
+                            if product['product_id'] not in purchased_products and cross_recs < 3:
+                                # Find a shop they've visited that sells this
+                                product_shops = self.data[self.data['product_id'] == product['product_id']]['shop_id'].unique()
+                                preferred_shop = None
+                                
+                                for shop in product_shops:
+                                    if shop in visited_shops:
+                                        preferred_shop = shop
+                                        break
+                                
+                                if preferred_shop is None and len(product_shops) > 0:
+                                    preferred_shop = product_shops[0]
+                                
+                                if preferred_shop:
+                                    recommendations.append({
+                                        'customer_id': customer_id,
+                                        'product_id': product['product_id'],
+                                        'product_name': product['product_name'],
+                                        'category': product['category'],
+                                        'recommended_shop': preferred_shop,
+                                        'reason': f'Explore {category} products - you\'ve shown some interest in this category',
+                                        'confidence': 'medium',
+                                        'recommendation_type': 'category_expansion'
+                                    })
+                                    cross_recs += 1
+                                    break  # One per category
+
+                # Strategy 4: NEW - Collaborative filtering based recommendations
+                similar_customers = customer_behavior[
+                    (customer_behavior['top_category'] == top_category) & 
+                    (customer_behavior['customer_id'] != customer_id)
+                ].head(5)  # Get more similar customers
+                
+                collab_recs = 0
+                for _, similar_customer in similar_customers.iterrows():
+                    if collab_recs >= 2:  # INCREASED
+                        break
+                    
+                    similar_products = set(similar_customer['product_list'])
+                    # Find products they bought that current customer hasn't
+                    new_products = similar_products - purchased_products
+                    
+                    for product_id in list(new_products)[:3]:  # Check more products
+                        if collab_recs < 2:
+                            product_info = self.products[self.products['product_id'] == product_id]
+                            if len(product_info) > 0:
+                                product_shops = self.data[self.data['product_id'] == product_id]['shop_id'].unique()
+                                preferred_shop = product_shops[0] if len(product_shops) > 0 else 'Any'
+                                
+                                recommendations.append({
+                                    'customer_id': customer_id,
+                                    'product_id': product_id,
+                                    'product_name': product_info['product_name'].iloc[0],
+                                    'category': product_info['category'].iloc[0],
+                                    'recommended_shop': preferred_shop,
+                                    'reason': 'Customers with similar preferences also bought this',
+                                    'confidence': 'medium',
+                                    'recommendation_type': 'collaborative_filtering'
+                                })
+                                collab_recs += 1
+                                break
+
+                # Strategy 5: NEW - Trending products recommendations
+                # Get trending products (high sales in recent periods)
+                if self.monthly_data is not None:
+                    trending_products = self.monthly_data.groupby('product_id').agg({
+                        'monthly_quantity': 'sum',
+                        'product_name': 'first',
+                        'category': 'first'
+                    }).sort_values('monthly_quantity', ascending=False).head(20)
+                    
+                    trend_recs = 0
+                    for product_id, product_data in trending_products.iterrows():
+                        if product_id not in purchased_products and trend_recs < 2:  # NEW strategy
+                            product_shops = self.data[self.data['product_id'] == product_id]['shop_id'].unique()
+                            preferred_shop = product_shops[0] if len(product_shops) > 0 else 'Any'
+                            
+                            recommendations.append({
+                                'customer_id': customer_id,
+                                'product_id': product_id,
+                                'product_name': product_data['product_name'],
+                                'category': product_data['category'],
+                                'recommended_shop': preferred_shop,
+                                'reason': 'Trending product - popular among all customers',
+                                'confidence': 'low',
+                                'recommendation_type': 'trending'
+                            })
+                            trend_recs += 1
+
             print(f"DEBUG: Generated {len(recommendations)} total recommendations")
             
-            # If still no recommendations, create some basic ones
+            # If still no recommendations, create MORE basic ones
             if len(recommendations) == 0:
-                print("DEBUG: No personalized recommendations generated, creating basic ones")
-                recommendations = self._create_basic_recommendations()
+                print("DEBUG: No personalized recommendations generated, creating MORE basic ones")
+                recommendations = self._create_enhanced_basic_recommendations()
             
             return recommendations
-            
+        
         except Exception as e:
             print(f"ERROR in customer recommendations: {e}")
             import traceback
             print(traceback.format_exc())
-            return self._create_basic_recommendations()
+            return self._create_enhanced_basic_recommendations()
 
-    def _create_basic_recommendations(self):
-        """Create basic recommendations when personalized ones fail"""
+    def _create_enhanced_basic_recommendations(self):
+        """Create MORE basic recommendations when personalized ones fail"""
         recommendations = []
         
         try:
             if self.data is None or len(self.data) == 0:
                 return recommendations
             
-            # Get top 5 products by sales volume
+            print(f"DEBUG: Creating enhanced basic recommendations from {len(self.data)} transactions")
+            
+            # Get top 15 products by sales volume (INCREASED from 5)
             top_products = self.data.groupby('product_id').agg({
                 'quantity': 'sum',
                 'product_name': 'first',
                 'category': 'first',
                 'shop_id': lambda x: x.value_counts().index[0]  # Most popular shop for this product
-            }).sort_values('quantity', ascending=False).head(5)
+            }).sort_values('quantity', ascending=False).head(15)  # INCREASED
             
-            # Get top 3 customers by transaction count
-            top_customers = self.data['customer_id'].value_counts().head(3)
+            print(f"DEBUG: Found {len(top_products)} top products")
             
+            # Get top 10 customers by transaction count (INCREASED from 3)
+            top_customers = self.data['customer_id'].value_counts().head(10)  # INCREASED
+            
+            print(f"DEBUG: Found {len(top_customers)} top customers")
+            
+            # Create MORE combinations
             for i, (customer_id, _) in enumerate(top_customers.items()):
-                if i < len(top_products):
-                    product_id = top_products.index[i]
-                    product_data = top_products.iloc[i]
-                    
-                    recommendations.append({
-                        'customer_id': customer_id,
-                        'product_id': product_id,
-                        'product_name': product_data['product_name'],
-                        'category': product_data['category'],
-                        'recommended_shop': product_data['shop_id'],
-                        'reason': f'Top selling {product_data["category"]} product',
-                        'confidence': 'low',
-                        'recommendation_type': 'popularity_based'
-                    })
-            
-            print(f"DEBUG: Created {len(recommendations)} basic recommendations")
+                # Recommend multiple products per customer (INCREASED from 1 to 3)
+                for j in range(min(3, len(top_products))):  # Up to 3 products per customer
+                    if j < len(top_products):
+                        product_id = top_products.index[j]
+                        product_data = top_products.iloc[j]
+                        
+                        recommendations.append({
+                            'customer_id': customer_id,
+                            'product_id': product_id,
+                            'product_name': product_data['product_name'],
+                            'category': product_data['category'],
+                            'recommended_shop': product_data['shop_id'],
+                            'reason': f'Top selling {product_data["category"]} product',
+                            'confidence': 'low',
+                            'recommendation_type': 'popularity_based'
+                        })
+        
+            # Add category-based recommendations for diversity
+            categories = self.products['category'].unique()
+            for customer_id in top_customers.index[:5]:  # Top 5 customers
+                for category in categories[:3]:  # Top 3 categories
+                    category_products = self.products[self.products['category'] == category]
+                    if len(category_products) > 0:
+                        product = category_products.iloc[0]  # Get first product from category
+                        
+                        recommendations.append({
+                            'customer_id': customer_id,
+                            'product_id': product['product_id'],
+                            'product_name': product['product_name'],
+                            'category': product['category'],
+                            'recommended_shop': 'Any',
+                            'reason': f'Discover {category} products',
+                            'confidence': 'low',
+                            'recommendation_type': 'category_discovery'
+                        })
+        
+            print(f"DEBUG: Created {len(recommendations)} enhanced basic recommendations")
             return recommendations
-            
+        
         except Exception as e:
-            print(f"ERROR in basic recommendations: {e}")
+            print(f"ERROR in enhanced basic recommendations: {e}")
             return []
 
-    def get_customer_purchase_summary(self, customer_id):
-        """Get detailed purchase summary for a specific customer"""
-        if self.data is None:
-            return {}
-        
-        customer_data = self.data[self.data['customer_id'] == customer_id]
-        
-        if len(customer_data) == 0:
-            return {'error': 'Customer not found'}
-        
-        summary = {
-            'total_transactions': len(customer_data),
-            'total_spending': customer_data['total_amount'].sum(),
-            'avg_transaction_value': customer_data['total_amount'].mean(),
-            'total_items': customer_data['quantity'].sum(),
-            'unique_products': customer_data['product_id'].nunique(),
-            'unique_shops': customer_data['shop_id'].nunique(),
-            'favorite_category': customer_data['category'].mode().iloc[0] if len(customer_data['category'].mode()) > 0 else 'None',
-            'favorite_shop': customer_data['shop_id'].mode().iloc[0] if len(customer_data['shop_id'].mode()) > 0 else 'None',
-            'first_purchase': customer_data['transaction_time'].min(),
-            'last_purchase': customer_data['transaction_time'].max(),
-            'category_breakdown': customer_data.groupby('category')['quantity'].sum().to_dict(),
-            'shop_breakdown': customer_data.groupby('shop_id')['total_amount'].sum().to_dict()
-        }
-        
-        return summary
-
-    def get_customer_insights(self):
-        """Get customer insights for debugging"""
-        insights = {}
+    def perform_customer_segmentation(self, n_clusters=4):
+        """Perform customer segmentation using K-means clustering"""
+        if self.customer_profiles is None or len(self.customer_profiles) == 0:
+            print("No customer profiles available for segmentation")
+            return False
         
         try:
-            if self.data is not None and 'customer_id' in self.data.columns:
-                insights['total_customers'] = self.data['customer_id'].nunique()
-                insights['total_transactions'] = len(self.data)
-                insights['avg_transactions_per_customer'] = len(self.data) / self.data['customer_id'].nunique()
-                
-                # Top customers by spending
-                top_spenders = self.data.groupby('customer_id')['total_amount'].sum().nlargest(5)
-                insights['top_spenders'] = top_spenders.to_dict()
-                
-                # Category distribution
-                category_sales = self.data.groupby('category')['quantity'].sum().to_dict()
-                insights['category_distribution'] = category_sales
-                
-                # Shop popularity
-                shop_visits = self.data.groupby('shop_id')['customer_id'].nunique().nlargest(5)
-                insights['popular_shops'] = shop_visits.to_dict()
-                
-            else:
-                insights['error'] = 'No customer data available'
-                
-            # Customer profiles info
-            if hasattr(self, 'customer_profiles') and len(self.customer_profiles) > 0:
-                insights['customer_profiles_count'] = len(self.customer_profiles)
-                insights['profile_columns'] = list(self.customer_profiles.columns)
-            else:
-                insights['customer_profiles_count'] = 0
-                insights['profile_columns'] = []
-                
-        except Exception as e:
-            insights['error'] = str(e)
+            # Select features for clustering
+            features_for_clustering = []
+            
+            # Check which columns exist and use them
+            potential_features = [
+                'total_amount_sum', 'total_amount_mean', 'total_amount_count',
+                'quantity_sum', 'product_id_nunique', 'shop_id_nunique',
+                'avg_basket_size', 'tenure_days'
+            ]
+            
+            for feature in potential_features:
+                if feature in self.customer_profiles.columns:
+                    features_for_clustering.append(feature)
         
-        return insights
-
-    def get_competitive_analysis(self, product_id):
-        """Get competitive analysis for a product"""
-        try:
-            product_id = str(product_id)
+            if len(features_for_clustering) == 0:
+                print("No suitable features found for clustering")
+                return False
             
-            # Get product info
-            product_info = self.products[self.products['product_id'] == product_id]
-            if len(product_info) == 0:
-                return {'error': 'Product not found'}
+            print(f"Using features for segmentation: {features_for_clustering}")
             
-            category = product_info['category'].iloc[0]
+            # Prepare data for clustering
+            clustering_data = self.customer_profiles[features_for_clustering].copy()
             
-            # Get top products in same category by sales volume
-            top_products = self.monthly_data[
-                self.monthly_data['category'] == category
-            ].groupby(['product_id']).agg({
-                'monthly_quantity': 'mean'
-            }).reset_index().nlargest(5, 'monthly_quantity')
+            # Handle missing values
+            clustering_data = clustering_data.fillna(clustering_data.mean())
             
-            # Get top shops for this product
-            top_shops = self.monthly_data[
-                self.monthly_data['product_id'] == product_id
-            ].groupby(['shop_id']).agg({
-                'monthly_quantity': 'mean'
-            }).reset_index().nlargest(5, 'monthly_quantity')
+            # Normalize the features
+            scaler = StandardScaler()
+            clustering_data_scaled = scaler.fit_transform(clustering_data)
             
-            return {
-                'category': category,
-                'top_products': top_products,
-                'top_shops': top_shops
-            }
+            # Perform K-means clustering
+            kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
+            clusters = kmeans.fit_predict(clustering_data_scaled)
             
-        except Exception as e:
-            print(f"Error in competitive analysis: {e}")
-            return {'error': f'Analysis failed: {str(e)}'}
-
-    def save_outputs(self, output_dir):
-        """Save analysis outputs to directory"""
-        try:
-            os.makedirs(output_dir, exist_ok=True)
+            # Add segment labels to customer profiles
+            self.customer_profiles['segment'] = clusters
             
-            # Save monthly data
-            if self.monthly_data is not None:
-                self.monthly_data.to_csv(os.path.join(output_dir, 'monthly_data.csv'), index=False)
-                print("Saved monthly_data.csv")
+            # Create meaningful segment names based on characteristics
+            segment_names = {}
+            for segment in range(n_clusters):
+                segment_data = self.customer_profiles[self.customer_profiles['segment'] == segment]
+                
+                # Calculate segment characteristics
+                avg_spending = segment_data['total_amount_sum'].mean() if 'total_amount_sum' in segment_data.columns else 0
+                avg_frequency = segment_data['total_amount_count'].mean() if 'total_amount_count' in segment_data.columns else 0
+                
+                # Assign names based on spending and frequency
+                if avg_spending > self.customer_profiles['total_amount_sum'].median() and avg_frequency > self.customer_profiles['total_amount_count'].median():
+                    segment_names[segment] = 'High Value'
+                elif avg_spending > self.customer_profiles['total_amount_sum'].median():
+                    segment_names[segment] = 'High Spender'
+                elif avg_frequency > self.customer_profiles['total_amount_count'].median():
+                    segment_names[segment] = 'Frequent Buyer'
+                else:
+                    segment_names[segment] = 'Casual Shopper'
             
-            # Save customer profiles
-            if hasattr(self, 'customer_profiles') and len(self.customer_profiles) > 0:
-                self.customer_profiles.to_csv(os.path.join(output_dir, 'customer_profiles.csv'))
-                print("Saved customer_profiles.csv")
+            # Add segment names
+            self.customer_profiles['segment_name'] = self.customer_profiles['segment'].map(segment_names)
             
-            # Save model if trained
-            if self.model is not None and self.is_trained:
-                joblib.dump(self.model, os.path.join(output_dir, 'model.pkl'))
-                print("Saved model.pkl")
+            print(f"✅ Customer segmentation completed with {n_clusters} segments")
+            print("Segment distribution:")
+            print(self.customer_profiles['segment_name'].value_counts())
             
-            print(f"✅ Outputs saved to {output_dir}")
             return True
             
         except Exception as e:
-            print(f"❌ Error saving outputs: {e}")
+            print(f"Error in customer segmentation: {e}")
+            import traceback
+            print(traceback.format_exc())
             return False
 
-    def generate_naming_recommendations(self):
-        """Generate product naming recommendations (Premium feature)"""
+    def get_segment_analysis(self):
+        """Get customer segment analysis"""
+        if 'segment' not in self.customer_profiles.columns:
+            print("Customer segmentation not performed yet. Running segmentation...")
+            success = self.perform_customer_segmentation()
+            if not success:
+                return {'error': 'Could not perform customer segmentation'}
+        
         try:
-            if self.subscription != 'premium':
-                return {'error': 'Premium feature only'}
+            segment_analysis = {}
             
-            # Get all product names
-            product_names = ' '.join(self.products['product_name'].astype(str))
+            # Overall segment distribution
+            segment_distribution = self.customer_profiles['segment_name'].value_counts().to_dict()
+            segment_analysis['distribution'] = segment_distribution
             
-            # Simple word frequency analysis
-            from collections import Counter
-            import re
+            # Segment characteristics
+            segment_stats = self.customer_profiles.groupby('segment_name').agg({
+                'total_amount_sum': ['mean', 'median', 'count'],
+                'total_amount_count': 'mean',
+                'quantity_sum': 'mean',
+                'product_id_nunique': 'mean',
+                'shop_id_nunique': 'mean'
+            }).round(2)
             
-            # Extract words (remove special characters, convert to lowercase)
-            words = re.findall(r'\b[a-zA-Z]+\b', product_names.lower())
+            # Flatten column names
+            segment_stats.columns = ['_'.join(col).strip() for col in segment_stats.columns.values]
+            segment_analysis['characteristics'] = segment_stats.to_dict('index')
             
-            # Filter out common words
-            stop_words = {'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'}
-            filtered_words = [word for word in words if len(word) > 2 and word not in stop_words]
+            # Revenue by segment
+            revenue_by_segment = self.customer_profiles.groupby('segment_name')['total_amount_sum'].sum().to_dict()
+            segment_analysis['revenue_by_segment'] = revenue_by_segment
             
-            # Get word frequencies
-            word_freq = Counter(filtered_words)
-            top_words = word_freq.most_common(20)
-            
-            # Generate recommendation
-            if top_words:
-                most_common = top_words[0][0]
-                recommendation = f"Consider including '{most_common}' in product names - it appears frequently in your successful products."
-            else:
-                recommendation = "Consider using clear, descriptive terms in product names."
-            
-            return {
-                'top_words': top_words,
-                'recommendation': recommendation
-            }
+            return segment_analysis
             
         except Exception as e:
-            print(f"Error in naming recommendations: {e}")
+            print(f"Error in segment analysis: {e}")
             return {'error': f'Analysis failed: {str(e)}'}
+    
+    def get_customer_purchase_summary(self, customer_id):
+        """Return a summary of a customer's purchase history."""
+        try:
+            customer_id = str(customer_id)
+            if self.data is None or 'customer_id' not in self.data.columns:
+                return {'error': 'No transaction data available'}
+            df = self.data[self.data['customer_id'] == customer_id]
+            if df.empty:
+                return {'error': 'No transactions found for this customer'}
+            total_spending = df['total_amount'].sum()
+            total_transactions = df['transaction_id'].nunique() if 'transaction_id' in df.columns else len(df)
+            avg_transaction_value = df['total_amount'].mean()
+            total_items = df['quantity'].sum() if 'quantity' in df.columns else 0
+            favorite_category = df['category'].mode().iloc[0] if 'category' in df.columns and not df['category'].isnull().all() else "Unknown"
+            unique_shops = df['shop_id'].nunique() if 'shop_id' in df.columns else 0
+            return {
+                'total_spending': total_spending,
+                'total_transactions': total_transactions,
+                'avg_transaction_value': avg_transaction_value,
+                'total_items': total_items,
+                'favorite_category': favorite_category,
+                'unique_shops': unique_shops
+            }
+        except Exception as e:
+            return {'error': str(e)}
+        
+    def get_customer_insights(self):
+        """Return summary stats for customer data for UI diagnostics."""
+        try:
+            total_customers = self.data['customer_id'].nunique() if self.data is not None and 'customer_id' in self.data.columns else 0
+            total_transactions = len(self.data) if self.data is not None else 0
+            total_products = self.data['product_id'].nunique() if self.data is not None and 'product_id' in self.data.columns else 0
+            sample_customer = None
+            if total_customers > 0:
+                sample_customer = str(self.data['customer_id'].iloc[0])
+            return {
+                'total_customers': total_customers,
+                'total_transactions': total_transactions,
+                'total_products': total_products,
+                'sample_customer': sample_customer
+            }
+        except Exception as e:
+            return {'error': str(e)}

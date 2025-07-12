@@ -778,69 +778,58 @@ if st.session_state.pipeline and st.session_state.data_loaded:
             else:
                 st.warning("No customer profiles available. This might be because customer data is missing or not properly processed.")
             
-            # Customer recommendations
-            st.markdown("### 💡 Personalized Recommendations")
-            
-            # Debug toggle
-            show_debug = st.checkbox("Show Debug Info", key="debug_customer_recs")
+            # --- Customer Recommendations Section ---
 
-            if show_debug:
-                insights = st.session_state.pipeline.get_customer_insights()
-                st.json(insights)
+            st.markdown("### 💡 Personalized Customer Recommendations")
 
             try:
-                # Generate recommendations
+                # Try to get personalized recommendations
                 recs = st.session_state.pipeline._generate_customer_recommendations()
-                
+                # Fallback to enhanced basic recommendations if none found
+                if not recs or len(recs) == 0:
+                    st.info("No personalized recommendations found. Showing enhanced basic recommendations instead.")
+                    recs = st.session_state.pipeline._create_enhanced_basic_recommendations()
+
                 if recs and len(recs) > 0:
-                    st.success(f"Generated {len(recs)} customer recommendations")
-                    
-                    # Group recommendations by customer
+                    # Group recommendations by customer_id (as string)
                     customers_with_recs = {}
                     for rec in recs:
-                        customer_id = rec['customer_id']
-                        if customer_id not in customers_with_recs:
-                            customers_with_recs[customer_id] = []
-                        customers_with_recs[customer_id].append(rec)
-                    
+                        cid = str(rec['customer_id'])
+                        if cid not in customers_with_recs:
+                            customers_with_recs[cid] = []
+                        customers_with_recs[cid].append(rec)
+
+                    # Show available customer IDs for debug
+                    st.write("Customer IDs with recommendations:", list(customers_with_recs.keys()))
+
                     # Customer selector
                     selected_customer = st.selectbox(
                         "Select Customer for Recommendations",
                         options=list(customers_with_recs.keys()),
                         key="customer_rec_select"
                     )
-                    
+
                     if selected_customer:
-                        # Show customer summary first
-                        customer_summary = st.session_state.pipeline.get_customer_purchase_summary(selected_customer)
-                        
-                        if 'error' not in customer_summary:
+                        # Show customer summary
+                        summary = st.session_state.pipeline.get_customer_purchase_summary(selected_customer)
+                        if 'error' not in summary:
                             col1, col2, col3 = st.columns(3)
                             with col1:
-                                st.metric("Total Spending", f"${customer_summary['total_spending']:.2f}")
-                                st.metric("Total Transactions", customer_summary['total_transactions'])
-                            
+                                st.metric("Total Spending", f"${summary['total_spending']:.2f}")
+                                st.metric("Total Transactions", summary['total_transactions'])
                             with col2:
-                                st.metric("Avg Transaction", f"${customer_summary['avg_transaction_value']:.2f}")
-                                st.metric("Total Items", customer_summary['total_items'])
-                            
+                                st.metric("Avg Transaction", f"${summary['avg_transaction_value']:.2f}")
+                                st.metric("Total Items", summary['total_items'])
                             with col3:
-                                st.metric("Favorite Category", customer_summary['favorite_category'])
-                                st.metric("Shops Visited", customer_summary['unique_shops'])
-                        
-                        # Show recommendations for selected customer
+                                st.metric("Favorite Category", summary['favorite_category'])
+                                st.metric("Shops Visited", summary['unique_shops'])
+
                         st.markdown(f"#### Recommendations for Customer {selected_customer}")
-                        
+
                         customer_recs = customers_with_recs[selected_customer]
-                        
-                        for i, rec in enumerate(customer_recs):
-                            confidence_colors = {
-                                'high': '#28a745',
-                                'medium': '#ffc107', 
-                                'low': '#fd7e14'
-                            }
+                        confidence_colors = {'high': '#28a745', 'medium': '#ffc107', 'low': '#fd7e14'}
+                        for rec in customer_recs:
                             color = confidence_colors.get(rec.get('confidence', 'low'), '#6c757d')
-                            
                             st.markdown(f"""
                             <div class='card'>
                                 <h4>{rec.get('product_name', 'Product')}</h4>
@@ -852,101 +841,36 @@ if st.session_state.pipeline and st.session_state.data_loaded:
                             </div>
                             """, unsafe_allow_html=True)
                 else:
-                    st.warning("No customer recommendations generated")
-                    
-                    # Show why no recommendations
+                    st.warning("No customer recommendations generated.")
+
+                    # Show diagnostic info
                     insights = st.session_state.pipeline.get_customer_insights()
                     if 'error' in insights:
                         st.error(f"Error: {insights['error']}")
                     else:
                         st.info("**Possible reasons for no recommendations:**")
                         st.markdown("- All customers have purchased all available products")
-                        st.markdown("- Insufficient transaction history") 
+                        st.markdown("- Insufficient transaction history")
                         st.markdown("- Data quality issues")
-                        
-                        if insights.get('total_customers', 0) > 0:
-                            st.markdown(f"**Available data:** {insights['total_customers']} customers, {insights.get('total_transactions', 0)} transactions")
-                
-                # Customer insights section (premium only)
-                if st.session_state.subscription == "Premium":
-                    st.markdown("### 📊 Customer Insights")
-                    
-                    # Customer distribution by segment
-                    try:
-                        segment_dist = st.session_state.pipeline.customer_profiles['segment'].value_counts().reset_index()
-                        segment_dist.columns = ['Segment', 'Count']
-                        
-                        fig = px.pie(
-                            segment_dist, 
-                            values='Count', 
-                            names='Segment',
-                            title="Customer Distribution by Segment",
-                            color_discrete_sequence=px.colors.sequential.RdBu
-                        )
-                        st.plotly_chart(fig, use_container_width=True)
-                        
-                    except Exception as e:
-                        st.error(f"Error generating segment distribution: {str(e)}")
-                
+                        st.markdown(f"**Available data:** {insights.get('total_customers', 0)} customers, {insights.get('total_transactions', 0)} transactions")
+
+                        # Show sample customer data
+                        if st.button("Show Sample Customer Analysis"):
+                            sample_customers = list(st.session_state.pipeline.data['customer_id'].unique())[:3]
+                            for customer_id in sample_customers:
+                                summary = st.session_state.pipeline.get_customer_purchase_summary(customer_id)
+                                if 'error' not in summary:
+                                    st.markdown(f"**Customer {customer_id}:**")
+                                    st.write(f"- {summary['total_transactions']} transactions")
+                                    st.write(f"- ${summary['total_spending']:.2f} total spending")
+                                    st.write(f"- Favorite category: {summary['favorite_category']}")
+
             except Exception as e:
                 st.error(f"Error in customer recommendations: {str(e)}")
-                
-                if show_debug:
-                    import traceback
-                    st.code(traceback.format_exc())
-            
-            # Word cloud of popular terms (premium only)
-            if st.session_state.subscription == "Premium":
-                try:
-                    st.markdown("### ☁️ Popular Product Terms")
-                    
-                    # Check if the method exists
-                    if hasattr(st.session_state.pipeline, 'generate_naming_recommendations'):
-                        naming_recs = st.session_state.pipeline.generate_naming_recommendations()
-                        
-                        # Create word cloud
-                        if 'top_words' in naming_recs and naming_recs['top_words']:
-                            wordcloud = WordCloud(width=800, height=400).generate_from_frequencies(
-                                dict(naming_recs['top_words'])
-                            )
-                            
-                            fig, ax = plt.subplots(figsize=(10, 5))
-                            ax.imshow(wordcloud, interpolation='bilinear')
-                            ax.axis('off')
-                            st.pyplot(fig)
-                            
-                            if 'recommendation' in naming_recs:
-                                st.markdown(f"**Recommendation:** {naming_recs['recommendation']}")
-                        else:
-                            st.info("No word frequency data available")
-                    else:
-                        # Fallback: create basic word cloud from product names
-                        product_names = " ".join(st.session_state.pipeline.products['product_name'].astype(str))
-                        if product_names.strip():
-                            wordcloud = WordCloud(width=800, height=400).generate(product_names)
-                            
-                            fig, ax = plt.subplots(figsize=(10, 5))
-                            ax.imshow(wordcloud, interpolation='bilinear')
-                            ax.axis('off')
-                            st.pyplot(fig)
-                            
-                            st.markdown("**Analysis:** Word cloud generated from product names in your catalog")
-                        else:
-                            st.info("No product name data available for word cloud")
-                        
-                except Exception as e:
-                    st.error(f"Error generating word cloud: {str(e)}")
-                    st.info("Word cloud feature temporarily unavailable")
-            else:
-                st.markdown("""
-                <div class='card'>
-                    <h3>🔒 Premium Feature</h3>
-                    <p>Upgrade to Premium to unlock product naming insights</p>
-                </div>
-                """, unsafe_allow_html=True)
-                
-        else:
-            st.warning("Please train the model first using the sidebar")
+                import traceback
+                st.code(traceback.format_exc())
+
+# Continue with the rest of your code...
 
 else:
     st.markdown("""
